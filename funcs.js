@@ -283,7 +283,7 @@ module.exports = (bot) => {
 					else if (perms < cmd.permission) return msg.reply("you do not have permission to do this!")
 
 					else if (bot.enabled(cmd)) {
-						bot.logCommand(command, msg.content, username, channel, guild)
+						bot.logCommand(command, msg.content, msg.author.username, msg.channel.name, msg.guild.name)
 						try {
 							cmd.main(bot, msg);
 						} catch (err) {
