@@ -462,7 +462,7 @@ module.exports = (bot) => {
 	 * Logging functions
 	 */
 
-	bot.logCommand(command, arguments, user, channel, server) {
+	bot.logCommand = function(command, arguments, user, channel, server) {
 		bot.log(`\n**Command Executed:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:**${channel}`)
 	}
 
