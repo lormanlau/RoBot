@@ -282,7 +282,7 @@ module.exports = (bot) => {
 					else if (perms < cmd.permission) return msg.reply("you do not have permission to do this!")
 
 					else if (bot.enabled(cmd)) {
-						bot.logCommand(command, msg.content, username, channel, guild)
+						bot.logCommand(msg.args.shift().slice(prefix.length).toLowerCase(), msg.content, username, channel, guild)
 						try {
 							cmd.main(bot, msg);
 						} catch (err) {
@@ -290,7 +290,7 @@ module.exports = (bot) => {
 						}
 					}
 				} catch (err) {
-					msg.channel.send("Oh no! We encountered an error:```" + err.stack + "```");
+					msg.channel.send("Oh no! We encountered an error:\n```" + err.stack + "```");
 					bot.error(err.stack);
 				}
 			}
