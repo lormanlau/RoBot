@@ -274,7 +274,8 @@ module.exports = (bot) => {
 				try {
 					msg.args = msg.content.split(/\s+/g)
 					msg.content = msg.content.substring(msg.content.indexOf(" ") + 1, msg.content.length) || null
-					var cmd = bot.commands.get(msg.args.shift().slice(prefix.length).toLowerCase()) //|| bot.commands.get(bot.aliases.get(command))
+					var command = msg.args.shift().slice(prefix.length).toLowerCase()
+					var cmd = bot.commands.get(command) //|| bot.commands.get(bot.aliases.get(command))
 					var perms = bot.permLevel(msg)
 
 					if (!cmd) return;
@@ -282,7 +283,7 @@ module.exports = (bot) => {
 					else if (perms < cmd.permission) return msg.reply("you do not have permission to do this!")
 
 					else if (bot.enabled(cmd)) {
-						bot.logCommand(msg.args.shift().slice(prefix.length).toLowerCase(), msg.content, username, channel, guild)
+						bot.logCommand(command, msg.content, username, channel, guild)
 						try {
 							cmd.main(bot, msg);
 						} catch (err) {
