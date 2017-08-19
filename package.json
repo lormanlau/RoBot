@@ -1,0 +1,45 @@
+{
+  "name": "robot-v5",
+  "version": "5.0.0",
+  "description": "The FRC Discord Bot, made by ASIANBOI and utilized by the entire FRC Discord community.",
+  "main": "start.js",
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcao/RoBot-v5.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "discord.js"
+  ],
+  "author": "Michael Cao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcao/RoBot-v5/issues"
+  },
+  "homepage": "https://github.com/mcao/RoBot-v5#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "discord.js": "^11.1.0",
+    "emoji-random": "^0.1.2",
+    "goo.gl": "^0.1.4",
+    "google-search": "0.0.5",
+    "moment": "^2.18.1",
+    "my-google-news": "^3.0.0",
+    "one-liner-joke": "^1.0.0",
+    "os-utils": "0.0.14",
+    "printscreen": "^1.2.1",
+    "sqlite3": "^3.1.8",
+    "tba-api-storm": "^1.0.4",
+    "unirest": "^0.5.1",
+    "urban": "^0.3.1",
+    "uws": "^8.14.0",
+    "xkcd": "^1.1.2",
+    "xml2js": "^0.4.17",
+    "moment-duration-format": "*",
+    "lmgtfy": "*"
+  }
+}
