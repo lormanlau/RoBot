@@ -30,7 +30,7 @@ module.exports = {
 				.setAuthor(user.username, user.avatarURL)
 				.addField('Member Muted', `**${user.username}#${user.discriminator} (${user.id}) was muted.**`)
 				.addField('Responsible Moderator', msg.member.displayName)
-				.addField('Reason', reason)
+				.addField('Reason', reason || "Not Specified")
 				.setFooter(`${guild.name}`, `${guild.iconURL}`)
 				.setTimestamp()
 			try {

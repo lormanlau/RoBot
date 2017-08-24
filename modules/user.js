@@ -34,12 +34,23 @@ module.exports = {
 		.addField('Account Created', new Date(user.createdAt), true)
 		.addField('Join Date', new Date(member.joinedAt), true)
 		.addField('Bot', user.bot, true)
-		.addField('Status', user.presence.status, true)
-		.addField('Game', game, true)
+
+		if(user.presence.status == 'offline') 
+			info.addField('Status', "<:offline:313956277237710868> Offline", true)
+		else if(user.presence.status == 'idle') 
+			info.addField('Status', "<:away:313956277220802560> Idle", true)
+		else if(user.presence.status == 'online') 
+			info.addField('Status', "<:online:313956277808005120> Online", true)
+		else if(user.presence.status == 'dnd') 
+			info.addField('Status', "<:dnd:313956276893646850> Do Not Disturb", true)
+		
+		info.addField('Game', game, true)
 		.addField('Roles', roles, true)
 		.addField('Color', member.displayHexColor, true)
 		.addField('Highest Role', member.highestRole.name, true)
-		.addField('Avatar URL', '[Here](' + user.avatarURL + ')', true)
+		.addField('Hoist Role', member.hoistRole.name, true)
+		.addField('Color Role', member.colorRole.name, true)
+		.addField('Avatar Link', '[Here](' + user.avatarURL + ')', true)
 		
 		msg.channel.send({embed:info})
 	}
