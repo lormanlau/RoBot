@@ -41,8 +41,6 @@ module.exports = {
             .setTimestamp()
 
         for (var i = 0; i < members.length; i++) {
-            if (members[i].position < botRole)
-                botRole = members[i].position;
             if (members[i].position > thisRole)
                 thisRole = members[i].position;
         }
