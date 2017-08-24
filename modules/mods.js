@@ -64,6 +64,8 @@ module.exports = {
                     str += ":dnd: **" + arr[i].displayName + "**\n"
             }
 
+            bot.log(str);
+
             mods.addField(role, str);
 
             var temp = 0
