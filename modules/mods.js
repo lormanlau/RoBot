@@ -65,16 +65,18 @@ module.exports = {
                     str += ":dnd: **" + arr[i].displayName + "**\n"
             }
 
-            console.log(role);
+            console.log(members[pos].name);
             console.log(str);
 
-            mods.addField(role, str);
+            mods.addField(members[pos].name, str);
 
             var temp = 0
 
             for (var i = 0; i < members.length; i++) {
-                if (members[i].position > temp && members[i].position < thisRole)
-                    temp = i;
+                if (members[i].position > temp && members[i].position < thisRole) {
+                    temp = members[i].position;
+                    pos = i;
+                }
             }
 
             if (temp == 0)
