@@ -14,6 +14,7 @@ module.exports = {
             "members": []
         }
         var thisRole = 0;
+        var pos = 0;
 
         msg.guild.members.forEach(member => {
             if (member.hasPermission("MANAGE_MESSAGES") && !member.user.bot) {
@@ -41,13 +42,15 @@ module.exports = {
             .setTimestamp()
 
         for (var i = 0; i < members.length; i++) {
-            if (members[i].position > thisRole)
+            if (members[i].position > thisRole) {
                 thisRole = members[i].position;
+                pos = i;
+            }
         }
 
         while (true) {
             var str = ""
-            var arr = members[thisRole].members;
+            var arr = members[pos].members;
 
             for (var i = 0; i < arr.length; i++) {
                 var user = arr[i].user;
