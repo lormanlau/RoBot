@@ -23,6 +23,7 @@ module.exports = {
                     if (members[i].name == member.hoistRole.name) {
                         found = true;
                         members[i].members.push(member)
+                        break;
                     }
                 }
                 if (!found) {
@@ -64,6 +65,7 @@ module.exports = {
                     str += ":dnd: **" + arr[i].displayName + "**\n"
             }
 
+            console.log(role);
             console.log(str);
 
             mods.addField(role, str);
