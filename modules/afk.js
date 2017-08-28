@@ -36,7 +36,7 @@ module.exports = {
                 setTimeout(function () {
                     fs.writeFileSync("./afk.json", JSON.stringify(afk, null, 3));
                     e.delete()
-                    e.channel.send({embed: new Discord.RichEmbed().setDescription(":robot: **" + msg.author.displayName + "** is AFK: **" + reason + "**")});
+                    e.channel.send({embed: new Discord.RichEmbed().setDescription(":robot: **" + msg.member.displayName + "** is AFK: **" + reason + "**")});
                 }, 20000)
             })
         })
