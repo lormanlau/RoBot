@@ -1,6 +1,7 @@
 var fs = require("fs"),
     afkJson = fs.readFileSync("./afk.json"),
-    afk = JSON.parse(afkJson);
+    afk = JSON.parse(afkJson),
+    Discord = require('discord.js');
 
 module.exports = {
     name: 'afk',
@@ -14,6 +15,9 @@ module.exports = {
         let mentions = msg.mentions;
         if (mentions.everyone)
             return msg.channel.send("You're not allowed to mention everyone with this command!");
+        if (mentions.users.array()[0])
+            return msg.channel.send('Please don\'t mention anyone with this command!')
+        
         bot.getPrefix(msg).then(prefix => {
             if (msg.content == prefix + "afk")
                 var reason = "Not Specified"
@@ -22,8 +26,7 @@ module.exports = {
 
             if (reason.length > 150)
                 return msg.channel.send("Your AFK reason can't be above 150 characters!");
-            if (msg.content.mentions.users.array()[0])
-                return msg.channel.send('Please don\'t mention anyone with this command!')
+
             afk.push({
                 "name": msg.author.username,
                 "id": msg.author.id,
@@ -33,7 +36,7 @@ module.exports = {
                 setTimeout(function () {
                     fs.writeFileSync("./afk.json", JSON.stringify(afk, null, 3));
                     e.delete()
-                    e.channel.send(":robot: **" + msg.member.displayName + "** is AFK: **" + reason + "**");
+                    e.channel.send({embed: new Discord.RichEmbed().setDescription(":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**")});
                 }, 20000)
             })
         })
