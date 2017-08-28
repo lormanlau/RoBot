@@ -245,7 +245,7 @@ module.exports = (bot) => {
 				if (msg.mentions.users.size > 0 && afk.length != 0) {
 					if (msg.content.indexOf(afk[i].id) != -1 && msg.author.id != afk[i].id) {
 						var nick = msg.guild.members.get(afk[i].id).displayName
-						msg.channel.send(":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**")
+						msg.channel.send({embed: new Discord.RichEmbed().setDescription(":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**")})
 							.then(msg => {
 								setTimeout(function () {
 									msg.delete()
