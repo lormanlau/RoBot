@@ -85,16 +85,16 @@ module.exports = (bot) => {
 					"${bot.config.prefix}", 
 					"${guild.channels.array()[0].id}", 
 					0, 
-					"Welcome {user} to the server!", 
+					"Welcome {username} to the server!", 
 					0, 
-					"{user} left the server :cry:",
+					"{username} left the server :cry:",
 					0,
-					"{user} was banned from the server :hammer:", 
+					"{username} was banned from the server :hammer:", 
 					"none", 
 					"none", 
 					0,
 					0,
-					"[]")`
+					"")`
 				);
 			});
 		});
@@ -113,16 +113,16 @@ module.exports = (bot) => {
 			"${bot.config.prefix}", 
 			"${guild.channels.array()[0].id}", 
 			0, 
-			"Welcome {user} to the server!", 
+			"Welcome {username} to the server!", 
 			0, 
-			"{user} left the server :cry:",
+			"{username} left the server :cry:",
 			0,
-			"{user} was banned from the server :hammer:", 
+			"{username} was banned from the server :hammer:", 
 			"none", 
 			"none", 
 			0,
 			0,
-			"[]")`
+			"")`
 		);
 		bot.log(guild.name + " successfully inserted into the database!");
 	}
@@ -176,7 +176,28 @@ module.exports = (bot) => {
 	 * Server Settings Related Functions
 	 */
 
-	bot.setwelcomeMessageEnabled = function (guild, setting) {
+	bot.setBanMessageEnabled = function (guild, setting) {
+		db.run("UPDATE servers SET banMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
+		return setting;
+	}
+
+	bot.setBanMessageText = function (id, text) {
+		db.run(`UPDATE servers SET banMessage = "${text}" WHERE id = "${id}"`);
+		return text;
+	}
+
+	bot.getBanMessageStatus = function (id) {
+		return new Promise((resolve, reject) => {
+			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
+				if (rows[0].banMessagesEnabled == 1)
+					resolve(true);
+				else
+					resolve(false);
+			});
+		})
+	}
+
+	bot.setWelcomeMessageEnabled = function (guild, setting) {
 		db.run("UPDATE servers SET welcomeMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
 		return setting;
 	}
@@ -197,9 +218,38 @@ module.exports = (bot) => {
 		})
 	}
 
-	bot.setAnnouncementChannel = function (channel) {
-		db.run("UPDATE servers SET announcementChannel = \"" + channel.id + "\" WHERE id = " + guild.id);
-		return channel.id;
+	bot.setLeaveMessageEnabled = function (guild, setting) {
+		db.run("UPDATE servers SET leaveMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
+		return setting;
+	}
+
+	bot.setLeaveMessageText = function (id, text) {
+		db.run(`UPDATE servers SET leaveMessage = "${text}" WHERE id = "${id}"`);
+		return text;
+	}
+
+	bot.getLeaveMessageStatus = function (id) {
+		return new Promise((resolve, reject) => {
+			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
+				if (rows[0].leaveMessagesEnabled == 1)
+					resolve(true);
+				else
+					resolve(false);
+			});
+		})
+	}
+
+	bot.setAnnouncementChannel = function (id, channel) {
+		db.run("UPDATE servers SET announcementChannel = \"" + channel.id + "\" WHERE id = " + id);
+		return channel;
+	}
+
+	bot.getAnnouncementChannel = function (id) {
+		return new Promise((resolve, reject) => {
+			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
+				resolve(rows[0].announcementChannel)
+			});
+		})
 	}
 
 	/**
@@ -287,7 +337,7 @@ module.exports = (bot) => {
 						try {
 							cmd.main(bot, msg);
 						} catch (err) {
-							msg.channel.send("Oh no! We encountered an error:```" + err.stack + "```")
+							msg.channel.send("Oh no! We encountered an error:\n```" + err.stack + "```")
 						}
 					}
 				} catch (err) {
@@ -464,7 +514,7 @@ module.exports = (bot) => {
 	 */
 
 	bot.logCommand = function(command, arguments, user, channel, server) {
-		bot.log(`\n**Command Executed:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:**# ${channel}`)
+		bot.log(`\n**Command Executed:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`)
 	}
 
 	bot.error = function (err) {

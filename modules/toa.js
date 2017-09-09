@@ -34,7 +34,7 @@ module.exports = {
             req("team/" + num).then(b => {
                 if (!b[0]) return m.channel.send("This team does not have any data on it, or it does not exist!")
                 var website = b[0].Website || "None";
-                teaminfo.setAuthor('FIRST® Tech Challenge Team ' + num, 'https://cdn.discordapp.com/icons/342152047753166859/4e48a7a9122137223d11090ba0792d39.jpg', 'https://www.theorangealliance.com/team/' + num)
+                teaminfo.setAuthor('FIRST® Tech Challenge Team ' + num, 'https://cdn.discordapp.com/icons/342152047753166859/de4d258c0cab5bee0b04d406172ec585.jpg', 'https://www.theorangealliance.org/teams/' + num)
                     .setColor(0xff9800)
                     .addField('Name', b[0].team_name_short + "\n(" + b[0].team_name_long + ")", true)
                     .addField('Rookie Year', b[0].rookie_year, true)

@@ -1,5 +1,3 @@
-const config = require("../config.json");
-const fs = require("fs");
 
 exports.run = (bot, msg) => {
 	if (msg.channel.type === "dm" && msg.author.id == bot.user.id)
