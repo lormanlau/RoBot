@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 
 module.exports = {
-	name: 'mute',
+	name: 'tempmute',
 	type: 'moderation',
-	usage: 'mute <user>',
+	usage: 'tempmute <user> <time>',
 	permission: 2,
-	help: 'Mutes a specified user.',
+	help: 'Mutes a specified user for a certain amount of time.',
 	main: function(bot, msg) {
 		var mutee = msg.mentions.users.array();
 		
@@ -18,8 +18,6 @@ module.exports = {
             
             if(member.hasPermission("ADMINISTRATOR"))
                 return msg.channel.send("I can't mute " + member + "!")
-            
-            
 			
 			msg.guild.channels.forEach(channel => {
                 if(channel.type == 'text')
@@ -28,7 +26,7 @@ module.exports = {
             
 			msg.reply(member + ' has been muted.')
 			
-			var mute = new Discord.RichEmbed()
+			/*var mute = new Discord.RichEmbed()
 				.setColor(0xFF0000)
 				.setAuthor(user.username, user.avatarURL)
 				.addField('Member Muted', `**${user.username}#${user.discriminator} (${user.id}) was muted.**`)
@@ -42,7 +40,7 @@ module.exports = {
 				log.send({embed: mute});
 			} catch (e) {
 				msg.channel.send({embed: mute});
-			}
+			}*/
 		}
 	}
 };

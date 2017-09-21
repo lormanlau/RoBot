@@ -26,7 +26,9 @@ module.exports = {
 				processBanMessage(value);
 			})
 		} else if (msg.args[0] == "joinrole") {
-
+			bot.getJoinRole(msg.guild.id).then(value => {
+				setJoinRole(value);
+			})
 		} else if (msg.args[0] == "botrole") {
 
 		} else if (msg.args[0] == "invitelinks") {
@@ -185,6 +187,49 @@ module.exports = {
 				}
 				if (e) {
 					msg.channel.send("What would you like the announcement channel to be? (Mention a channel)")
+					var collector2 = msg.channel.createCollector(
+						m => msg.author.id == m.author.id,
+						{ time: 60000 }
+					);
+					collector2.on('message', m => {
+						if (m.mentions.channels.array()[0]) {
+							m.channel.send(`Announcement channel set to ${bot.setAnnouncementChannel(m.guild.id, m.mentions.channels.array()[0])}!`)
+							collector2.stop();
+						}
+						else
+							m.channel.send(`Please mention a channel!`)
+					});
+					collector2.on('end', collected => {
+						if (collected.size == 0)
+							msg.channel.send("No messages were detected within 60 seconds. Aborting...")
+						console.log(`Collected ${collected.size} items`)
+					});
+				}
+			});
+			collector.on('end', collected => {
+				if (collected.size == 0)
+					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
+				console.log(`Collected ${collected.size} items`)
+			});
+		}
+
+		function setJoinRole(value) {
+			msg.channel.send(`The current join role for this server is **${value}**. Do you want to change it? (Reply with 'yes' or 'no')`);
+			var collector = msg.channel.createCollector(
+				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
+				{ time: 30000 }
+			);
+			collector.on('collect', m => {
+				var e = false;
+				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
+					e = true
+					collector.stop();
+				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
+					msg.channel.send(`The join role will remain as **${value}**.`)
+					collector.stop();
+				}
+				if (e) {
+					msg.channel.send("What would you like the join role to be? (Say the name of a role, 'NONE' for none)")
 					var collector2 = msg.channel.createCollector(
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }

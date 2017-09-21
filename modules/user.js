@@ -48,8 +48,8 @@ module.exports = {
 		.addField('Roles', roles, true)
 		.addField('Color', member.displayHexColor, true)
 		.addField('Highest Role', member.highestRole.name, true)
-		.addField('Hoist Role', member.hoistRole.name, true)
-		.addField('Color Role', member.colorRole.name, true)
+		.addField('Hoist Role', member.hoistRole.name || 'None', true)
+		.addField('Color Role', member.colorRole.name || 'None', true)
 		.addField('Avatar Link', '[Here](' + user.avatarURL + ')', true)
 		
 		msg.channel.send({embed:info})
