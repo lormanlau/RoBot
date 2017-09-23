@@ -43,13 +43,20 @@ module.exports = {
 			info.addField('Status', "<:online:313956277808005120> Online", true)
 		else if(user.presence.status == 'dnd') 
 			info.addField('Status', "<:dnd:313956276893646850> Do Not Disturb", true)
-		
+		if(member.hoistRole)
+			hoist = member.hoistRole.name
+		else
+			hoist = 'None'
+		if(member.colorRole)
+			colorR = member.colorRole.name
+		else
+			colorR = 'None'
 		info.addField('Game', game, true)
 		.addField('Roles', roles, true)
 		.addField('Color', member.displayHexColor, true)
 		.addField('Highest Role', member.highestRole.name, true)
-		.addField('Hoist Role', member.hoistRole.name || 'None', true)
-		.addField('Color Role', member.colorRole.name || 'None', true)
+		.addField('Hoist Role', hoist, true)
+		.addField('Color Role', colorR, true)
 		.addField('Avatar Link', '[Here](' + user.avatarURL + ')', true)
 		
 		msg.channel.send({embed:info})
