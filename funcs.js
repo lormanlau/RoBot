@@ -6,6 +6,7 @@ var afkJson = fs.readFileSync("./afk.json"),
 	afk = JSON.parse(afkJson),
 	channel = null,
 	stdin = process.openStdin();
+var Discord = require('discord.js');
 
 module.exports = (bot) => {
 	/**
