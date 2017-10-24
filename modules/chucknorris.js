@@ -10,7 +10,7 @@ module.exports = {
     main: function (bot, msg) {
         unirest.get('https://api.chucknorris.io/jokes/random')
             .end(function (result) {
-                var joke = JSON.parse(result.body)
+                var joke = result.body
                 var e = new Discord.RichEmbed()
                     .setFooter("Powered by chucknorris.io")
                     .setTimestamp()
