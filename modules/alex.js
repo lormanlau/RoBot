@@ -11,7 +11,7 @@ module.exports = {
         var errors = alex(msg.content).messages
 
         if(errors.length == 0)
-            bot.send(msg.channel, "Yay! The Alex API found no errors in your code!")
+            bot.send(msg.channel, "Yay! The Alex API found no errors in your writing!")
         else {
             var err = new Discord.RichEmbed()
             .setTitle("Alex API Writing Analysis")

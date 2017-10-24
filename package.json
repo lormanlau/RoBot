@@ -33,7 +33,6 @@
     "os-utils": "0.0.14",
     "printscreen": "^1.2.1",
     "sqlite3": "^3.1.8",
-    "tba-api-storm": "^1.0.4",
     "unirest": "^0.5.1",
     "urban": "^0.3.1",
     "uws": "^8.14.0",
@@ -41,6 +40,7 @@
     "xml2js": "^0.4.17",
     "moment-duration-format": "*",
     "lmgtfy": "*",
-    "alex": "*"
+    "alex": "*",
+    "random-puppy": "*"
   }
 }
