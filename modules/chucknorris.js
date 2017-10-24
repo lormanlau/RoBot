@@ -2,11 +2,11 @@ var unirest = require('unirest');
 var Discord = require('discord.js');
 
 module.exports = {
-    name: 'catfact',
+    name: 'chucknorris',
     type: 'fun',
-    usage: 'catfact',
+    usage: 'chucknorris',
     permission: 1,
-    help: 'Gets a random cat fact.',
+    help: 'Gets a random Chuck Norris joke.',
     main: function (bot, msg) {
         unirest.get('https://api.chucknorris.io/jokes/random')
             .end(function (result) {
