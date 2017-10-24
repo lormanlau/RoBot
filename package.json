@@ -40,6 +40,7 @@
     "xkcd": "^1.1.2",
     "xml2js": "^0.4.17",
     "moment-duration-format": "*",
-    "lmgtfy": "*"
+    "lmgtfy": "*",
+    "alex": "*"
   }
 }

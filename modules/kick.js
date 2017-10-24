@@ -24,7 +24,7 @@ module.exports = {
 				msg.reply(banee + " has been successfullly kicked.");
 				
 				var ban = new Discord.RichEmbed();
-				ban.setColor(0xFF0000)
+				ban.setColor(0xFFB200)
 					.setAuthor(user.username, user.avatarURL)
 					.addField('Member Kicked', `**${user.username}#${user.discriminator} (${user.id}) was kicked from the server.**`)
 					.addField('Responsible Moderator', msg.member.displayName)

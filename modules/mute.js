@@ -27,7 +27,7 @@ module.exports = {
 			msg.reply(member + ' has been muted.')
 			
 			var mute = new Discord.RichEmbed()
-				.setColor(0xFF0000)
+				.setColor(0xFFB200)
 				.setAuthor(user.username, user.avatarURL)
 				.addField('Member Muted', `**${user.username}#${user.discriminator} (${user.id}) was muted.**`)
 				.addField('Responsible Moderator', msg.member.displayName)

@@ -24,7 +24,7 @@ module.exports = {
                         msg.author.send({embed: help});
                         help = new Discord.RichEmbed()
                         .setColor([r, g, b])
-                        .addField(c.name, c.help);
+                        .addField(prefix + c.name, c.help);
                     }
                 });
                 help.setFooter(bot.user.username + " Command List")

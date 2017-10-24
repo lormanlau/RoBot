@@ -7,13 +7,13 @@ module.exports = {
     permission: 1,
     help: 'Returns a screenshot of a website.',
     main: function (bot, msg) {
-        if(msg.content.indexOf("http") < 0) return "Please specify a website with http(s) included!";
+        if(msg.content.indexOf("http") < 0) return msg.channel.send("Please specify a website with http(s) included!");
         printscreen(msg.content, {
             viewport: {
                 width: 1920,
                 height: 1080
             },
-            timeout: 1000,
+            timeout: 3000,
             format: 'png',
             quality: 75,
         }, (err, data) => {

@@ -24,7 +24,7 @@ module.exports = {
 				msg.reply(banee + " has been successfullly banned.");
 				
 				var ban = new Discord.RichEmbed();
-				ban.setColor(0xFF00FF)
+				ban.setColor(0xFFB200)
 					.setAuthor(user.username, user.avatarURL)
 					.addField('Member Banned', `**:hammer: ${user.username}#${user.discriminator} (${user.id}) was banned from the server.**`)
 					.addField('Responsible Moderator', msg.member.displayName)

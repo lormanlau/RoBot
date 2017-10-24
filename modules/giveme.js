@@ -10,6 +10,8 @@ module.exports = {
 		try {
 			bot.getGivemeRoles(msg.guild).then(allowedRoles => {
 				allowedRoles = allowedRoles.split(',')
+				if(!allowedRoles[0])
+					allowedRoles == [];
 				var cmd = msg.content.split(" ")[0];
 
 				console.log(allowedRoles[0]);

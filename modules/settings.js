@@ -235,12 +235,16 @@ module.exports = {
 						{ time: 60000 }
 					);
 					collector2.on('message', m => {
-						if (m.mentions.channels.array()[0]) {
-							m.channel.send(`Announcement channel set to ${bot.setAnnouncementChannel(m.guild.id, m.mentions.channels.array()[0])}!`)
+						if (m.guild.roles.find('name', m.content)) {
+							m.channel.send(`Join role set to ${bot.setJoinRole(m.guild.id, m.guild.roles.find('name', m.content).id)}!`)
+							collector2.stop();
+						} else if(m.content.toLowerCase() == "none") {
+							bot.setJoinRole(m.guild.id, "NONE")
+							m.channel.send(`Join role has been turned off!`)
 							collector2.stop();
 						}
 						else
-							m.channel.send(`Please mention a channel!`)
+							m.channel.send(`Please say the name of a valid role or NONE!`)
 					});
 					collector2.on('end', collected => {
 						if (collected.size == 0)

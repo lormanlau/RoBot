@@ -352,6 +352,11 @@ module.exports = (bot) => {
 	 * Core bot functions
 	 */
 
+	bot.send = function(channel, text) {
+		var color = channel.guild.me.displayHexColor || "#ffb200";
+		channel.send(new Discord.RichEmbed().setColor("#ffb200").setDescription(text).setFooter(bot.user.username, bot.user.avatarURL))
+	}
+
 	bot.blacklist = function (id) {
 		var blacklistJson = fs.readFileSync("./blacklist.json"),
 			blacklist = JSON.parse(blacklistJson);
@@ -428,22 +433,12 @@ module.exports = (bot) => {
 		var request = require('request')
 		bot.fetchGuildSize().then(guilds => {
 			try {
-				if (bot.shard) {
-					if (type == 'join') {
-						var color = "#00FF00"
-						var title = ":inbox_tray: New Guild! | Now in " + guilds + " guilds."
-					} else if (type == 'leave') {
-						var color = "#FF0000"
-						var title = ":outbox_tray: Left Guild | Now in " + guilds + " guilds."
-					}
-				} else {
-					if (type == 'join') {
-						var color = "#00FF00"
-						var title = ":inbox_tray: New Guild! | Now in " + guilds + " guilds."
-					} else if (type == 'leave') {
-						var color = "#FF0000"
-						var title = ":outbox_tray: Left Guild | Now in " + guilds + " guilds."
-					}
+				if (type == 'join') {
+					var color = "#FFB200"
+					var title = ":inbox_tray: New Guild! | Now in " + guilds + " guilds."
+				} else if (type == 'leave') {
+					var color = "#FF0000"
+					var title = ":outbox_tray: Left Guild | Now in " + guilds + " guilds."
 				}
 
 				var members = 0, bots = 0;

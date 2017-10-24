@@ -22,7 +22,7 @@ module.exports = {
 
 				var mute = new Discord.RichEmbed();
 
-				mute.setColor(0x00FF00)
+				mute.setColor(0xFFB200)
 					.setAuthor(user.username, user.avatarURL)
 					.addField('Member Unmuted', `**${user.username}#${user.discriminator} (${user.id}) was unmuted.**`)
 					.addField('Responsible Moderator', msg.member.displayName)
