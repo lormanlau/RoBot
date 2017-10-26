@@ -515,7 +515,7 @@ module.exports = (bot) => {
 	 */
 
 	bot.logCommand = function(command, arguments, user, channel, server) {
-		bot.webhook("Command Executed", `Shard: ${bot.shard.id}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
+		bot.webhook("Command Executed", `**Shard:** ${bot.shard.id}\n**Command:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
 	}
 
 	bot.error = function (err) {
