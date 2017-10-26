@@ -291,7 +291,12 @@ module.exports = (bot) => {
 				if (afk[i].id === msg.author.id) {
 					afk.splice(i, 1);
 					fs.writeFileSync("./afk.json", JSON.stringify(afk, null, 3));
-					msg.channel.send(":ok_hand: Welcome back **" + msg.author.username + "**! I've removed your AFK status!");
+					msg.channel.send(":ok_hand: Welcome back **" + msg.author.username + "**! I've removed your AFK status!")
+					.then(msg => {
+						setTimeout(function () {
+							msg.delete()
+						}, 20000)
+					});
 				}
 				if (msg.mentions.users.size > 0 && afk.length != 0) {
 					if (msg.content.indexOf(afk[i].id) != -1 && msg.author.id != afk[i].id) {
@@ -510,7 +515,7 @@ module.exports = (bot) => {
 	 */
 
 	bot.logCommand = function(command, arguments, user, channel, server) {
-		bot.log(`\n**Command Executed:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`)
+		bot.webhook("Command Executed", `Shard: ${bot.shard.id}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
 	}
 
 	bot.error = function (err) {

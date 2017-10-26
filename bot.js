@@ -5,6 +5,7 @@ const readdir = require("fs").readdir;
 
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
+bot.events = new Discord.Collection();
 
 readdir('./modules/', (err, files) => {
 	bot.log(`Loading ${files.length} commands!`);
@@ -25,6 +26,7 @@ readdir('./modules/', (err, files) => {
 readdir('./events/', (err, files) => {
 	bot.log(`Loading ${files.length} events!`);
 	files.forEach(file => {
+		bot.events.set(file.substring(0, file.length-3), require(`./events/${file}`));
 		bot.on(file.split(".")[0], (...args) => {
 			require(`./events/${file}`).run(bot, ...args);
 		});
