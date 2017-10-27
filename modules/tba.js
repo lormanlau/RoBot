@@ -79,7 +79,7 @@ module.exports = {
 					for(var i = 0; i < d.length; i++){
 						startDate = new Date(d[i].start_date);
 						endDate = new Date(d[i].end_date);
-						evts.addField(d[i].year + ' ' + d[i].name, d[i].location_name + '\n' + startDate.toLocaleDateString() + ' - ' + endDate.toLocaleDateString());
+						evts.addField(`${d[i].year} ${d[i].name}`, `${d[i].location_name}, ${d[i].city}, ${d[i].state_prov}, ${d[i].country}\n${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`);
 					}
 					sendEmbed(evts);
 				}).catch((e) => {
