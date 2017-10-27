@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const TBA = require('tba-api-storm');
-let req = new TBA(bot.config.tba);
 
 module.exports = {
 	name: 'tba',
@@ -9,6 +8,8 @@ module.exports = {
 	permission: 1,
 	help: 'Querys The Blue Alliance API for information.',
 	main: function(bot, m) {
+		let req = new TBA(bot.config.tba);
+		
 		var curYear = new Date().getFullYear();
 		var args = m.content.split(" ")[0];
 		var teamNumber = m.content.split(" ")[1];
