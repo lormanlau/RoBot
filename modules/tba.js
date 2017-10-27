@@ -158,7 +158,7 @@ module.exports = {
 						.setURL('https://www.thebluealliance.com');
 						var str = "";
 						for(var i = 0; i < d.length; i++){
-							str += d[i].name + ", ";
+							str += d[i].display_name + ", ";
 						}
 						str = str.substring(0, str.length - 2);
 						toSend.addField("Current District List", str)
