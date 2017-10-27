@@ -51,7 +51,7 @@ module.exports = {
 						}
 				}).catch((e) => {
 					console.log(e.message);
-					msg.reply(e);
+					m.reply(e);
 				});
 			} else if (args === "robots") {
 				var robots = new Discord.RichEmbed();
@@ -202,7 +202,7 @@ module.exports = {
 							}
 					}).catch((e) => {
 						console.log(e.message);
-						msg.reply(e);
+						m.reply(e);
 					});
 				} else if(subcommand == "rankings") {
 					var district = m.content.split(" ")[2];
