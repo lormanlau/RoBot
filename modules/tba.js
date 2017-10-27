@@ -9,7 +9,7 @@ module.exports = {
 	help: 'Querys The Blue Alliance API for information.',
 	main: function(bot, m) {
 		let req = new TBA(bot.config.tba);
-		
+
 		var curYear = new Date().getFullYear();
 		var args = m.content.split(" ")[0];
 		var teamNumber = m.content.split(" ")[1];
@@ -21,7 +21,7 @@ module.exports = {
 				team(teamNumber)
 			} else if (args === "awards") {
 				var awardlist = new Discord.RichEmbed();
-				req.getTeamAwardHistory(teamNumber).then(d => {
+				req.getTeamAwards(teamNumber).then(d => {
 						awardlist.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
 							.setColor(0x1675DB)
 						var awards = [""];
@@ -55,7 +55,7 @@ module.exports = {
 				});
 			} else if (args === "robots") {
 				var robots = new Discord.RichEmbed();
-				req.getTeamRobotHistory(teamNumber).then(d => {
+				req.getTeamRobots(teamNumber).then(d => {
 						robots.setAuthor('Robot Names for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
 							.setColor(0x1675DB)
 						for(let i in d){
@@ -73,7 +73,7 @@ module.exports = {
 				console.log(year);
 				if(year == undefined)
 					year = curYear;
-				req.getTeamEvents(teamNumber, year).then(d => {
+				req.getTeamEventList(teamNumber, year).then(d => {
 					evts.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
 					.setColor(0x1675DB)
 					for(var i = 0; i < d.length; i++){
