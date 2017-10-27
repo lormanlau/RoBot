@@ -174,7 +174,7 @@ module.exports = {
 						year = curYear;
 					var eventList = new Discord.RichEmbed();
 					var districtName = getDistrictName(district, year)
-					req.getDistrictEvents(district, year).then(d => {
+					req.getDistrictEvents(district).then(d => {
 							eventList.setAuthor('Events for the ' + districtName + ' district in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/events/' + district + '/' + year)
 								.setColor(0x1675DB)
 							var events = [""];
@@ -201,7 +201,7 @@ module.exports = {
 								}
 							}
 					}).catch((e) => {
-						console.log(e.message);
+						console.log(e);
 						m.reply(e);
 					});
 				} else if(subcommand == "rankings") {
@@ -243,7 +243,7 @@ module.exports = {
 						 .setColor(0x1675DB)
 						 .addField('Name', d.nickname, true)
 						 .addField('Rookie Year', d.rookie_year, true)
-						 .addField('Location', d.location, true)
+						 .addField('Location', `${d.location_name}, ${d.city}, ${d.state_prov}, ${d.country}`, true)
 						 .addField('Website', d.website, true)
 						 if(d.motto != null)
 							teaminfo.addField('Motto', d.motto, true)
