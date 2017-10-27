@@ -59,7 +59,7 @@ module.exports = {
 						robots.setAuthor('Robot Names for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
 							.setColor(0x1675DB)
 						for(let i in d){
-							robots.addField(i, d[i].name);
+							robots.addField(d[i].year, d[i].robot_name);
 						}
 						sendEmbed(robots);
 						team = null;
