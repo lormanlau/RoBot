@@ -20,8 +20,11 @@ module.exports = {
 			if (args === "team") {
 				team(teamNumber)
 			} else if (args === "awards") {
+				let year = m.content.split(" ")[2];
+				if(year == undefined)
+					year = curYear;
 				var awardlist = new Discord.RichEmbed();
-				req.getTeamAwards(teamNumber).then(d => {
+				req.getTeamAwards(teamNumber, year).then(d => {
 						awardlist.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
 							.setColor(0x1675DB)
 						var awards = [""];
@@ -167,7 +170,7 @@ module.exports = {
 						console.log(e.message);
 						m.reply("an error has occurred")
 					});
-				} else if(subcommand == "events") {
+				} /*else if(subcommand == "events") {
 					var district = m.content.split(" ")[2];
 					var year = m.content.split(" ")[3];
 					if(year == null)
@@ -210,8 +213,8 @@ module.exports = {
 					req.getDistrictRankings(district, year).then(d => {
 						
 					})
-				} else {
-					m.channel.sendMessage("Arguments for district subcommand: list, events, rankings")
+				}*/ else {
+					m.channel.sendMessage("Arguments for district subcommand: list")
 				}
 			} else {
 				m.channel.sendMessage("Please specify an argument! Accepted arguments: team, awards, media, robots, events, district");
@@ -243,7 +246,7 @@ module.exports = {
 						 .setColor(0x1675DB)
 						 .addField('Name', d.nickname, true)
 						 .addField('Rookie Year', d.rookie_year, true)
-						 .addField('Location', `${d.location_name}, ${d.city}, ${d.state_prov}, ${d.country}`, true)
+						 .addField('Location', `${d.city}, ${d.state_prov}, ${d.country}`, true)
 						 .addField('Website', d.website, true)
 						 if(d.motto != null)
 							teaminfo.addField('Motto', d.motto, true)
