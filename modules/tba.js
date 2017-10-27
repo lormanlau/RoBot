@@ -79,7 +79,7 @@ module.exports = {
 					for(var i = 0; i < d.length; i++){
 						startDate = new Date(d[i].start_date);
 						endDate = new Date(d[i].end_date);
-						evts.addField(d[i].year + ' ' + d[i].name, d[i].location + '\n' + startDate.toLocaleDateString() + ' - ' + endDate.toLocaleDateString());
+						evts.addField(d[i].year + ' ' + d[i].name, d[i].location_name + '\n' + startDate.toLocaleDateString() + ' - ' + endDate.toLocaleDateString());
 					}
 					sendEmbed(evts);
 				}).catch((e) => {
@@ -141,11 +141,11 @@ module.exports = {
 						}
 						sendEmbed(media)
 					} else {
-						m.channel.sendMessage('Unfortunately there is no media for team ' + teamNumber + ' in ' + year + '.');
+						m.channel.send('Unfortunately there is no media for team ' + teamNumber + ' in ' + year + '.');
 					}
 				}).catch((e) => {
 					console.log(e.message);
-					m.reply("an error has occurred")
+					m.reply(e)
 				});
 			}
 		} else {
