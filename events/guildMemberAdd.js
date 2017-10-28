@@ -2,7 +2,7 @@ var Discord = require('discord.js')
 
 exports.run = (bot, member) => {
     bot.getCurrentSetting('welcomeMessagesEnabled', member.guild.id).then(res => {
-        if(res == 1) {
+        if (res == 1) {
             bot.getCurrentSetting('welcomeMessage', member.guild.id).then(text => {
                 var welcome = new Discord.RichEmbed()
                     .setAuthor(member.user.username, member.user.avatarURL)
@@ -15,7 +15,9 @@ exports.run = (bot, member) => {
 
                 bot.getCurrentSetting('announcementChannel', member.guild.id).then(id => {
                     var channel = member.guild.channels.get(id)
-
+                    channel.send({
+                        embed: welcome
+                    })
                 })
             })
         }
