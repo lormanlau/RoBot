@@ -5,7 +5,14 @@ exports.run = (bot, guild, user) => {
         if (action.executor == bot.user && action.target == user) {
             return;
         } else {
-            
+            var ban = new Discord.RichEmbed();
+            ban.setColor(0xFFB200)
+                .setAuthor(user.username, user.avatarURL)
+                .addField('Member Banned', `**:hammer: ${user.username}#${user.discriminator} (${user.id}) was banned from the server.**`)
+                .addField('Responsible Moderator', action.executor.username)
+                .addField('Reason', action.reason || 'Not Specified')
+                .setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
+                .setTimestamp()
         }
     });
 }

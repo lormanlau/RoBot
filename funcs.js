@@ -114,11 +114,11 @@ module.exports = (bot) => {
 			"${bot.config.prefix}", 
 			"${guild.channels.array()[0].id}", 
 			0, 
-			"Welcome {username} to the server!", 
+			"Welcome {user:username} to the server!", 
 			0, 
-			"{username} left the server :cry:",
+			"{user:username} left the server :cry:",
 			0,
-			"{username} was banned from the server :hammer:", 
+			":hammer: {user:username}#{user:discrim} ({user:id}) was banned from the server.", 
 			"none", 
 			"none", 
 			0,
@@ -177,20 +177,15 @@ module.exports = (bot) => {
 	 * Server Settings Related Functions
 	 */
 
-	bot.setBanMessageEnabled = function (guild, setting) {
-		db.run("UPDATE servers SET banMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
-		return setting;
-	}
-
-	bot.setBanMessageText = function (id, text) {
-		db.run(`UPDATE servers SET banMessage = "${text}" WHERE id = "${id}"`);
+	bot.setNewValue = function (setting, id, text) {
+		db.run(`UPDATE servers SET ${setting} = "${text}" WHERE id = "${id}"`);
 		return text;
 	}
 
-	bot.getBanMessageStatus = function (id) {
+	bot.getCurrentBooleanSetting = function (setting, id) {
 		return new Promise((resolve, reject) => {
 			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
-				if (rows[0].banMessagesEnabled == 1)
+				if (rows[0][setting] == 1)
 					resolve(true);
 				else
 					resolve(false);
@@ -198,54 +193,7 @@ module.exports = (bot) => {
 		})
 	}
 
-	bot.setWelcomeMessageEnabled = function (guild, setting) {
-		db.run("UPDATE servers SET welcomeMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
-		return setting;
-	}
-
-	bot.setWelcomeMessageText = function (id, text) {
-		db.run(`UPDATE servers SET welcomeMessage = "${text}" WHERE id = "${id}"`);
-		return text;
-	}
-
-	bot.getWelcomeMessageStatus = function (id) {
-		return new Promise((resolve, reject) => {
-			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
-				if (rows[0].welcomeMessagesEnabled == 1)
-					resolve(true);
-				else
-					resolve(false);
-			});
-		})
-	}
-
-	bot.setLeaveMessageEnabled = function (guild, setting) {
-		db.run("UPDATE servers SET leaveMessagesEnabled = \"" + setting + "\" WHERE id = " + guild.id);
-		return setting;
-	}
-
-	bot.setLeaveMessageText = function (id, text) {
-		db.run(`UPDATE servers SET leaveMessage = "${text}" WHERE id = "${id}"`);
-		return text;
-	}
-
-	bot.getLeaveMessageStatus = function (id) {
-		return new Promise((resolve, reject) => {
-			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
-				if (rows[0].leaveMessagesEnabled == 1)
-					resolve(true);
-				else
-					resolve(false);
-			});
-		})
-	}
-
-	bot.setAnnouncementChannel = function (id, channel) {
-		db.run("UPDATE servers SET announcementChannel = \"" + channel.id + "\" WHERE id = " + id);
-		return channel;
-	}
-
-	bot.getAnnouncementChannel = function (id) {
+	bot.getCurrentChannelSetting = function (id) {
 		return new Promise((resolve, reject) => {
 			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
 				resolve(rows[0].announcementChannel)

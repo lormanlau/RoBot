@@ -1,4 +1,4 @@
-//Work on finishing welcomemessage, farewell, joinrole, botrole, antiinvite, antimentionspam
+//Work on finishing botrole, antiinvite, antimentionspam
 
 module.exports = {
 	name: 'settings',
@@ -7,65 +7,61 @@ module.exports = {
 	permission: 4,
 	help: 'Changes server settings.',
 	main: function (bot, msg) {
+		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinks', 'mentionSpam'],
+			joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage'],
+			channelSettings = ['announcementChannel'],
+			roleSettings = ['joinRole', 'botRole'],
+			booleanSettings = ['inviteLinks', 'mentionSpam'],
+			acceptedArgs = "``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``";
+
 		if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's setings!")
 
-		if (msg.args[0] == "announcementchannel") {
-			bot.getAnnouncementChannel(msg.guild.id).then(value => {
-				processAnnouncementChannel(value);
+		if (!msg.args[0]) {
+			//Print out all the settings 
+		} else if (joinLeaveSettings.indexOf(msg.args[0])) {
+			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
+				processJoinLeaveSettings(msg.args[0], value)
 			})
-		} else if (msg.args[0] == "welcomemessage") {
-			bot.getWelcomeMessageStatus(msg.guild.id).then(value => {
-				processWelcomeMessage(value);
+		} else if (channelSettings.indexOf(msg.args[0])) {
+			bot.getCurrentChannelSetting(msg.args[0], msg.guild.id).then(value => {
+				processChannelSetting(msg.args[0], value);
 			})
-		} else if (msg.args[0] == "leavemessage") {
-			bot.getLeaveMessageStatus(msg.guild.id).then(value => {
-				processLeaveMessage(value);
-			})
-		} else if (msg.args[0] == "banmessage") {
-			bot.getBanMessageStatus(msg.guild.id).then(value => {
-				processBanMessage(value);
-			})
-		} else if (msg.args[0] == "joinrole") {
-			bot.getJoinRole(msg.guild.id).then(value => {
-				setJoinRole(value);
-			})
-		} else if (msg.args[0] == "botrole") {
+		} else if (roleSettings.indexOf(msg.args[0])) {
 
-		} else if (msg.args[0] == "invitelinks") {
+		} else if (booleanSettings.indexOf(msg.args[0])) {
+			
+		}
+		else
+			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
 
-		} else if (msg.args[0] == "mentionspam") {
-
-		} else
-			msg.reply("please specify an argument! Accepted arguments: announcementchannel, welcomemessage, leavemessage, banmessage, joinrole, botrole, invitelinks, mentionspam")
-
-		function processBanMessage(value) {
-			msg.channel.send(`The ban message for this server is **${value ? 'on' : 'off'}**. Do you want to turn it **${value ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
+		function processJoinLeaveSettings(setting, value) {
+			msg.channel.send(`The ${setting} for this server is **${value ? 'on' : 'off'}**. Do you want to turn it **${value ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
 			);
 			collector.on('collect', m => {
-				var e = value;
+				var val = value;
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
 					if (value)
 						value = 0
 					else
 						value = 1
-					e = bot.setBanMessageEnabled(msg.guild, value)
-					msg.channel.send(`Ban messages ${e ? 'enabled' : 'disabled'}.`);
+					val = bot.setNewValue(setting, msg.guild, value)
+					msg.channel.send(`${setting} ${e ? 'enabled' : 'disabled'}.`);
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`Ban messages are staying **${value ? 'on' : 'off'}**.`)
+					msg.channel.send(`The ${setting} is staying **${value ? 'on' : 'off'}**.`)
 					collector.stop();
 				}
-				if (e) {
-					msg.channel.send("What would you like the ban message to be? You may include the following arguments in your welcome message: ``{servername}``, ``{username}``, ``{usermention}``, ``{userdiscrim}``, ``{membercount}``")
+				if (val) {
+					msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${args}`)
 					var collector2 = msg.channel.createCollector(
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }
 					);
 					collector2.on('message', m => {
-						m.channel.send(`Ban message set to \`${bot.setBanMessageText(m.guild.id, m.content)}\`!`)
+						m.channel.send(`${setting} set to \`${bot.setNewValue(setting, m.guild.id, m.content)}\`!`)
 						collector2.stop();
 					});
 					collector2.on('end', collected => {
@@ -82,118 +78,30 @@ module.exports = {
 			});
 		}
 
-		function processLeaveMessage(value) {
-			msg.channel.send(`The leave message for this server is **${value ? 'on' : 'off'}**. Do you want to turn it **${value ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
+		function processChannelSetting(setting, value) {
+			msg.channel.send(`The current ${setting} for this server is <#${value}>. Do you want to change it? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
 			);
 			collector.on('collect', m => {
-				var e = value;
+				var change = false;
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					if (value)
-						value = 0
-					else
-						value = 1
-					e = bot.setLeaveMessageEnabled(msg.guild, value)
-					msg.channel.send(`Leave messages ${e ? 'enabled' : 'disabled'}.`);
+					change = true
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`Leave messages are staying **${value ? 'on' : 'off'}**.`)
+					msg.channel.send(`The ${setting} will remain as <#${value}>.`)
 					collector.stop();
 				}
-				if (e) {
-					msg.channel.send("What would you like the leave message to be? You may include the following arguments in your welcome message: ``{servername}``, ``{username}``, ``{usermention}``, ``{userdiscrim}``, ``{membercount}``")
-					var collector2 = msg.channel.createCollector(
-						m => msg.author.id == m.author.id,
-						{ time: 60000 }
-					);
-					collector2.on('message', m => {
-						m.channel.send(`Leave message set to \`${bot.setLeaveMessageText(m.guild.id, m.content)}\`!`)
-						collector2.stop();
-					});
-					collector2.on('end', collected => {
-						if (collected.size == 0)
-							msg.channel.send("No messages were detected within 60 seconds. Aborting...")
-						console.log(`Collected ${collected.size} items`)
-					});
-				}
-			});
-			collector.on('end', collected => {
-				if (collected.size == 0)
-					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
-				console.log(`Collected ${collected.size} items`)
-			});
-		}
-
-		function processWelcomeMessage(value) {
-			msg.channel.send(`The welcome message for this server is **${value ? 'on' : 'off'}**. Do you want to turn it **${value ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
-			var collector = msg.channel.createCollector(
-				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
-				{ time: 30000 }
-			);
-			collector.on('collect', m => {
-				var e = value;
-				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					if (value)
-						value = 0
-					else
-						value = 1
-					e = bot.setWelcomeMessageEnabled(msg.guild, value)
-					msg.channel.send(`Welcome messages ${e ? 'enabled' : 'disabled'}.`);
-					collector.stop();
-				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`Welcome messages are staying **${value ? 'on' : 'off'}**.`)
-					collector.stop();
-				}
-				if (e) {
-					msg.channel.send("What would you like the welcome message to be? You may include the following arguments in your welcome message: ``{servername}``, ``{username}``, ``{usermention}``, ``{userdiscrim}``, ``{membercount}``")
-					var collector2 = msg.channel.createCollector(
-						m => msg.author.id == m.author.id,
-						{ time: 60000 }
-					);
-					collector2.on('message', m => {
-						m.channel.send(`Welcome message set to \`${bot.setWelcomeMessageText(m.guild.id, m.content)}\`!`)
-						collector2.stop();
-					});
-					collector2.on('end', collected => {
-						if (collected.size == 0)
-							msg.channel.send("No messages were detected within 60 seconds. Aborting...")
-						console.log(`Collected ${collected.size} items`)
-					});
-				}
-			});
-			collector.on('end', collected => {
-				if (collected.size == 0)
-					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
-				console.log(`Collected ${collected.size} items`)
-			});
-		}
-
-		function processAnnouncementChannel(value) {
-			msg.channel.send(`The current announcement channel for this server is <#${value}>. Do you want to change it? (Reply with 'yes' or 'no')`);
-			var collector = msg.channel.createCollector(
-				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
-				{ time: 30000 }
-			);
-			collector.on('collect', m => {
-				var e = false;
-				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					e = true
-					collector.stop();
-				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`The announcement channel will remain as <#${value}>.`)
-					collector.stop();
-				}
-				if (e) {
-					msg.channel.send("What would you like the announcement channel to be? (Mention a channel)")
+				if (change) {
+					msg.channel.send(`What would you like the ${setting} to be? (Mention a channel)`)
 					var collector2 = msg.channel.createCollector(
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }
 					);
 					collector2.on('message', m => {
 						if (m.mentions.channels.array()[0]) {
-							m.channel.send(`Announcement channel set to ${bot.setAnnouncementChannel(m.guild.id, m.mentions.channels.array()[0])}!`)
+							m.channel.send(`${setting} set to ${bot.setNewValue(setting, m.guild.id, m.mentions.channels.array()[0].id)}!`)
 							collector2.stop();
 						}
 						else
@@ -238,7 +146,7 @@ module.exports = {
 						if (m.guild.roles.find('name', m.content)) {
 							m.channel.send(`Join role set to ${bot.setJoinRole(m.guild.id, m.guild.roles.find('name', m.content).id)}!`)
 							collector2.stop();
-						} else if(m.content.toLowerCase() == "none") {
+						} else if (m.content.toLowerCase() == "none") {
 							bot.setJoinRole(m.guild.id, "NONE")
 							m.channel.send(`Join role has been turned off!`)
 							collector2.stop();
