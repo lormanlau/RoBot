@@ -7,12 +7,12 @@ module.exports = {
 	permission: 4,
 	help: 'Changes server settings.',
 	main: function (bot, msg) {
-		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinks', 'mentionSpam'],
-			joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage'],
-			channelSettings = ['announcementChannel'],
-			roleSettings = ['joinRole', 'botRole'],
-			booleanSettings = ['inviteLinks', 'mentionSpam'],
-			acceptedArgs = "``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``";
+		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinks', 'mentionSpam']
+		var joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage']
+		var channelSettings = ['announcementChannel']
+		var roleSettings = ['joinRole', 'botRole']
+		var booleanSettings = ['inviteLinks', 'mentionSpam']
+		var acceptedArgs = "``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``";
 
 		if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's setings!")
 
@@ -23,7 +23,6 @@ module.exports = {
 				processJoinLeaveSettings(msg.args[0], value)
 			})
 		} else if (channelSettings.indexOf(msg.args[0])) {
-			console.log("Channel Setting: " + msg.args[0])
 			bot.getCurrentChannelSetting(msg.args[0], msg.guild.id).then(value => {
 				processChannelSetting(msg.args[0], value);
 			})
