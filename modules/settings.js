@@ -80,7 +80,7 @@ module.exports = {
 					);
 					collector3.on('collect', m => {
 						if(m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id)
-							val = true;
+							var val = true;
 						collector3.stop();
 					});
 				}
