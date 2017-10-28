@@ -63,7 +63,7 @@ module.exports = {
 			);
 			collector.on('collect', m => {
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					if (value)
+					if (on)
 						value = 0
 					else
 						value = 1
@@ -81,6 +81,7 @@ module.exports = {
 					collector3.on('collect', m => {
 						if(m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id)
 							val = true;
+						collector3.stop();
 					});
 				}
 				if (val) {
