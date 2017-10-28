@@ -52,23 +52,18 @@ module.exports = {
 			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
 
 		function processJoinLeaveSettings(setting, value) {
-			if (value == 1)
-				value = true;
-			else
-				value = false;
 			msg.channel.send(`The ${setting} for this server is **${value ? 'on' : 'off'}**. Do you want to turn it **${value ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
 			);
 			collector.on('collect', m => {
-				var val = value;
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
 					if (value)
 						value = 0
 					else
 						value = 1
-					val = bot.setNewValue(setting + 'sEnabled', msg.guild, value)
+					var val = bot.setNewValue(setting + 'sEnabled', msg.guild, value)
 					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
