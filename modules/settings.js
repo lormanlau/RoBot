@@ -26,7 +26,7 @@ module.exports = {
 			bot.getAllSettings(msg.guild.id).then(obj => {
 				for (var key in obj) {
 					if (obj.hasOwnProperty(key) && key != "id" && key != "name" && key != "prefix") {
-						settings.addField(key, obj[key] || "None")
+						settings.addField(key, obj[key].toString() || "None")
 					}
 				}
 				msg.channel.send({ embed: settings })
