@@ -18,17 +18,17 @@ module.exports = {
 
 		if (!msg.args[0]) {
 			//Print out all the settings 
-		} else if (joinLeaveSettings.indexOf(msg.args[0])) {
+		} else if (joinLeaveSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
 				processJoinLeaveSettings(msg.args[0], value)
 			})
-		} else if (channelSettings.indexOf(msg.args[0])) {
+		} else if (channelSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentChannelSetting(msg.args[0], msg.guild.id).then(value => {
 				processChannelSetting(msg.args[0], value);
 			})
-		} else if (roleSettings.indexOf(msg.args[0])) {
+		} else if (roleSettings.indexOf(msg.args[0]) > -1) {
 
-		} else if (booleanSettings.indexOf(msg.args[0])) {
+		} else if (booleanSettings.indexOf(msg.args[0]) > -1) {
 
 		}
 		else
