@@ -9,7 +9,7 @@ exports.run = (bot, member) => {
                     .setFooter(member.guild.name)
                     .setTimestamp()
                     .setColor("#00FF00")
-                text.replace('{server:name}', member.guild.name)
+                text = text.replace('{server:name}', member.guild.name)
                     .replace('{server:membercount}', member.guild.members.size)
                     .replace('{user:mention}', member.user)
                     .replace('{user:username}', member.user.username)
