@@ -23,13 +23,17 @@ module.exports = {
 				processJoinLeaveSettings(msg.args[0], value)
 			})
 		} else if (channelSettings.indexOf(msg.args[0]) > -1) {
-			bot.getCurrentChannelSetting(msg.args[0], msg.guild.id).then(value => {
+			bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
 				processChannelSetting(msg.args[0], value);
 			})
 		} else if (roleSettings.indexOf(msg.args[0]) > -1) {
-
+			bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
+				processRoleSetting(msg.args[0], value);
+			})
 		} else if (booleanSettings.indexOf(msg.args[0]) > -1) {
-
+			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
+				
+			})
 		}
 		else
 			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
@@ -101,7 +105,7 @@ module.exports = {
 					);
 					collector2.on('message', m => {
 						if (m.mentions.channels.array()[0]) {
-							m.channel.send(`${setting} set to ${bot.setNewValue(setting, m.guild.id, m.mentions.channels.array()[0].id)}!`)
+							m.channel.send(`${setting} set to <#${bot.setNewValue(setting, m.guild.id, m.mentions.channels.array()[0].id)}>!`)
 							collector2.stop();
 						}
 						else
@@ -121,8 +125,8 @@ module.exports = {
 			});
 		}
 
-		function setJoinRole(value) {
-			msg.channel.send(`The current join role for this server is **${value}**. Do you want to change it? (Reply with 'yes' or 'no')`);
+		function processRoleSetting(setting, value) {
+			msg.channel.send(`The current ${setting} for this server is **${value}**. Do you want to change it? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
@@ -133,26 +137,26 @@ module.exports = {
 					e = true
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`The join role will remain as **${value}**.`)
+					msg.channel.send(`The ${setting} will remain as **${value}**.`)
 					collector.stop();
 				}
 				if (e) {
-					msg.channel.send("What would you like the join role to be? (Say the name of a role, 'NONE' for none)")
+					msg.channel.send(`What would you like the ${setting} to be? (Say the name of a role, 'none' for none)`)
 					var collector2 = msg.channel.createCollector(
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }
 					);
 					collector2.on('message', m => {
 						if (m.guild.roles.find('name', m.content)) {
-							m.channel.send(`Join role set to ${bot.setJoinRole(m.guild.id, m.guild.roles.find('name', m.content).id)}!`)
+							m.channel.send(`${setting} set to ${bot.setNewValue(setting, m.guild.id, m.guild.roles.find('name', m.content).id)}!`)
 							collector2.stop();
 						} else if (m.content.toLowerCase() == "none") {
-							bot.setJoinRole(m.guild.id, "NONE")
-							m.channel.send(`Join role has been turned off!`)
+							bot.setJoinRole(m.guild.id, "none")
+							m.channel.send(`${setting} has been turned off!`)
 							collector2.stop();
 						}
 						else
-							m.channel.send(`Please say the name of a valid role or NONE!`)
+							m.channel.send(`Please say the name of a valid role or none!`)
 					});
 					collector2.on('end', collected => {
 						if (collected.size == 0)

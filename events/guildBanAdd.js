@@ -1,3 +1,4 @@
+var Discord = require('discord.js')
 
 exports.run = (bot, guild, user) => {
     guild.fetchAuditLogs({ options: { limit: 5 } }).then(logs => {

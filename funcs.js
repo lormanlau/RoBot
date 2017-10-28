@@ -193,7 +193,7 @@ module.exports = (bot) => {
 		})
 	}
 
-	bot.getCurrentChannelSetting = function (setting, id) {
+	bot.getCurrentSetting = function (setting, id) {
 		return new Promise((resolve, reject) => {
 			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
 				resolve(rows[0][setting])
