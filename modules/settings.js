@@ -74,7 +74,7 @@ module.exports = {
 						m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 						{ time: 30000 }
 					);
-					collector2.on('collect', m => {
+					collector3.on('collect', m => {
 						if(m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id)
 							val = true;
 					});
