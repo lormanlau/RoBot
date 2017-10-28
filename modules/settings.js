@@ -23,7 +23,7 @@ module.exports = {
 				.setColor(msg.guild.me.displayHexColor)
 				.setFooter(`Powered by ${bot.user.username}`, bot.user.avatarURL)
 				.setTimestamp()
-			bot.getAllSettings(msg.guild).then(obj => {
+			bot.getAllSettings(msg.guild.id).then(obj => {
 				for (var key in obj) {
 					if (obj.hasOwnProperty(key) && key != "id" && key != "name" && key != "prefix") {
 						settings.addField(key, obj[key])
