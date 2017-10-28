@@ -48,7 +48,7 @@ module.exports = {
 					else
 						value = 1
 					val = bot.setNewValue(setting, msg.guild, value)
-					msg.channel.send(`${setting} ${e ? 'enabled' : 'disabled'}.`);
+					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
 					msg.channel.send(`The ${setting} is staying **${value ? 'on' : 'off'}**.`)
