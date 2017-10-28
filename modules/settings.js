@@ -23,13 +23,14 @@ module.exports = {
 				processJoinLeaveSettings(msg.args[0], value)
 			})
 		} else if (channelSettings.indexOf(msg.args[0])) {
+			console.log("Channel Setting: " + msg.args[0])
 			bot.getCurrentChannelSetting(msg.args[0], msg.guild.id).then(value => {
 				processChannelSetting(msg.args[0], value);
 			})
 		} else if (roleSettings.indexOf(msg.args[0])) {
 
 		} else if (booleanSettings.indexOf(msg.args[0])) {
-			
+
 		}
 		else
 			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
