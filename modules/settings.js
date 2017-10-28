@@ -69,6 +69,15 @@ module.exports = {
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
 					msg.channel.send(`The ${setting} is staying **${value ? 'on' : 'off'}**.`)
 					collector.stop();
+					msg.channel.send(`Would you like to edit the ${setting}?`)
+					var collector3 = msg.channel.createCollector(
+						m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
+						{ time: 30000 }
+					);
+					collector2.on('collect', m => {
+						if(m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id)
+							val = true;
+					});
 				}
 				if (val) {
 					msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${acceptedArgs}`)
@@ -76,7 +85,7 @@ module.exports = {
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }
 					);
-					collector2.on('message', m => {
+					collector2.on('collect', m => {
 						m.channel.send(`${setting} set to \`${bot.setNewValue(setting, m.guild.id, m.content)}\`!`)
 						collector2.stop();
 					});
