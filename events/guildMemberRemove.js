@@ -14,7 +14,7 @@ exports.run = (bot, member) => {
                     .replace('{user:mention}', member.user)
                     .replace('{user:username}', member.user.username)
                     .replace('{user:discrim}', member.user.discriminator)
-                    leave.setDescription(text)
+                leave.addField("User Left", text)
                 bot.getCurrentSetting('announcementChannel', member.guild.id).then(id => {
                     var channel = member.guild.channels.get(id)
                     channel.send({
