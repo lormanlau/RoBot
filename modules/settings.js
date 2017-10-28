@@ -1,4 +1,4 @@
-//Work on finishing botrole, antiinvite, antimentionspam
+var Discord = require('discord.js');
 
 module.exports = {
 	name: 'settings',
@@ -17,7 +17,18 @@ module.exports = {
 		if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's setings!")
 
 		if (!msg.args[0]) {
-			//Print out all the settings 
+			var settings = new Discord.RichEmbed()
+				.setAuthor(`Guild settings for ${msg.guild.name}`, msg.guild.iconURL)
+				.setDescription(`Use "settings <settingName>" to change a setting!`)
+				.setColor(msg.guild.me.displayHexColor)
+				.setFooter(`Powered by ${bot.user.username}`, bot.user.avatarURL)
+				.setTimestamp()
+			for (var i = 0; i < validSettings.length; i++) {
+				bot.getCurrentSetting(validSettings[i], msg.guild.id).then(value => {
+					settings.addField(validSettings[i], value)
+				})
+			}
+			msg.channel.send({ embed: settings })
 		} else if (joinLeaveSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
 				processJoinLeaveSettings(msg.args[0], value)
@@ -32,7 +43,7 @@ module.exports = {
 			})
 		} else if (booleanSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
-				
+				processBooleanSetting(msg.args[0], value);
 			})
 		}
 		else
@@ -163,6 +174,34 @@ module.exports = {
 							msg.channel.send("No messages were detected within 60 seconds. Aborting...")
 						console.log(`Collected ${collected.size} items`)
 					});
+				}
+			});
+			collector.on('end', collected => {
+				if (collected.size == 0)
+					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
+				console.log(`Collected ${collected.size} items`)
+			});
+		}
+
+		function processBooleanSetting(setting, value) {
+			msg.channel.send(`${setting} protection for this server is currently **${value ? 'on' : 'off'}**. Do you want to turn it ${value ? 'off' : 'on'}? (Reply with 'yes' or 'no')`);
+			var collector = msg.channel.createCollector(
+				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
+				{ time: 30000 }
+			);
+			collector.on('collect', m => {
+				var value = false;
+				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
+					if (value)
+						value = 0
+					else
+						value = 1
+					val = bot.setNewValue(setting, msg.guild, value)
+					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
+					collector.stop();
+				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
+					msg.channel.send(`${setting} protection will remain **${value}**.`)
+					collector.stop();
 				}
 			});
 			collector.on('end', collected => {
