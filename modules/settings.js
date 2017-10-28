@@ -23,12 +23,14 @@ module.exports = {
 				.setColor(msg.guild.me.displayHexColor)
 				.setFooter(`Powered by ${bot.user.username}`, bot.user.avatarURL)
 				.setTimestamp()
-			for (var i = 0; i < validSettings.length; i++) {
-				bot.getCurrentSetting(validSettings[i], msg.guild.id).then(value => {
-					settings.addField(validSettings[i], value)
-				})
-			}
-			msg.channel.send({ embed: settings })
+			bot.getAllSettings(msg.guild).then(obj => {
+				for (var key in obj) {
+					if (obj.hasOwnProperty(key) && key != "id" && key != "name" && key != "prefix") {
+						settings.addField(key, obj[key])
+					}
+				}
+				msg.channel.send({ embed: settings })
+			})
 		} else if (joinLeaveSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
 				processJoinLeaveSettings(msg.args[0], value)

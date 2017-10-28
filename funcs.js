@@ -201,6 +201,14 @@ module.exports = (bot) => {
 		})
 	}
 
+	bot.getAllSettings = function(id) {
+		return new Promise((resolve, reject) => {
+			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
+				resolve(rows[0])
+			});
+		})
+	}
+
 	/**
 	 * Core message processing functions
 	 */
