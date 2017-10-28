@@ -55,7 +55,7 @@ module.exports = {
 					collector.stop();
 				}
 				if (val) {
-					msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${args}`)
+					msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${acceptedArgs}`)
 					var collector2 = msg.channel.createCollector(
 						m => msg.author.id == m.author.id,
 						{ time: 60000 }
