@@ -52,9 +52,9 @@ module.exports = {
 			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
 
 		function processJoinLeaveSettings(setting, value) {
-			if(value == 1)
+			if(value = 1)
 				var on = true
-			else
+			else if (value = 0)
 				var on = false
 			msg.channel.send(`The ${setting} for this server is **${on ? 'on' : 'off'}**. Do you want to turn it **${on ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
