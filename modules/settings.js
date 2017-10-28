@@ -63,7 +63,7 @@ module.exports = {
 						value = 0
 					else
 						value = 1
-					var val = bot.setNewValue(setting + 'sEnabled', msg.guild, value)
+					var val = bot.setNewValue(setting + 'sEnabled', msg.guild.id, value)
 					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
