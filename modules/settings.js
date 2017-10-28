@@ -80,25 +80,11 @@ module.exports = {
 					);
 					collector3.on('collect', m => {
 						if(m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id)
-							var val = true;
-						collector3.stop();
+							promptForMessage();
 					});
 				}
 				if (val) {
-					msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${acceptedArgs}`)
-					var collector2 = msg.channel.createCollector(
-						m => msg.author.id == m.author.id,
-						{ time: 60000 }
-					);
-					collector2.on('collect', m => {
-						m.channel.send(`${setting} set to \`${bot.setNewValue(setting, m.guild.id, m.content)}\`!`)
-						collector2.stop();
-					});
-					collector2.on('end', collected => {
-						if (collected.size == 0)
-							msg.channel.send("No messages were detected within 60 seconds. Aborting...")
-						console.log(`Collected ${collected.size} items`)
-					});
+					promptForMessage();
 				}
 			});
 			collector.on('end', collected => {
@@ -106,6 +92,22 @@ module.exports = {
 					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
 				console.log(`Collected ${collected.size} items`)
 			});
+			function promptForMessage() {
+				msg.channel.send(`What would you like the ${setting} to be? You may include the following arguments in your welcome message: ${acceptedArgs}`)
+				var collector2 = msg.channel.createCollector(
+					m => msg.author.id == m.author.id,
+					{ time: 60000 }
+				);
+				collector2.on('collect', m => {
+					m.channel.send(`${setting} set to \`${bot.setNewValue(setting, m.guild.id, m.content)}\`!`)
+					collector2.stop();
+				});
+				collector2.on('end', collected => {
+					if (collected.size == 0)
+						msg.channel.send("No messages were detected within 60 seconds. Aborting...")
+					console.log(`Collected ${collected.size} items`)
+				});
+			}
 		}
 
 		function processChannelSetting(setting, value) {
