@@ -10,9 +10,11 @@ exports.run = (bot, member) => {
                     .setTimestamp()
                     .setColor("#00FF00")
                 text.replace('{server:name}', member.guild.name)
-                    .replace('{user:mention}', member.user)
                     .replace('{server:membercount}', member.guild.members.size)
-
+                    .replace('{user:mention}', member.user)
+                    .replace('{user:username}', member.user.username)
+                    .replace('{user:discrim}', member.user.discriminator)
+                welcome.setDescription(text)
                 bot.getCurrentSetting('announcementChannel', member.guild.id).then(id => {
                     var channel = member.guild.channels.get(id)
                     channel.send({
