@@ -13,6 +13,7 @@ exports.run = (bot, guild, user) => {
                 .addField('Reason', action.reason || 'Not Specified')
                 .setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
                 .setTimestamp()
+            bot.channels.get('373256239318302721').send({embed:ban});
         }
     });
 }
