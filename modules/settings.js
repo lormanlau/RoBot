@@ -55,17 +55,17 @@ module.exports = {
 
 		function processJoinLeaveSettings(setting, value) {
 			if(value = 1)
-				var on = true
+				var isOn = true
 			else if (value = 0)
-				var on = false
-			msg.channel.send(`The ${setting} for this server is **${on ? 'on' : 'off'}**. Do you want to turn it **${on ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
+				var isOn = false
+			msg.channel.send(`The ${setting} for this server is **${isOn ? 'on' : 'off'}**. Do you want to turn it **${isOnon ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
 			);
 			collector.on('collect', m => {
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					if (on)
+					if (isOn)
 						value = 0
 					else
 						value = 1
