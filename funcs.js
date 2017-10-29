@@ -137,7 +137,7 @@ module.exports = (bot) => {
 			unirest.get(`https://discordbots.org/api/bots/${bot.user.id}/votes`)
 				.headers({ "Authorization": bot.config.dbotsorg })
 				.end(function (result) {
-					var voters = JSON.parse(result.body)
+					var voters = result.body
 					for (var i = 0; i < voters.length; i++) {
 						if (voters[i].id == msg.author.id)
 							resolve(true);
