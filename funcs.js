@@ -144,6 +144,7 @@ module.exports = (bot) => {
 							resolve(true);
 					}
 					if (msg.author.id == bot.config.owner) resolve(true);
+					if (msg.guild.members.get(bot.config.owner).hasPermission("MANAGE_MESSAGES")) resolve(true);
 					resolve(false);
 				});
 		});
