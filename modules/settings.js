@@ -9,9 +9,9 @@ module.exports = {
 	main: function (bot, msg) {
 		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinks', 'mentionSpam']
 		var joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage']
-		var channelSettings = ['announcementChannel']
+		var channelSettings = ['announcementChannel', 'modLogChannel']
 		var roleSettings = ['joinRole', 'botRole']
-		var booleanSettings = ['inviteLinks', 'mentionSpam']
+		var booleanSettings = ['inviteLinkDeletion', 'mentionSpamProtection', 'modLogs']
 		var acceptedArgs = "``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``";
 
 		if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's setings!")
@@ -47,6 +47,8 @@ module.exports = {
 			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
 				processBooleanSetting(msg.args[0], value);
 			})
+		} else if (msg.args[0].toLowerCase() == 'help') {
+			sendHelp()
 		}
 		else
 			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
@@ -69,6 +71,7 @@ module.exports = {
 						value = 1
 					var val = bot.setNewValue(setting + 'sEnabled', msg.guild.id, value)
 					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
+					msg.channel.send(`Make sure to configure the announcementChannel as well!`)
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
 					msg.channel.send(`The ${setting} is staying **${value ? 'on' : 'off'}**.`)
@@ -201,7 +204,7 @@ module.exports = {
 		}
 
 		function processBooleanSetting(setting, value) {
-			msg.channel.send(`${setting} protection for this server is currently **${value ? 'on' : 'off'}**. Do you want to turn it ${value ? 'off' : 'on'}? (Reply with 'yes' or 'no')`);
+			msg.channel.send(`${setting} for this server is currently **${value ? 'on' : 'off'}**. Do you want to turn it ${value ? 'off' : 'on'}? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
@@ -215,9 +218,12 @@ module.exports = {
 						value = 1
 					val = bot.setNewValue(setting, msg.guild, value)
 					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
+					if(setting == 'modLogs' && setting) {
+						msg.channel.send('Please make sure to configure the modLogChannel setting to allow modLogs to work!')
+					}
 					collector.stop();
 				} else if (m.content.toLowerCase() == 'no' && m.author.id == msg.author.id) {
-					msg.channel.send(`${setting} protection will remain **${value}**.`)
+					msg.channel.send(`${setting} will remain **${value}**.`)
 					collector.stop();
 				}
 			});

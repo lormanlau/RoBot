@@ -66,17 +66,19 @@ module.exports = (bot) => {
 				id VARCHAR(25) PRIMARY KEY, 
 				name VARCHAR(100), 
 				prefix VARCHAR(10), 
-				announcementChannel VARCHAR(25), 
+				announcementChannel VARCHAR(25),
 				welcomeMessagesEnabled BOOLEAN, 
 				welcomeMessage VARCHAR(200), 
 				leaveMessagesEnabled BOOLEAN, 
 				leaveMessage VARCHAR(200),
 				banMessagesEnabled BOOLEAN,
 				banMessage VARCHAR(200),
+				modLogs BOOLEAN,
+				modLogChannel VARCHAR(25),
 				joinRole VARCHAR(20),
-				joinBotRole VARCHAR(20), 
-				noInviteLinks BOOLEAN,
-				noMentionSpam BOOLEAN,
+				botRole VARCHAR(20), 
+				inviteLinkDeletion BOOLEAN,
+				mentionSpamProtection BOOLEAN,
 				givemeRoles BLOB)`
 			);
 			bot.guilds.forEach(guild => {
@@ -86,11 +88,13 @@ module.exports = (bot) => {
 					"${bot.config.prefix}", 
 					"${guild.channels.array()[0].id}", 
 					0, 
-					"Welcome {username} to the server!", 
+					"Welcome {user:username} to the server!", 
 					0, 
-					"{username} left the server :cry:",
+					"{user:username} left the server :cry:",
 					0,
-					"{username} was banned from the server :hammer:", 
+					"{user:username} was banned from the server :hammer:",
+					0,
+					"${guild.channels.array()[0].id}",
 					"none", 
 					"none", 
 					0,
@@ -128,6 +132,27 @@ module.exports = (bot) => {
 		bot.log(guild.name + " successfully inserted into the database!");
 	}
 
+	bot.checkForUpvote = function (msg) {
+		return new Promise((resolve, reject) => {
+			unirest.get(`https://discordbots.org/api/bots/${bot.user.id}/votes`)
+				.end(function (result) {
+					var voters = JSON.parse(result.body)
+					for(var i = 0; i < voters.length; i++) {
+						if(voters[i].id == msg.author.id)
+							resolve(true);
+					}
+					resolve(false);
+				});
+		});
+	}
+
+	bot.promptForUpvote = function(msg, command) {
+		msg.channel.send(`To use the **${command} command, please go upvote me on discordbots.org! ` + 
+		`You can do so by visiting the link below, signing in, and clicking upvote!` + 
+		`If you have already upvoted, give the bot a few minutes to update its list of voters.\n` + 
+		`https://discordbots.org/bot/${bot.user.id}`)
+	}
+
 	/**
 	 * Giveme Roles Functions
 	 */
@@ -150,7 +175,7 @@ module.exports = (bot) => {
 			}
 		)
 	}
-	
+
 	/**
 	 * Prefix Related Functions
 	 */
@@ -201,7 +226,7 @@ module.exports = (bot) => {
 		})
 	}
 
-	bot.getAllSettings = function(id) {
+	bot.getAllSettings = function (id) {
 		return new Promise((resolve, reject) => {
 			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
 				resolve(rows[0])
@@ -248,16 +273,16 @@ module.exports = (bot) => {
 					afk.splice(i, 1);
 					fs.writeFileSync("./afk.json", JSON.stringify(afk, null, 3));
 					msg.channel.send(":ok_hand: Welcome back **" + msg.author.username + "**! I've removed your AFK status!")
-					.then(msg => {
-						setTimeout(function () {
-							msg.delete()
-						}, 20000)
-					});
+						.then(msg => {
+							setTimeout(function () {
+								msg.delete()
+							}, 20000)
+						});
 				}
 				if (msg.mentions.users.size > 0 && afk.length != 0) {
 					if (msg.content.indexOf(afk[i].id) != -1 && msg.author.id != afk[i].id) {
 						var nick = msg.guild.members.get(afk[i].id).displayName
-						msg.channel.send({embed: new Discord.RichEmbed().setDescription(":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**")})
+						msg.channel.send({ embed: new Discord.RichEmbed().setDescription(":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**") })
 							.then(msg => {
 								setTimeout(function () {
 									msg.delete()
@@ -314,7 +339,7 @@ module.exports = (bot) => {
 	 * Core bot functions
 	 */
 
-	bot.send = function(channel, text) {
+	bot.send = function (channel, text) {
 		var color = channel.guild.me.displayHexColor || "#ffb200";
 		channel.send(new Discord.RichEmbed().setColor("#ffb200").setDescription(text).setFooter(bot.user.username, bot.user.avatarURL))
 	}
@@ -470,7 +495,7 @@ module.exports = (bot) => {
 	 * Logging functions
 	 */
 
-	bot.logCommand = function(command, arguments, user, channel, server) {
+	bot.logCommand = function (command, arguments, user, channel, server) {
 		bot.webhook("Command Executed", `**Shard:** ${bot.shard.id}\n**Command:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
 	}
 
@@ -530,8 +555,8 @@ module.exports = (bot) => {
 	 * Utility functions for information retrieval
 	 */
 
-	bot.displayServer = function(msg, serverID) {
-		db.run(`SELECT * FROM servers WHERE id = ${serverID}`, function(err, row) {
+	bot.displayServer = function (msg, serverID) {
+		db.run(`SELECT * FROM servers WHERE id = ${serverID}`, function (err, row) {
 			if (err)
 				msg.channel.send(err);
 			else

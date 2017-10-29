@@ -8,16 +8,22 @@ module.exports = {
     permission: 1,
     help: 'Gets a random Chuck Norris joke.',
     main: function (bot, msg) {
-        unirest.get('https://api.chucknorris.io/jokes/random')
-            .end(function (result) {
-                var joke = result.body
-                var e = new Discord.RichEmbed()
-                    .setFooter("Powered by chucknorris.io")
-                    .setTimestamp()
-                    .setAuthor("Chuck Norris Joke", joke.icon_url, joke.url)
-                    .setDescription(joke.value)
+        bot.checkForUpvote(msg).then(res => {
+            if (res) {
+                unirest.get('https://api.chucknorris.io/jokes/random')
+                    .end(function (result) {
+                        var joke = result.body
+                        var e = new Discord.RichEmbed()
+                            .setFooter("Powered by chucknorris.io")
+                            .setTimestamp()
+                            .setAuthor("Chuck Norris Joke", joke.icon_url, joke.url)
+                            .setDescription(joke.value)
 
-                msg.channel.send({ embed: e })
-            })
+                        msg.channel.send({ embed: e })
+                    })
+            } else {
+                bot.promptForUpvote(msg, this.name);
+            }
+        })
     }
 };
