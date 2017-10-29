@@ -137,6 +137,7 @@ module.exports = (bot) => {
 			unirest.get(`https://discordbots.org/api/bots/${bot.user.id}/votes`)
 				.headers({ "Authorization": bot.config.dbotsorg })
 				.end(function (result) {
+					console.log(result.body)
 					var voters = result.body
 					for (var i = 0; i < voters.length; i++) {
 						if (voters[i].id == msg.author.id)
@@ -148,7 +149,7 @@ module.exports = (bot) => {
 	}
 
 	bot.promptForUpvote = function (msg, command) {
-		msg.channel.send(`To use the **${command} command, please go upvote me on discordbots.org! ` +
+		msg.channel.send(`To use the **${command}** command, please go upvote me on discordbots.org! ` +
 			`You can do so by visiting the link below, signing in, and clicking upvote!` +
 			`If you have already upvoted, give the bot a few minutes to update its list of voters.\n` +
 			`https://discordbots.org/bot/${bot.user.id}`)
