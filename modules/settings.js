@@ -58,7 +58,7 @@ module.exports = {
 				var isOn = true
 			else if (value = 0)
 				var isOn = false
-			msg.channel.send(`The ${setting} for this server is **${isOn ? 'on' : 'off'}**. Do you want to turn it **${isOnon ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
+			msg.channel.send(`The ${setting} for this server is **${isOn ? 'on' : 'off'}**. Do you want to turn it **${isOn ? 'off' : 'on'}**? (Reply with 'yes' or 'no')`);
 			var collector = msg.channel.createCollector(
 				m => (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no'),
 				{ time: 30000 }
