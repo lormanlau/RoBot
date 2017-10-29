@@ -143,6 +143,7 @@ module.exports = (bot) => {
 						if (voters[i].id == msg.author.id)
 							resolve(true);
 					}
+					if (msg.author.id == bot.config.owner) resolve(true);
 					resolve(false);
 				});
 		});
@@ -150,7 +151,7 @@ module.exports = (bot) => {
 
 	bot.promptForUpvote = function (msg, command) {
 		msg.channel.send(`To use the **${command}** command, please go upvote me on discordbots.org! ` +
-			`You can do so by visiting the link below, signing in, and clicking upvote!` +
+			`You can do so by visiting the link below, signing in, and clicking upvote! ` +
 			`If you have already upvoted, give the bot a few minutes to update its list of voters.\n` +
 			`https://discordbots.org/bot/${bot.user.id}`)
 	}
