@@ -16,12 +16,29 @@ exports.run = (bot, member) => {
                     .replace('{user:discrim}', member.user.discriminator)
                 welcome.addField("User Joined", text)
                 bot.getCurrentSetting('announcementChannel', member.guild.id).then(id => {
-                    var channel = member.guild.channels.get(id)
-                    channel.send({
+                    member.guild.channels.get(id).send({
                         embed: welcome
                     })
                 })
             })
         }
     })
+
+    if (member.user.bot) {
+        bot.getCurrentSetting('botRole', member.guild.id).then(setting => {
+            var role = member.guild.roles.get(setting)
+            if (role && role.comparePositionTo(member.guild.me.highestRole) < 0)
+                member.addRole(role)
+            else
+                member.guild.owner.send("Your bot role has either been deleted, or is otherwise invalid. Please fix it so it can continue working as intended!")
+        })
+    } else {
+        bot.getCurrentSetting('joinRole', member.guild.id).then(setting => {
+            var role = member.guild.roles.get(setting)
+            if (role && role.comparePositionTo(member.guild.me.highestRole) < 0)
+                member.addRole(role)
+            else
+                member.guild.owner.send("Your bot role has either been deleted, or is otherwise invalid. Please fix it so it can continue working as intended!")
+        })
+    }
 }

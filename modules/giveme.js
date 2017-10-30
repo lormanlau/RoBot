@@ -1,4 +1,3 @@
-//Work on integrating this with server database later
 module.exports = {
 	name: 'giveme',
 	type: 'utility',
@@ -8,9 +7,9 @@ module.exports = {
 	main: function (bot, msg) {
 		var Discord = require("discord.js")
 		try {
-			bot.getGivemeRoles(msg.guild).then(allowedRoles => {
-				allowedRoles = allowedRoles.split(',')
-				if(allowedRoles[0] == "")
+			bot.getGivemeRoles(msg.guild).then(roles => {
+				allowedRoles = roles.split(',')
+				if(allowedRoles[0] == "" || roles == "" || !allowedRoles[0])
 					allowedRoles == [];
 				var cmd = msg.content.split(" ")[0];
 
