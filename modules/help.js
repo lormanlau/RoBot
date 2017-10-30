@@ -28,7 +28,8 @@ module.exports = {
                     }
                 });
                 help.setFooter(bot.user.username + " Command List")
-                .setTimestamp();
+                .setTimestamp()
+                .addField("Join our support server!", "Come join us at https://discord.gg/8QebTbk for support and more!")
                 msg.author.send({ embed: help });
             } else {
                 let command = msg.args[0];
@@ -39,6 +40,7 @@ module.exports = {
                         .addField('Description', `${command.help}`)
                         .addField('Usage', `${prefix}${command.usage}`)
                         .setColor([r, g, b])
+                        .addField("Join our support server!", "Come join us at https://discord.gg/8QebTbk for support and more!")
                     /*if (command.conf.aliases != "") {
                         helpCommand.addField('Aliases', `${command.conf.aliases.join(', ')}`)
                     }*/
