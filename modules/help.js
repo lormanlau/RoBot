@@ -18,19 +18,23 @@ module.exports = {
                     .setDescription(`Do ${prefix}help <commandname> for details`)
                     .setColor([r, g, b])
                 myCommands.forEach(c => {
-                    if(help.fields.length < 25)
+                    if (help.fields.length < 25)
                         help.addField(prefix + c.name, c.help)
                     else {
-                        msg.author.send({embed: help});
-                        help = new Discord.RichEmbed()
-                        .setColor([r, g, b])
-                        .addField(prefix + c.name, c.help);
+                        msg.author.send({ embed: help });
+                        var help = new Discord.RichEmbed()
+                            .setColor([r, g, b])
+                            .addField(prefix + c.name, c.help);
                     }
                 });
                 help.setFooter(bot.user.username + " Command List")
-                .setTimestamp()
-                .addField("Join our support server!", "Come join us at https://discord.gg/8QebTbk for support and more!")
+                    .setTimestamp()
                 msg.author.send({ embed: help });
+                var invite = new Discord.RichEmbed()
+                    .setTitle(bot.user.username + "Help Server")
+                    .setDescription("Come join us at https://discord.gg/8QebTbk for support and more!")
+                    .setTimestamp()
+                msg.author.send({ embed: invite })
             } else {
                 let command = msg.args[0];
                 if (bot.commands.has(command)) {
