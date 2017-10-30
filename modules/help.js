@@ -31,7 +31,8 @@ module.exports = {
                     .setTimestamp()
                 msg.author.send({ embed: help });
                 var invite = new Discord.RichEmbed()
-                    .setTitle(bot.user.username + "Help Server")
+                    .setTitle(bot.user.username + " Help Server")
+                    .setColor([r, g, b])
                     .setDescription("Come join us at https://discord.gg/8QebTbk for support and more!")
                     .setTimestamp()
                 msg.author.send({ embed: invite })
