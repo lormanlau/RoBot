@@ -22,7 +22,7 @@ module.exports = {
                         help.addField(prefix + c.name, c.help)
                     else {
                         msg.author.send({ embed: help });
-                        var help = new Discord.RichEmbed()
+                        help = new Discord.RichEmbed()
                             .setColor([r, g, b])
                             .addField(prefix + c.name, c.help);
                     }
