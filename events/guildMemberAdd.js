@@ -26,6 +26,7 @@ exports.run = (bot, member) => {
 
     if (member.user.bot) {
         bot.getCurrentSetting('botRole', member.guild.id).then(setting => {
+            if (setting == "none") return;
             var role = member.guild.roles.get(setting)
             if (role && role.comparePositionTo(member.guild.me.highestRole) < 0)
                 member.addRole(role)
@@ -34,6 +35,7 @@ exports.run = (bot, member) => {
         })
     } else {
         bot.getCurrentSetting('joinRole', member.guild.id).then(setting => {
+            if (setting == "none") return;
             var role = member.guild.roles.get(setting)
             if (role && role.comparePositionTo(member.guild.me.highestRole) < 0)
                 member.addRole(role)

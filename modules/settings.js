@@ -48,10 +48,10 @@ module.exports = {
 				processBooleanSetting(msg.args[0], value);
 			})
 		} else if (msg.args[0].toLowerCase() == 'help') {
-			sendHelp()
+			sendHelp(msg)
+		} else {
+			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")			
 		}
-		else
-			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")
 
 		function processJoinLeaveSettings(setting, value) {
 			if(value == 1)
@@ -232,6 +232,10 @@ module.exports = {
 					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
 				console.log(`Collected ${collected.size} items`)
 			});
+		}
+
+		function sendHelp(msg) {
+
 		}
 	}
 };
