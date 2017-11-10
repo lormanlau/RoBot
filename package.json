@@ -41,6 +41,8 @@
     "moment-duration-format": "*",
     "lmgtfy": "*",
     "alex": "*",
-    "random-puppy": "*"
+    "random-puppy": "*",
+    "node-opus": "*",
+    "discord.js-musicbot-addon": "*"
   }
 }

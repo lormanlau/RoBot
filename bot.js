@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client(require("./config.json").opts);
 require('./funcs.js')(bot);
+require('discord.js-musicbot-addon')(bot, require("./config.json").musicOpts);
 const readdir = require("fs").readdir;
 
 bot.commands = new Discord.Collection();
