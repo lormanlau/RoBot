@@ -101,7 +101,7 @@ module.exports = {
 						givemeEmbed.addField(`You already had ${alreadyHadCount} role(s)!`, alreadyHad);
 					};
 					if (notFoundCount > 0) {
-						givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Use the list argument to get a list of roles avaliable!');
+						givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Try {prefix}giveme list to get a list of roles avaliable!');
 					};
 
 					msg.channel.send({ embed: givemeEmbed })
