@@ -7,7 +7,7 @@ module.exports = {
 	permission: 4,
 	help: 'Changes server settings.',
 	main: function (bot, msg) {
-		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinks', 'mentionSpam']
+		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinkDeletion', 'mentionSpamProtection', 'modLogChannel']
 		var joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage']
 		var channelSettings = ['announcementChannel', 'modLogChannel']
 		var roleSettings = ['joinRole', 'botRole']
@@ -50,7 +50,7 @@ module.exports = {
 		} else if (msg.args[0].toLowerCase() == 'help') {
 			sendHelp(msg)
 		} else {
-			msg.reply("please specify a valid argument! Accepted arguments: announcementChannel, welcomeMessage, leaveMessage, banMessage, joinRole, botRole, inviteLinks, mentionSpam")			
+			msg.reply("please specify a valid argument! Accepted arguments: " + validSettings.join(", "))			
 		}
 
 		function processJoinLeaveSettings(setting, value) {
@@ -235,7 +235,7 @@ module.exports = {
 		}
 
 		function sendHelp(msg) {
-
+			
 		}
 	}
 };

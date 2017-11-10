@@ -28,36 +28,38 @@ module.exports = (bot) => {
 	}
 
 	bot.sendServerCount = function () {
-		var guilds;
-		if (bot.shard) {
-			bot.shard.fetchClientValues('guilds.size').then(g => {
-				guilds = g.reduce((prev, val) => prev + val, 0)
-			}).catch(console.error);
-		} else {
-			guilds = bot.guilds.size;
+		if (config.sendServerCounts) {
+			var guilds;
+			if (bot.shard) {
+				bot.shard.fetchClientValues('guilds.size').then(g => {
+					guilds = g.reduce((prev, val) => prev + val, 0)
+				}).catch(console.error);
+			} else {
+				guilds = bot.guilds.size;
+			}
+
+			unirest.post("https://bots.discordlist.net/api")
+				.send({ "token": bot.config.dlist, "servers": guilds })
+				.end(function (response) {
+					bot.log(response.body);
+				});
+
+			unirest.post("https://bots.discord.pw/api/bots/" + bot.user.id + "/stats")
+				.headers({ 'Authorization': bot.config.dbotspw, 'Content-Type': 'application/json' })
+				.send({ "server_count": guilds })
+				.end(function (response) {
+					bot.log(response.body);
+				});
+
+			unirest.post("https://discordbots.org/api/bots/" + bot.user.id + "/stats")
+				.headers({ 'Authorization': bot.config.dbotsorg, 'Content-Type': 'application/json' })
+				.send({ "server_count": guilds })
+				.end(function (response) {
+					bot.log(response.body);
+				});
+
+			bot.log("All server counts posted successfully!");
 		}
-
-		unirest.post("https://bots.discordlist.net/api")
-			.send({ "token": bot.config.dlist, "servers": guilds })
-			.end(function (response) {
-				bot.log(response.body);
-			});
-
-		unirest.post("https://bots.discord.pw/api/bots/" + bot.user.id + "/stats")
-			.headers({ 'Authorization': bot.config.dbotspw, 'Content-Type': 'application/json' })
-			.send({ "server_count": guilds })
-			.end(function (response) {
-				bot.log(response.body);
-			});
-
-		unirest.post("https://discordbots.org/api/bots/" + bot.user.id + "/stats")
-			.headers({ 'Authorization': bot.config.dbotsorg, 'Content-Type': 'application/json' })
-			.send({ "server_count": guilds })
-			.end(function (response) {
-				bot.log(response.body);
-			});
-
-		bot.log("All server counts posted successfully!");
 	}
 
 	bot.syncServers = function () {
@@ -122,7 +124,9 @@ module.exports = (bot) => {
 			0, 
 			"{user:username} left the server :cry:",
 			0,
-			":hammer: {user:username}#{user:discrim} ({user:id}) was banned from the server.", 
+			"{user:username} was banned from the server :hammer:",
+			0,
+			"${guild.channels.array()[0].id}",
 			"none", 
 			"none", 
 			0,
@@ -500,7 +504,7 @@ module.exports = (bot) => {
 	 */
 
 	bot.logCommand = function (command, arguments, user, channel, server) {
-		bot.webhook("Command Executed", `**Shard:** ${bot.shard.id}\n**Command:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
+		bot.webhook("Command Executed", `*Command:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel}`, "#0000FF");
 	}
 
 	bot.error = function (err) {

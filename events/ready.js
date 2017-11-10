@@ -1,6 +1,6 @@
 exports.run = (bot) => {
 	bot.config = require('../config.json');
-	//bot.sendServerCount();
+	bot.sendServerCount();
 	bot.syncServers();
 	bot.startGameCycle();
 	bot.awaitConsoleInput();
