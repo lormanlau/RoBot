@@ -363,9 +363,19 @@ module.exports = (bot) => {
 	}
 
 	bot.startGameCycle = function () {
-		bot.user.setGame(bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 'https://twitch.tv/discordapp');
+		bot.user.setPresence({
+			game: {
+				name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+				type: 0
+			}
+		});
 		setInterval(() => {
-			bot.user.setGame(bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 'https://twitch.tv/discordapp');
+			bot.user.setPresence({
+				game: {
+					name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+					type: 0
+				}
+			});
 		}, 300000);
 	}
 
