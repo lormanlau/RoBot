@@ -89,8 +89,8 @@ module.exports = {
 						.setFooter(bot.user.username)
 						.setTimestamp()
 						.setColor("#0000FF");
-					if (assignedCount > 0) {
-						givemeEmbed.addField(`Successfully took ${assignedCount} role(s) from you!`, taken);
+					if (takenCount > 0) {
+						givemeEmbed.addField(`Successfully took ${takenCount} role(s) from you!`, taken);
 					};
 					if (notFoundCount > 0) {
 						givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Try {prefix}giveme list to get a list of roles avaliable!');
