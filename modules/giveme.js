@@ -47,6 +47,56 @@ module.exports = {
 					} else {
 						msg.channel.send("Could not remove this role from the giveme list!")
 					}
+				} else if (cmd == "take") {
+					if (!allowedRoles[0]) return msg.channel.send("This server does not have any giveme roles setup!");
+
+					var taken = "";
+					var takenCount = 0;
+					var notFoundCount = 0;
+					var roles = [];
+					
+					var rolesToRemove = msg.content.split(" ")
+					rolesToRemove.shift();
+					msg.content = rolesToRemove.join(" ").trim()
+					
+					if (msg.content.indexOf(",") > -1)
+						roles = msg.content.split(",");
+					else if (msg.content != null)
+						roles[0] = msg.content;
+
+					for (var i = 0; i < roles.length; i++) {
+						var found = false;
+						for (var j = 0; j < allowedRoles.length; j++) {
+							if (allowedRoles[j].toLowerCase() == roles[i].trim().toLowerCase()) {
+								console.log("Found " + roles[i] + " " + allowedRoles[j])
+								found = true;
+								var role = msg.guild.roles.find('name', allowedRoles[j])
+								var member = msg.member;
+								if (member.roles.has(role.id)) {
+									member.removeRole(role).catch(bot.error);
+									taken += `${role.name} \n`;
+									takenCount++;
+								}
+							}
+						}
+						if (!found) {
+							console.log("Could not find " + roles[i])
+							notFoundCount++;
+						}
+					}
+
+					var givemeEmbed = new Discord.RichEmbed()
+						.setFooter(bot.user.username)
+						.setTimestamp()
+						.setColor("#0000FF");
+					if (assignedCount > 0) {
+						givemeEmbed.addField(`Successfully took ${assignedCount} role(s) from you!`, taken);
+					};
+					if (notFoundCount > 0) {
+						givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Try {prefix}giveme list to get a list of roles avaliable!');
+					};
+
+					msg.channel.send({ embed: givemeEmbed })
 				} else {
 					if (!allowedRoles[0]) return msg.channel.send("This server does not have any giveme roles setup!");
 
