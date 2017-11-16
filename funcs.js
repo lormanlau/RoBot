@@ -2,11 +2,13 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./servers.sqlite');
 const fs = require("fs");
 const unirest = require("unirest")
+const invitelink = /discord(?:app\.com|\.gg)[\/invite\/]?(?:(?!.*[Ii10OolL]).[a-zA-Z0-9]{5,6}|[a-zA-Z0-9-]{2,32})/g;
 var afkJson = fs.readFileSync("./afk.json"),
 	afk = JSON.parse(afkJson),
 	channel = null,
-	stdin = process.openStdin();
-var Discord = require('discord.js');
+	stdin = process.openStdin(),
+	Discord = require('discord.js'),
+	config = require('./config.json')
 
 module.exports = (bot) => {
 	/**
@@ -28,7 +30,7 @@ module.exports = (bot) => {
 	}
 
 	bot.sendServerCount = function () {
-		if (config.sendServerCounts) {
+		if (bot.config.sendServerCounts) {
 			var guilds;
 			if (bot.shard) {
 				bot.shard.fetchClientValues('guilds.size').then(g => {
@@ -149,7 +151,7 @@ module.exports = (bot) => {
 					}
 					if (msg.author.id == bot.config.owner) resolve(true);
 					if (msg.guild.members.get(bot.config.owner).hasPermission("MANAGE_MESSAGES")) resolve(true);
-					resolve(false);
+					resolve(true); //TODO: Set to false on Stable
 				});
 		});
 	}
@@ -212,6 +214,11 @@ module.exports = (bot) => {
 
 	bot.setNewValue = function (setting, id, text) {
 		db.run(`UPDATE servers SET ${setting} = "${text}" WHERE id = "${id}"`);
+		return text;
+	}
+
+	bot.setNewBoolValue = function (setting, id, text) {
+		db.run(`UPDATE servers SET ${setting} = ${text} WHERE id = "${id}"`);
 		return text;
 	}
 
@@ -301,6 +308,30 @@ module.exports = (bot) => {
 			}
 		}
 
+		if (msg.content.match(invitelink)) {
+			this.getCurrentBooleanSetting('inviteLinkDeletion', msg.guild.id).then(setting => {
+				if (setting && msg.deletable) { 
+					msg.delete().then(m => {
+						msg.reply("this server does not allow invite links! :no_entry_sign:")
+					})
+				} else if (setting && !msg.deletable) {
+					msg.guild.owner.send("I tried to delete an invite link in your server, but do not have permissions to!")
+				}
+			})
+		}
+
+		if (msg.mentions.users.array().length > 4) {
+			this.getCurrentBooleanSetting('mentionSpamProtection', msg.guild.id).then(setting => {
+				if (setting && msg.deletable) { 
+					msg.delete().then(m => {
+						msg.reply("don't mention more than 4 people at once! :no_entry_sign:")
+					})
+				} else if (setting && !msg.deletable) {
+					msg.guild.owner.send("I tried to delete some mention spam in your server, but do not have permissions to!")
+				}
+			})
+		}
+
 		if (msg.isMentioned(bot.user)) {
 			if (msg.content.toLowerCase().includes("what's your prefix") || msg.content.toLowerCase().includes("whats your prefix")) {
 				bot.getPrefix(msg).then(prefix => {
@@ -309,8 +340,8 @@ module.exports = (bot) => {
 			}
 
 			if (msg.content.toLowerCase().includes("resetprefix") && msg.member.hasPermission("ADMINISTRATOR")) {
-				bot.setPrefix(config.prefix, msg.guild);
-				msg.reply('I have reset this server\'s prefix to ``' + config.prefix + '``!')
+				bot.setPrefix(bot.config.prefix, msg.guild);
+				msg.reply('I have reset this server\'s prefix to ``' + bot.config.prefix + '``!')
 			}
 		}
 
@@ -363,9 +394,20 @@ module.exports = (bot) => {
 	}
 
 	bot.startGameCycle = function () {
-		bot.user.setGame(bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 'https://twitch.tv/discordapp');
+		let games = bot.config.games
+		bot.user.setPresence({
+			game: {
+				name: games[Math.round(Math.random() * (games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+				type: 0
+			}
+		});
 		setInterval(() => {
-			bot.user.setGame(bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 'https://twitch.tv/discordapp');
+			bot.user.setPresence({
+				game: {
+					name: games[Math.round(Math.random() * (games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+					type: 0
+				}
+			});
 		}, 300000);
 	}
 
@@ -399,7 +441,6 @@ module.exports = (bot) => {
 	}
 
 	bot.webhook = function (header, text, color) {
-		var config = require('./config.json')
 		var request = require('request')
 		try {
 			var d = {
@@ -424,7 +465,6 @@ module.exports = (bot) => {
 	}
 
 	bot.joinleavehook = function (type, guild) {
-		var config = require('./config.json')
 		var request = require('request')
 		bot.fetchGuildSize().then(guilds => {
 			try {

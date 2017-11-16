@@ -210,14 +210,13 @@ module.exports = {
 				{ time: 30000 }
 			);
 			collector.on('collect', m => {
-				var value = false;
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
 					if (value)
-						value = 0
+						var val = 0
 					else
-						value = 1
-					val = bot.setNewValue(setting, msg.guild, value)
-					msg.channel.send(`${setting} ${val ? 'enabled' : 'disabled'}.`);
+						var val = 1
+					value = bot.setNewValue(setting, msg.guild.id, val)
+					msg.channel.send(`${setting} ${value ? 'enabled' : 'disabled'}.`);
 					if(setting == 'modLogs' && setting) {
 						msg.channel.send('Please make sure to configure the modLogChannel setting to allow modLogs to work!')
 					}
@@ -230,7 +229,6 @@ module.exports = {
 			collector.on('end', collected => {
 				if (collected.size == 0)
 					msg.channel.send("No messages were detected within 30 seconds. Aborting...")
-				console.log(`Collected ${collected.size} items`)
 			});
 		}
 
