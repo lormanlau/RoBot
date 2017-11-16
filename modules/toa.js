@@ -39,7 +39,7 @@ module.exports = {
                     .addField('Name', b[0].team_name_short + "\n(" + b[0].team_name_long + ")", true)
                     .addField('Rookie Year', b[0].rookie_year, true)
                     .addField('Location', b[0].city + ", " + b[0].state_prov + ", " + b[0].country, true)
-                    .addField('Website', website, true)
+                    .addField('Website', website || 'None', true)
                     .addField('FTCRoot Page', "http://www.ftcroot.com/teams/" + num, true)
                 sendEmbed(teaminfo)
             })
@@ -68,7 +68,7 @@ module.exports = {
         function req(endpoint) {
             return new Promise(
                 function (resolve, reject) {
-                    unirest.get("http://beta.theorangealliance.org/api/" + endpoint)
+                    unirest.get("http://theorangealliance.org/apiv2/" + endpoint)
                         .headers({ 'X-Application-Origin': bot.user.username, 'X-TOA-Key': bot.config.toa })
                         .end(function (response) {
                             resolve(response.body);

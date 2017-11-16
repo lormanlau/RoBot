@@ -394,17 +394,16 @@ module.exports = (bot) => {
 	}
 
 	bot.startGameCycle = function () {
-		let games = bot.config.games
 		bot.user.setPresence({
 			game: {
-				name: games[Math.round(Math.random() * (games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+				name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
 				type: 0
 			}
 		});
 		setInterval(() => {
 			bot.user.setPresence({
 				game: {
-					name: games[Math.round(Math.random() * (games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
+					name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?', 
 					type: 0
 				}
 			});
