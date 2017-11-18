@@ -45,6 +45,7 @@
     "node-opus": ">=0.2.7",
     "discord.js-musicbot-addon": ">=1.6.3",
     "tba-api-storm": ">=1.0.6",
-    "whois-json": "^1.2.2"
+    "whois-json": "^1.2.2",
+    "imdb-api": "^3.1.2"
   }
 }
