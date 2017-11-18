@@ -308,7 +308,7 @@ module.exports = (bot) => {
 			}
 		}
 
-		if (msg.content.match(invitelink)) {
+		if (msg.content.match(invitelink) && this.permLevel(msg) < 2) {
 			this.getCurrentBooleanSetting('inviteLinkDeletion', msg.guild.id).then(setting => {
 				if (setting && msg.deletable) { 
 					msg.delete().then(m => {
