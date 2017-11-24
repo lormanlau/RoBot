@@ -19,12 +19,12 @@ module.exports = {
                     .setColor([r, g, b])
                 myCommands.forEach(c => {
                     if (help.fields.length < 25)
-                        help.addField(prefix + c.name, c.help)
+                        help.addField(prefix + c.name, c.help, true)
                     else {
                         msg.author.send({ embed: help });
                         help = new Discord.RichEmbed()
                             .setColor([r, g, b])
-                            .addField(prefix + c.name, c.help);
+                            .addField(prefix + c.name, c.help, true);
                     }
                 });
                 help.setFooter(bot.user.username + " Command List")
