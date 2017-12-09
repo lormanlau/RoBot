@@ -13,8 +13,9 @@ module.exports = {
 			.header("Content-Type", "application/x-www-form-urlencoded")
 			.header("Accept", "application/json")
 			.end(function (result) {
-				console.log(result.body);
-				msg.channel.send(result.body.quote + '\n*- ' + result.body.author + '*')
+				var res = JSON.parse(result.body);
+				console.log(res);
+				msg.channel.send(res.quote + '\n*- ' + res.author + '*')
 			});
 	}
 };

@@ -211,11 +211,11 @@ module.exports = {
 			);
 			collector.on('collect', m => {
 				if (m.content.toLowerCase() == 'yes' && m.author.id == msg.author.id) {
-					if (value)
-						var val = 0
+					if (value == 1)
+						value = 0
 					else
-						var val = 1
-					value = bot.setNewValue(setting, msg.guild.id, val)
+						value = 1
+					value = bot.setNewValue(setting, msg.guild.id, value)
 					msg.channel.send(`${setting} ${value ? 'enabled' : 'disabled'}.`);
 					if(setting == 'modLogs' && setting) {
 						msg.channel.send('Please make sure to configure the modLogChannel setting to allow modLogs to work!')

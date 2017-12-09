@@ -225,10 +225,7 @@ module.exports = (bot) => {
 	bot.getCurrentBooleanSetting = function (setting, id) {
 		return new Promise((resolve, reject) => {
 			db.all("SELECT * FROM servers WHERE id = " + id, function (err, rows) {
-				if (rows[0][setting] == 1)
-					resolve(true);
-				else
-					resolve(false);
+				resolve(rows[0][setting])
 			});
 		})
 	}
