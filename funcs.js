@@ -86,6 +86,7 @@ module.exports = (bot) => {
 				givemeRoles BLOB)`
 			);
 			bot.guilds.forEach(guild => {
+				console.log(`Inserting ${guild.name} into the database.`)
 				db.run(`INSERT OR IGNORE INTO servers VALUES (
 					"${guild.id}", 
 					"${guild.name}", 
