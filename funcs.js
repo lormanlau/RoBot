@@ -137,9 +137,7 @@ module.exports = (bot) => {
                                                 0,
                                                 0,
                                                 "")`);
-
 						}
-					);
 				});
 		});
 	bot.log("Servers synced.")
