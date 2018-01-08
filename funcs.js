@@ -98,6 +98,7 @@ module.exports = (bot) => {
 					mentionSpamProtection BOOLEAN,
 					givemeRoles BLOB)`);
 				bot.guilds.forEach(guild => {
+					try {
 						console.log(`Inserting ${guild.name} into the database.`)
 						if (guild.channels.array() && guild.channels.array()[0]) {
 							db.run(`INSERT OR IGNORE INTO servers VALUES (
@@ -119,7 +120,7 @@ module.exports = (bot) => {
 								0,
 								"")`);
 						} else {
-							db.run(`INSERT OR IGNORE INTO servers VALUES (
+							db.run(`INSERT OR IGNORE INTO "servers" VALUES (
                                                 "${guild.id}",
                                                 "${guild.name.replace('"', "'")}",
                                                 "${config.prefix}",
@@ -138,10 +139,13 @@ module.exports = (bot) => {
                                                 0,
                                                 "")`);
 						}
-				});
+					} catch (err) {
+						console.log(err.stack)
+					}
+			});
 		});
-	bot.log("Servers synced.")
-}
+		bot.log("Servers synced.")
+	}
 
 bot.removeServer = function(guild) {
 	db.run(`DELETE FROM servers WHERE id = ${guild.id}`);
