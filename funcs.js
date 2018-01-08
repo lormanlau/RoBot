@@ -102,11 +102,11 @@ module.exports = (bot) => {
 						if (guild.channels.array() && guild.channels.array()[0]) {
 							db.run(`INSERT OR IGNORE INTO servers VALUES (
 								"${guild.id}", 
-								"${guild.name}", 
+								"${guild.name.replace'"' "'"}", 
 								"${config.prefix}", 
-								"${guild.channels.array()[0].id}", 
+								"${guild.channels.array()[0].id}",
 								0, 
-								"Welcome {user:username} to the server!", 
+								"Welcome {user:username} to the server!",
 								0, 
 								"{user:username} left the server 😢",
 								0,
@@ -121,7 +121,7 @@ module.exports = (bot) => {
 						} else {
 							db.run(`INSERT OR IGNORE INTO servers VALUES (
                                                 "${guild.id}",
-                                                "${guild.name}",
+                                                "${guild.name.replace'"' "'"}",
                                                 "${config.prefix}",
                                                 "none",
                                                 0,
@@ -151,7 +151,7 @@ bot.removeServer = function(guild) {
 bot.addServer = function(guild) {
 	db.run(`INSERT OR IGNORE INTO servers VALUES (
 			"${guild.id}", 
-			"${guild.name}", 
+			"${guild.name.replace'"' "'"}", 
 			"${bot.config.prefix}", 
 			"${guild.channels.array()[0].id}", 
 			0, 
