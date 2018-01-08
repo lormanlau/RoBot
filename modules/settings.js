@@ -7,7 +7,8 @@ module.exports = {
 	permission: 4,
 	help: 'Changes server settings.',
 	main: function (bot, msg) {
-		var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinkDeletion', 'mentionSpamProtection', 'modLogChannel']
+		//var validSettings = ['announcementChannel', 'welcomeMessage', 'leaveMessage', 'banMessage', 'joinRole', 'botRole', 'inviteLinkDeletion', 'mentionSpamProtection', 'modLogChannel']
+		var validSettings = ['joinRole', 'botRole', 'inviteLinkDeletion', 'mentionSpamProtection', 'modLogChannel']
 		var joinLeaveSettings = ['welcomeMessage', 'leaveMessage', 'banMessage']
 		var channelSettings = ['announcementChannel', 'modLogChannel']
 		var roleSettings = ['joinRole', 'botRole']
@@ -31,14 +32,17 @@ module.exports = {
 				}
 				msg.channel.send({ embed: settings })
 			})
+			msg.channel.send("Welcome/Leave/Ban messages are currently disabled for maintainance!")
 		} else if (joinLeaveSettings.indexOf(msg.args[0]) > -1) {
-			bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
+			msg.reply('sorry, this is disabled for now for bug fixes!')
+			/*bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
 				processJoinLeaveSettings(msg.args[0], value)
-			})
+			})*/
 		} else if (channelSettings.indexOf(msg.args[0]) > -1) {
-			bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
+			msg.reply('sorry, this is disabled for now for bug fixes!')
+			/*bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
 				processChannelSetting(msg.args[0], value);
-			})
+			})*/
 		} else if (roleSettings.indexOf(msg.args[0]) > -1) {
 			bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
 				processRoleSetting(msg.args[0], value);
