@@ -81,7 +81,6 @@ module.exports = (bot) => {
 		db.serialize(function() {
 				db.run(`CREATE TABLE IF NOT EXISTS servers (
 					id VARCHAR(25) PRIMARY KEY, 
-					name VARCHAR(100), 
 					prefix VARCHAR(10), 
 					announcementChannel VARCHAR(25),
 					welcomeMessagesEnabled BOOLEAN, 
@@ -103,7 +102,6 @@ module.exports = (bot) => {
 						if (guild.channels.array() && guild.channels.array()[0]) {
 							db.run(`INSERT OR IGNORE INTO servers VALUES (
 								"${guild.id}", 
-								"${guild.name.replace('"', "'")}", 
 								"${config.prefix}", 
 								"${guild.channels.array()[0].id}",
 								0, 
@@ -122,7 +120,6 @@ module.exports = (bot) => {
 						} else {
 							db.run(`INSERT OR IGNORE INTO "servers" VALUES (
                                                 "${guild.id}",
-                                                "${guild.name.replace('"', "'")}",
                                                 "${config.prefix}",
                                                 "none",
                                                 0,
