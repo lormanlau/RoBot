@@ -151,7 +151,7 @@ module.exports = (bot) => {
 					}
 					if (msg.author.id == bot.config.owner) resolve(true);
 					if (msg.guild.members.get(bot.config.owner).hasPermission("MANAGE_MESSAGES")) resolve(true);
-					resolve(true); //TODO: Set to false on Stable
+					resolve(false); //TODO: Set to false on Stable
 				});
 		});
 	}
