@@ -2,29 +2,33 @@ var config = require("./config.json"),
 	Discord = require('discord.js'),
 	bot = new Discord.Client();
 
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./servers.sqlite');
+
 bot.on('ready', () => {
 	db.serialize(function() {
 		db.run(`CREATE TABLE IF NOT EXISTS servers (
-					id VARCHAR(25) PRIMARY KEY, 
-					name VARCHAR(100), 
-					prefix VARCHAR(10), 
+					id VARCHAR(25) PRIMARY KEY,
+					name VARCHAR(100),
+					prefix VARCHAR(10),
 					announcementChannel VARCHAR(25),
-					welcomeMessagesEnabled BOOLEAN, 
+					welcomeMessagesEnabled BOOLEAN,
 					welcomeMessage VARCHAR(200), 
-					leaveMessagesEnabled BOOLEAN, 
+					leaveMessagesEnabled BOOLEAN,
 					leaveMessage VARCHAR(200),
 					banMessagesEnabled BOOLEAN,
 					banMessage VARCHAR(200),
 					modLogs BOOLEAN,
 					modLogChannel VARCHAR(25),
 					joinRole VARCHAR(20),
-					botRole VARCHAR(20), 
+					botRole VARCHAR(20),
 					inviteLinkDeletion BOOLEAN,
 					mentionSpamProtection BOOLEAN,
 					givemeRoles BLOB)`);
 		bot.guilds.forEach(guild => {
 			console.log(`Inserting ${guild.name} into the database.`)
-			db.run(`INSERT OR IGNORE INTO servers VALUES (
+			if (guild.channels.array() && guild.channels.array()[0]) {
+				db.run(`INSERT OR IGNORE INTO servers VALUES (
 						"${guild.id}", 
 						"${guild.name}", 
 						"${config.prefix}", 
@@ -42,6 +46,27 @@ bot.on('ready', () => {
 						0,
 						0,
 						"")`);
+			} else {
+				db.run(`INSERT OR IGNORE INTO servers VALUES (
+                                                "${guild.id}",
+                                                "${guild.name}",
+                                                "${config.prefix}",
+                                                "none",
+                                                0,
+                                                "Welcome {user:username} to the server!",
+                                                0,
+                                                "{user:username} left the server :cry:",
+                                                0,
+                                                "{user:username} was banned from the server :hammer:",
+                                                0,
+                                                "none",
+                                                "none",
+                                                "none",
+                                                0,
+                                                0,
+                                                "")`);
+
+			}
 		});
 	});
 	console.log("Servers synced.")
