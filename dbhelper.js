@@ -1,13 +1,13 @@
-var config = require("./config.json"),
-	Discord = require('discord.js'),
-	bot = new Discord.Client();
+var config = require('./config.json'),
+    Discord = require('discord.js'),
+    bot = new Discord.Client();
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./servers.sqlite');
 
 bot.on('ready', () => {
-	db.serialize(function() {
-		db.run(`CREATE TABLE IF NOT EXISTS servers (
+    db.serialize(() => {
+        db.run(`CREATE TABLE IF NOT EXISTS servers (
 					id VARCHAR(25) PRIMARY KEY,
 					prefix VARCHAR(10),
 					announcementChannel VARCHAR(25),
@@ -24,10 +24,10 @@ bot.on('ready', () => {
 					inviteLinkDeletion BOOLEAN,
 					mentionSpamProtection BOOLEAN,
 					givemeRoles BLOB)`);
-		bot.guilds.forEach(guild => {
-			console.log(`Inserting ${guild.name} into the database.`)
-			if (guild.channels.array() && guild.channels.array()[0]) {
-				db.run(`INSERT OR IGNORE INTO servers VALUES (
+        bot.guilds.forEach(guild => {
+            console.log(`Inserting ${guild.name} into the database.`);
+            if (guild.channels.array() && guild.channels.array()[0]) {
+                db.run(`INSERT OR IGNORE INTO servers VALUES (
 						"${guild.id}", 
 						"${config.prefix}", 
 						"${guild.channels.array()[0].id}", 
@@ -44,8 +44,8 @@ bot.on('ready', () => {
 						0,
 						0,
 						"")`);
-			} else {
-				db.run(`INSERT OR IGNORE INTO servers VALUES (
+            } else {
+                db.run(`INSERT OR IGNORE INTO servers VALUES (
                                                 "${guild.id}",
                                                 "${config.prefix}",
                                                 "none",
@@ -62,11 +62,11 @@ bot.on('ready', () => {
                                                 0,
                                                 0,
                                                 "")`);
-
-			}
-		});
-	});
-	console.log("Servers synced.")
+            }
+        });
+    });
+    console.log('Servers synced.');
 });
 
 bot.login(config.token)
+;

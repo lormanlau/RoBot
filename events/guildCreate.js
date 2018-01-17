@@ -1,8 +1,7 @@
-
 exports.run = (bot, guild) => {
-    setTimeout(function () {
+    setTimeout(() => {
         bot.addServer(guild);
         bot.sendServerCount(bot);
-        bot.joinleavehook('join', guild)
-    }, 3000)
-}
+        bot.joinleavehook('join', guild);
+    }, 3000);
+};

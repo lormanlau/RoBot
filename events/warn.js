@@ -1,4 +1,3 @@
-
 exports.run = (bot, err) => {
-	bot.warn(err);
-}
+    bot.warn(err);
+};

@@ -1,19 +1,18 @@
-
 exports.run = (bot, emoji) => {
     bot.channels.get(bot.config.eventlogging).send({
         embed: {
-            title: ":card_box: Emoji Deleted",
+            title: ':card_box: Emoji Deleted',
             fields: [{
-                name: "Guild",
+                name: 'Guild',
                 value: emoji.guild.name,
-                inline: true
+                inline: true,
             }, {
-                name: "Name",
+                name: 'Name',
                 value: `${emoji.name}`,
-                inline: true
+                inline: true,
             }],
             timestamp: new Date(),
-            color: "16711680"
-        }
-    })
-}
+            color: '16711680',
+        },
+    });
+};
