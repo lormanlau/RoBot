@@ -35,14 +35,14 @@ module.exports = {
             msg.channel.send('Welcome/Leave/Ban messages are currently disabled for maintainance!');
         } else if (joinLeaveSettings.indexOf(msg.args[0]) > -1) {
             msg.reply('sorry, this is disabled for now for bug fixes!');
-			/* bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
-				processJoinLeaveSettings(msg.args[0], value)
-			})*/
+            /* bot.getCurrentBooleanSetting(msg.args[0], msg.guild.id).then(value => {
+                processJoinLeaveSettings(msg.args[0], value)
+            })*/
         } else if (channelSettings.indexOf(msg.args[0]) > -1) {
             msg.reply('sorry, this is disabled for now for bug fixes!');
-			/* bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
-				processChannelSetting(msg.args[0], value);
-			})*/
+            /* bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
+                processChannelSetting(msg.args[0], value);
+            })*/
         } else if (roleSettings.indexOf(msg.args[0]) > -1) {
             bot.getCurrentSetting(msg.args[0], msg.guild.id).then(value => {
                 processRoleSetting(msg.args[0], value);
@@ -55,7 +55,7 @@ module.exports = {
             msg.reply('please specify a valid argument! Accepted arguments: ' + validSettings.join(', '));
         }
 
-        function processJoinLeaveSettings(setting, value) {
+        /* function processJoinLeaveSettings(setting, value) {
             if (value === 1) {
                 var isOn = true;
             } else if (value === 0) {
@@ -163,7 +163,7 @@ module.exports = {
                 }
                 console.log(`Collected ${collected.size} items`);
             });
-        }
+        } */
 
         function processRoleSetting(setting, value) {
             msg.channel.send(`The current ${setting} for this server is **${value}**. Do you want to change it? (Reply with 'yes' or 'no')`);
@@ -225,8 +225,7 @@ module.exports = {
                     if (value === 1) {
                         value = 0;
                     } else {
-                        value = 1
- ;
+                        value = 1;
                     }
                     value = bot.setNewValue(setting, msg.guild.id, value);
                     msg.channel.send(`${setting} ${value ? 'enabled' : 'disabled'}.`);
