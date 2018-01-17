@@ -5,7 +5,7 @@ module.exports = {
 	permission: 1,
 	help: 'Provides the time since a specified time.',
 	main: function(bot, msg) {
-		try{
+		try {
 			var d1 = new Date(msg.content);
 			var d2 = new Date();
 			var t1 = d1.getTime();
@@ -19,7 +19,7 @@ module.exports = {
 			var totalMinutes = parseInt(time / 60000);
 			var minutes = parseInt((time - (totalHours * 3600000)) / 60000) ;
 			var seconds = parseInt((time - (totalMinutes * 60000)) / 1000) ;
-			message.channel.send("Time since " + d1.toDateString() + ": \n**" + years + " years, " + days + " days, " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds**");
+			msg.channel.send("Time since " + d1.toDateString() + ": \n**" + years + " years, " + days + " days, " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds**");
 		}
 		catch(err) {
 			msg.channel.send("Error processing date. Please put in MM/DD/YY format");

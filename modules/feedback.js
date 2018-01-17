@@ -11,7 +11,7 @@ module.exports = {
 		var owner = bot.users.get(require("../config.json").owner);
 		var f = new Discord.RichEmbed();
 		f.setColor(0x1675DB)
-			.setAuthor(msg.author.username, msg.author.avatarURL)
+			.setAuthor(msg.author.username + "(" + msg.author.id + ")", msg.author.avatarURL)
 			.addField('Feedback Recieved', msg.content)
 			.setFooter(`RoBot`, `${bot.user.avatarURL}`)
 			.setTimestamp()
