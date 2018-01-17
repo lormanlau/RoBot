@@ -7,16 +7,16 @@ module.exports = {
     usage: 'dogfact',
     permission: 1,
     help: 'Gets a random dog fact.',
-    main: function (bot, msg) {
+    main: function(bot, msg) {
         unirest.get('https://dog-api.kinduff.com/api/facts')
-            .end(function (result) {
+            .end(result => {
                 var e = new Discord.RichEmbed()
-                    .setFooter("Powered by kinduff.com")
+                    .setFooter('Powered by kinduff.com')
                     .setTimestamp()
-                    .setTitle("Dog Fact")
-                    .setDescription(result.body.facts[0])
+                    .setTitle('Dog Fact')
+                    .setDescription(result.body.facts[0]);
 
-                msg.channel.send({ embed: e })
-            })
-    }
+                msg.channel.send({ embed: e });
+            });
+    },
 };

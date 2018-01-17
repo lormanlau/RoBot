@@ -5,7 +5,7 @@ module.exports = {
     usage: 'kick <usermention> <reason>',
     permission: 3,
     help: 'Kicks a specified user and places it in mod logs.',
-    main: function (bot, msg) {
+    main: function(bot, msg) {
         const Discord = require('discord.js');
         var kickee = msg.mentions.users.array()[0];
 
