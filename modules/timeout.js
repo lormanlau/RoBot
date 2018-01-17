@@ -11,16 +11,14 @@ module.exports = {
         if (!isNaN(time) && msg.member.hasPermission('MANAGE_MESSAGES')) {
             id = msg.guild.id;
 
-            msg.channel.overwritePermissions(id, { SEND_MESSAGES: false })
-                .then(
-                msg.channel.send(`**This channel has been timed out for ${time} seconds by ${msg.author}.**`)
-                    .then(msg2 => {
-                        setTimeout(() => {
-                            msg2.edit('**The timeout period has elapsed.**');
-                            msg2.channel.overwritePermissions(id, { SEND_MESSAGES: true });
-                        }, time * 1000);
-                    })
-                );
+            msg.channel.overwritePermissions(id, { SEND_MESSAGES: false }).then(
+                msg.channel.send(`**This channel has been timed out for ${time} seconds by ${msg.author}.**`).then(msg2 => {
+                    setTimeout(() => {
+                        msg2.edit('**The timeout period has elapsed.**');
+                        msg2.channel.overwritePermissions(id, { SEND_MESSAGES: true });
+                    }, time * 1000);
+                })
+            );
         }
     },
 };

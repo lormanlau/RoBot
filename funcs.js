@@ -197,7 +197,7 @@ module.exports = bot => {
             `https://discordbots.org/bot/${bot.user.id}`);
     };
 
-	/**
+    /**
 	 * Giveme Roles Functions
 	 */
 

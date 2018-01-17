@@ -17,7 +17,7 @@ module.exports = {
             if (res) {
                 google.build({
                     q: message.content,
-                    num: 1, // Number of search results to return between 1 and 10, inclusive
+                    num: 1,
                 }, (err, response) => {
                     console.log(err);
                     console.log(response);
