@@ -10,11 +10,11 @@ module.exports = {
             var num = msg.content;
             if (!isNaN(num)) {
                 msg.channel.fetchMessages({ limit: num })
-					.then(messages => msg.channel.bulkDelete(messages))
-					.catch(msg.channel.bulkDelete);
+                    .then(messages => msg.channel.bulkDelete(messages))
+                    .catch(msg.channel.bulkDelete);
 
                 msg.channel.sendMessage('Deleted ' + num + ' messages under request of <@' + msg.author.id + '>')
-				.then(msg2 => setTimeout(() => { msg2.delete(); }, 5000));
+                    .then(msg2 => setTimeout(() => { msg2.delete(); }, 5000));
             } else {
                 msg.channel.sendMessage('Please specify a number!');
             }

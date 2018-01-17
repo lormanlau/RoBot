@@ -5,6 +5,6 @@ module.exports = {
     permission: 1,
     help: 'Flips a coin.',
     main: function(bot, msg) {
-        msg.channel.send('The coin landed on ' + `${Math.random() > 0.5 ? 'Heads' : 'Tails'}!`);
+        msg.channel.send(`The coin landed on ${Math.random() > 0.5 ? 'Heads' : 'Tails'}!`);
     },
 };

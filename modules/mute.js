@@ -29,13 +29,13 @@ module.exports = {
             msg.reply(member + ' has been muted.');
 
             var mute = new Discord.RichEmbed()
-				.setColor(0xFFB200)
-				.setAuthor(user.username, user.avatarURL)
-				.addField('Member Muted', `**${user.username}#${user.discriminator} (${user.id}) was muted.**`)
-				.addField('Responsible Moderator', msg.member.displayName)
-				.addField('Reason', reason || 'Not Specified')
-				.setFooter(`${guild.name}`, `${guild.iconURL}`)
-				.setTimestamp();
+                .setColor(0xFFB200)
+                .setAuthor(user.username, user.avatarURL)
+                .addField('Member Muted', `**${user.username}#${user.discriminator} (${user.id}) was muted.**`)
+                .addField('Responsible Moderator', msg.member.displayName)
+                .addField('Reason', reason || 'Not Specified')
+                .setFooter(`${guild.name}`, `${guild.iconURL}`)
+                .setTimestamp();
             try {
                 var log = msg.guild.channels.find('name', 'mod-logs') || msg.guild.channels.find('name', 'modlogs');
                 log.send({ embed: mute });

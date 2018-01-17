@@ -22,21 +22,21 @@ module.exports = {
                 }
 
                 m.setTitle(`${d.title} (${d.year})`)
-					.setDescription('Movie Information')
-					.setURL(d.imdburl)
-					.addField('Director', d.director, true)
-					.addField('Producer', d.production, true)
-					.addField('Writer(s)', d.writer.split(', ').join('\n') || 'None', true)
-					.addField('Featuring', d.actors.split(', ').join('\n') || 'None', true)
-					.addField('Release Date', new Date(d.released).toLocaleDateString('en-US'), true)
-					.addField('Rated', d.rated, true)
-					.addField('Genres', d.genres, true)
-					.addField('Duration', d.runtime, true)
-					.addField('Rating', d.rating + '/10', true)
-					.addField('Votes', d.votes, true)
-					.addField('Awards', d.awards || 'None', true)
-					.setFooter('Powered by IMDB')
-					.setTimestamp();
+                    .setDescription('Movie Information')
+                    .setURL(d.imdburl)
+                    .addField('Director', d.director, true)
+                    .addField('Producer', d.production, true)
+                    .addField('Writer(s)', d.writer.split(', ').join('\n') || 'None', true)
+                    .addField('Featuring', d.actors.split(', ').join('\n') || 'None', true)
+                    .addField('Release Date', new Date(d.released).toLocaleDateString('en-US'), true)
+                    .addField('Rated', d.rated, true)
+                    .addField('Genres', d.genres, true)
+                    .addField('Duration', d.runtime, true)
+                    .addField('Rating', d.rating + '/10', true)
+                    .addField('Votes', d.votes, true)
+                    .addField('Awards', d.awards || 'None', true)
+                    .setFooter('Powered by IMDB')
+                    .setTimestamp();
 
                 if (d.plot.length > 1024 && d.plot.length < 2000) {
                     m.addField('Description (1/2)', d.plot.substring(0, d.plot.indexOf(' ', 1010)) + '...');

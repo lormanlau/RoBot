@@ -30,7 +30,7 @@ module.exports = {
 					.addField('Member Banned', `**:hammer: ${user.username}#${user.discriminator} (${user.id}) was banned from the server.**`)
 					.addField('Responsible Moderator', msg.member.displayName)
 					.addField('Reason', reason)
-					.setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
+                    .setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
 					.setTimestamp();
 
                 try {

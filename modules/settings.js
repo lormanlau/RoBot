@@ -13,7 +13,7 @@ module.exports = {
         var channelSettings = ['announcementChannel', 'modLogChannel'];
         var roleSettings = ['joinRole', 'botRole'];
         var booleanSettings = ['inviteLinkDeletion', 'mentionSpamProtection', 'modLogs'];
-        var acceptedArgs = '``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``';
+        // var acceptedArgs = '``{server:name}``, ``{user:username}``, ``{user:mention}``, ``{user:discrim}``, ``{server:membercount}``';
 
         if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's setings!");
 

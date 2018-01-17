@@ -40,24 +40,18 @@ module.exports = {
                         var x = Math.floor(Math.random() * damage.length);
                         if (turn1 === true) {
                             hp2 -= damage[x];
-                            if (hp2 < 0) {
-                                hp2 = 0;
-                            }
                             sendMessage('**' + player2.username + '**' + responses[i] + '**' + player1.username + '**! *[-' + damage[x] + ' hp] [' + hp2 + ' HP remaining]*', times);
                             turn1 = false;
                         } else {
                             hp1 -= damage[x];
-                            if (hp1 < 0) {
-                                hp1 = 0;
-                            }
                             sendMessage('**' + player1.username + '**' + responses[i] + '**' + player2.username + '**! *[-' + damage[x] + ' hp] [' + hp1 + ' HP remaining]*', times);
                             turn1 = true;
                         }
                     }
 
-                    if (hp1 === 0) {
+                    if (hp1 <= 0) {
                         sendMessage(player1 + ' lost! GG ' + player2 + '!', times);
-                    } else if (hp2 === 0) {
+                    } else if (hp2 <= 0) {
                         sendMessage(player2 + ' lost! GG ' + player1 + '!', times);
                     }
 

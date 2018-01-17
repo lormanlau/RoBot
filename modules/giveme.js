@@ -91,7 +91,7 @@ module.exports = {
                     }
 
                     var givemeEmbed = new Discord.RichEmbed()
-						.setFooter(bot.user.username)
+                        .setFooter(bot.user.username)
 						.setTimestamp()
 						.setColor('#0000FF');
                     if (takenCount > 0) {
