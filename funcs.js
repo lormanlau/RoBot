@@ -11,7 +11,7 @@ var afkJson = fs.readFileSync('./afk.json'),
     config = require('./config.json');
 
 module.exports = bot => {
-	/**
+    /**
 	 * Server Related Functions
 	 */
 

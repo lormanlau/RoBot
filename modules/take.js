@@ -30,11 +30,11 @@ module.exports = {
         msg.guild.members.get(user.id).removeRole(role).then(m => {
             if (!m.roles.has(role.id)) {
                 msg.channel.send('Successfully removed role *' + roleToTake + '* from ' + user + '.');
-            } else				{
+            } else {
                 msg.channel.send('Failed to remove role *' + roleToTake + '* from ' + user + '.');
             }
         })
-        .catch(console.error);
+            .catch(console.error);
         return null;
     },
 };

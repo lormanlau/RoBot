@@ -16,8 +16,7 @@ module.exports = {
         }
         var member = msg.guild.members.get(msg.mentions.users.array()[0].id);
         if (!member.voiceChannel) {
-            return msg.reply('this member is not in voice!')
-;
+            return msg.reply('this member is not in voice!');
         }
 
         try {
