@@ -21,11 +21,11 @@ module.exports = {
                 if (evaled === null) evaled = 'null';
 
                 embed.setColor(0x00FF00)
-				.setTitle('Javascript Evaluation Complete')
-				.setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
-				.setTimestamp()
-				.addField('Code', '```js\n' + clean(code) + '```')
-				.addField('Result', '```js\n' + clean(evaled.toString().replace(bot.token, 'REDACTED')) + '```');
+                    .setTitle('Javascript Evaluation Complete')
+                    .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
+                    .setTimestamp()
+                    .addField('Code', '```js\n' + clean(code) + '```')
+                    .addField('Result', '```js\n' + clean(evaled.toString().replace(bot.token, 'REDACTED')) + '```');
                 if (evaled instanceof Object) {
                     embed.addField('Inspect', '```js\n' + insp.toString().replace(bot.token, 'REDACTED') + '```');
                 } else {
@@ -34,12 +34,12 @@ module.exports = {
                 msg.channel.send({ embed: embed });
             } catch (err) {
                 embed.setColor(0xFF0000)
-				.setTitle('ERROR THROWN in Javascript Evaluation')
-				.setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
-				.setTimestamp()
-				.addField('Error', '```LDIF\n' + clean(err.message) + '```');
+                    .setTitle('ERROR THROWN in Javascript Evaluation')
+                    .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
+                    .setTimestamp()
+                    .addField('Error', '```LDIF\n' + clean(err.message) + '```');
                 msg.channel.send({ embed: embed })
-					.catch(error => console.log(error.stack));
+                    .catch(error => console.log(error.stack));
             }
         } else {
             msg.reply('you do not have permission to use eval!');

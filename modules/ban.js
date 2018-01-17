@@ -26,12 +26,12 @@ module.exports = {
 
                 var ban = new Discord.RichEmbed();
                 ban.setColor(0xFFB200)
-					.setAuthor(user.username, user.avatarURL)
-					.addField('Member Banned', `**:hammer: ${user.username}#${user.discriminator} (${user.id}) was banned from the server.**`)
-					.addField('Responsible Moderator', msg.member.displayName)
-					.addField('Reason', reason)
+                    .setAuthor(user.username, user.avatarURL)
+                    .addField('Member Banned', `**:hammer: ${user.username}#${user.discriminator} (${user.id}) was banned from the server.**`)
+                    .addField('Responsible Moderator', msg.member.displayName)
+                    .addField('Reason', reason)
                     .setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
-					.setTimestamp();
+                    .setTimestamp();
 
                 try {
                     var log = msg.guild.channels.find('name', 'mod-logs');

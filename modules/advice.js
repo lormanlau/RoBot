@@ -9,15 +9,15 @@ module.exports = {
     help: 'Gets advice.',
     main: function(bot, msg) {
         unirest.get('http://api.adviceslip.com/advice')
-        .end(result => {
-            var advice = JSON.parse(result.body);
-            var e = new Discord.RichEmbed()
-            .setFooter('Powered by adviceslip.com')
-            .setTimestamp()
-            .setTitle('Advice Slip #' + advice.slip.slip_id)
-            .setDescription(advice.slip.advice);
+            .end(result => {
+                var advice = JSON.parse(result.body);
+                var e = new Discord.RichEmbed()
+                    .setFooter('Powered by adviceslip.com')
+                    .setTimestamp()
+                    .setTitle('Advice Slip #' + advice.slip.slip_id)
+                    .setDescription(advice.slip.advice);
 
-            msg.channel.send({ embed: e });
-        });
+                msg.channel.send({ embed: e });
+            });
     },
 };

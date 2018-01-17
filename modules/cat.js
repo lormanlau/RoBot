@@ -8,8 +8,8 @@ module.exports = {
     help: 'Returns a random cat picture.',
     main: function(bot, msg) {
         unirest.get('http://random.cat/meow')
-        .end(result => {
-            msg.channel.send(result.body.file);
-        });
+            .end(result => {
+                msg.channel.send(result.body.file);
+            });
     },
 };

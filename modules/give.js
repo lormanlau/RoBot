@@ -31,11 +31,11 @@ module.exports = {
                     msg.guild.members.get(users[i].id).addRole(role).then(m => {
                         if (m.roles.has(role.id)) {
                             msg.channel.send('Successfully added role `' + roles[r] + '` to ' + users[i] + '.');
-                        } else							{
+                        } else {
                             msg.channel.send('Failed to add role `' + roles[r] + '` to ' + users[i] + '.');
                         }
                     })
-                    .catch(console.error);
+                        .catch(console.error);
                 }
             }
         }

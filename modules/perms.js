@@ -11,23 +11,23 @@ module.exports = {
             var member = msg.guild.members.get(msg.mentions.users.array()[0].id);
         } else if (bot.users.get(msg.content) !== null) {
             member = msg.guild.members.get(msg.content);
-        } else			{
+        } else {
             member = msg.guild.members.get(msg.author.id);
         }
 
         var p = member.permissions.serialize(true);
 
         var perms = new Discord.RichEmbed()
-			.setAuthor(member.user.username + '#' + member.user.discriminator, member.user.avatarURL)
-			.setDescription('User Permissions for ' + msg.guild.name)
-			.setColor(0x1675DB);
+            .setAuthor(member.user.username + '#' + member.user.discriminator, member.user.avatarURL)
+            .setDescription('User Permissions for ' + msg.guild.name)
+            .setColor(0x1675DB);
 
         var i = 0;
         for (var key in p) {
             if (p.hasOwnProperty(key) && i < 24) {
                 if (p[key] === false) {
                     perms.addField(blah(key), ':x:', true);
-                } else					{
+                } else {
                     perms.addField(blah(key), ':white_check_mark:', true);
                 }
                 i++;
@@ -35,9 +35,9 @@ module.exports = {
             if (i === 24) {
                 msg.channel.send({ embed: perms });
                 perms = new Discord.RichEmbed()
-                .setColor(0x1675DB)
-                .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
-                .setTimestamp();
+                    .setColor(0x1675DB)
+                    .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
+                    .setTimestamp();
                 i = 0;
             }
         }

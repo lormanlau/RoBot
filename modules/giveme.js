@@ -21,9 +21,11 @@ module.exports = {
                     for (var i = 0; i < allowedRoles.length; i++) {
                         list += allowedRoles[i] + '\n';
                     }
-                    msg.channel.send({ embed: new Discord.RichEmbed().setColor('#0000FF').setTimestamp()
-                        .setFooter(bot.user.username)
-                        .addField('Roles avaliable to self assign', list) });
+                    msg.channel.send({
+                        embed: new Discord.RichEmbed().setColor('#0000FF').setTimestamp()
+                            .setFooter(bot.user.username)
+                            .addField('Roles avaliable to self assign', list),
+                    });
                 } else if (cmd === 'add') {
                     if (!msg.member.hasPermission('MANAGE_GUILD')) return msg.reply("you do not have permission to manage this server's giveme setings!");
                     var roleToAdd = msg.content.split(' ');
@@ -92,8 +94,8 @@ module.exports = {
 
                     var givemeEmbed = new Discord.RichEmbed()
                         .setFooter(bot.user.username)
-						.setTimestamp()
-						.setColor('#0000FF');
+                        .setTimestamp()
+                        .setColor('#0000FF');
                     if (takenCount > 0) {
                         givemeEmbed.addField(`Successfully took ${takenCount} role(s) from you!`, taken);
                     }
@@ -116,7 +118,7 @@ module.exports = {
                         roles = msg.content.split(',');
                     } else if (msg.content !== null) {
                         roles[0] = msg.content;
-                    } else						{
+                    } else {
                         return msg.channel.send('Please specify either roles you want to self assign or an argument!');
                     }
 
@@ -147,9 +149,9 @@ module.exports = {
                     }
 
                     givemeEmbed = new Discord.RichEmbed()
-						.setFooter(bot.user.username)
-						.setTimestamp()
-						.setColor('#0000FF');
+                        .setFooter(bot.user.username)
+                        .setTimestamp()
+                        .setColor('#0000FF');
                     if (assignedCount > 0) {
                         givemeEmbed.addField(`Successfully gave you ${assignedCount} role(s)!`, assigned);
                     }
