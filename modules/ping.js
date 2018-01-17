@@ -7,7 +7,7 @@ module.exports = {
     main: function(bot, msg) {
         var start = new Date(msg.createdAt).getTime();
         msg.channel.send('Pong!')
-            .then(msg2 => msg2.edit("Hello, pong! You're on the **" + msg.channel.guild.name + '** server.\nTook ' + (msg.createdAt.getTime() - start) + ' ms to respond.'))
+            .then(msg2 => msg2.edit("Hello, pong! You're on the **" + msg.channel.guild.name + '** server.\nTook ' + (msg2.createdAt.getTime() - start) + ' ms to respond.'))
             .catch(console.error);
     },
 };
