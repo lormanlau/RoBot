@@ -13,7 +13,7 @@ module.exports = {
 	permission: 1,
 	help: 'Queries Google for information.',
 	main: function (bot, message) {
-		bot.checkForUpvote(msg).then(res => {
+		bot.checkForUpvote(message).then(res => {
 			if (res) {
 				google.build({
 					q: message.content,
