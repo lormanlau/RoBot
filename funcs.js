@@ -12,8 +12,8 @@ var afkJson = fs.readFileSync('./afk.json'),
 
 module.exports = bot => {
     /**
-	 * Server Related Functions
-	 */
+     * Server Related Functions
+     */
 
     bot.fetchGuildSize = function() {
         return new Promise(
@@ -119,22 +119,22 @@ module.exports = bot => {
 								"")`);
                     } else {
                         db.run(`INSERT OR IGNORE INTO "servers" VALUES (
-                                                "${guild.id}",
-                                                "${config.prefix}",
-                                                "none",
-                                                0,
-                                                "Welcome {user:username} to the server!",
-                                                0,
-                                                "{user:username} left the server 😢",
-                                                0,
-                                                "{user:username} was banned from the server 🔨",
-                                                0,
-                                                "none",
-                                                "none",
-                                                "none",
-                                                0,
-                                                0,
-                                                "")`);
+                            "${guild.id}",
+                            "${config.prefix}",
+                            "none",
+                            0,
+                            "Welcome {user:username} to the server!",
+                            0,
+                            "{user:username} left the server 😢",
+                            0,
+                            "{user:username} was banned from the server 🔨",
+                            0,
+                            "none",
+                            "none",
+                            "none",
+                            0,
+                            0,
+                            "")`);
                     }
                 } catch (err) {
                     console.log(err.stack);
@@ -198,8 +198,8 @@ module.exports = bot => {
     };
 
     /**
-	 * Giveme Roles Functions
-	 */
+     * Giveme Roles Functions
+     */
 
     bot.setGivemeRoles = function(roles, guild) {
         roles = roles.join(',');
@@ -218,9 +218,9 @@ module.exports = bot => {
         );
     };
 
-	/**
-	 * Prefix Related Functions
-	 */
+    /**
+     * Prefix Related Functions
+     */
 
     bot.getPrefix = function(msg) {
         return new Promise(
@@ -238,9 +238,9 @@ module.exports = bot => {
         return prefix;
     };
 
-	/**
-	 * Server Settings Related Functions
-	 */
+    /**
+     * Server Settings Related Functions
+     */
 
     bot.setNewValue = function(setting, id, text) {
         db.run(`UPDATE servers SET ${setting} = "${text}" WHERE id = "${id}"`);
@@ -279,7 +279,7 @@ module.exports = bot => {
         });
     };
 
-	/**
+    /**
 	 * Core message processing functions
 	 */
 
@@ -414,7 +414,7 @@ module.exports = bot => {
         });
     };
 
-	/**
+    /**
 	 * Core bot functions
 	 */
 
@@ -579,7 +579,7 @@ module.exports = bot => {
         });
     };
 
-	/**
+    /**
 	 * Logging functions
 	 */
 
