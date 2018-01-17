@@ -285,7 +285,7 @@ module.exports = bot => {
 
     // Implement categories of commands and check this based on those
     bot.enabled = function(command, guild) {
-        if (command && guild) {
+        if (command || guild) {
             return true;
         } else {
             return false;
