@@ -5,7 +5,7 @@ module.exports = {
     usage: 'kick <usermention> <reason>',
     permission: 3,
     help: 'Kicks a specified user and places it in mod logs.',
-    main: function(bot, msg) {
+    main: function (bot, msg) {
         const Discord = require('discord.js');
         var kickee = msg.mentions.users.array()[0];
 
@@ -26,12 +26,12 @@ module.exports = {
 
                 var ban = new Discord.RichEmbed();
                 ban.setColor(0xFFB200)
-					.setAuthor(user.username, user.avatarURL)
-					.addField('Member Kicked', `**${user.username}#${user.discriminator} (${user.id}) was kicked from the server.**`)
-					.addField('Responsible Moderator', msg.member.displayName)
-					.addField('Reason', reason)
-					.setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
-					.setTimestamp();
+                    .setAuthor(user.username, user.avatarURL)
+                    .addField('Member Kicked', `**${user.username}#${user.discriminator} (${user.id}) was kicked from the server.**`)
+                    .addField('Responsible Moderator', msg.member.displayName)
+                    .addField('Reason', reason)
+                    .setFooter(`${guild.name} | ${guild.members.size} members`, `${guild.iconURL}`)
+                    .setTimestamp();
 
                 try {
                     var log = msg.guild.channels.find('name', 'mod-logs');

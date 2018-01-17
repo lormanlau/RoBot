@@ -2,22 +2,22 @@ var unirest = require('unirest');
 var Discord = require('discord.js');
 
 module.exports = {
-	name: 'advice',
+    name: 'advice',
     type: 'fun',
-	usage: 'advice',
-	permission: 1,
-	help: 'Gets advice.',
-	main: function(bot, msg) {
+    usage: 'advice',
+    permission: 1,
+    help: 'Gets advice.',
+    main: function(bot, msg) {
         unirest.get('http://api.adviceslip.com/advice')
-        .end(function (result) {
-            var advice = JSON.parse(result.body)
+        .end(result => {
+            var advice = JSON.parse(result.body);
             var e = new Discord.RichEmbed()
-            .setFooter("Powered by adviceslip.com")
+            .setFooter('Powered by adviceslip.com')
             .setTimestamp()
-            .setTitle("Advice Slip #" + advice.slip.slip_id)
-            .setDescription(advice.slip.advice)
+            .setTitle('Advice Slip #' + advice.slip.slip_id)
+            .setDescription(advice.slip.advice);
 
-            msg.channel.send({embed:e})
-        })
-	}
+            msg.channel.send({ embed: e });
+        });
+    },
 };
