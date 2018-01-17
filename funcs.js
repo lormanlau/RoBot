@@ -152,7 +152,6 @@ bot.removeServer = function(guild) {
 bot.addServer = function(guild) {
 	db.run(`INSERT OR IGNORE INTO servers VALUES (
 			"${guild.id}", 
-			"${guild.name.replace('"', "'")}", 
 			"${bot.config.prefix}", 
 			"${guild.channels.array()[0].id}", 
 			0, 
