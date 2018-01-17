@@ -7,9 +7,9 @@ module.exports = {
     permission: 1,
     help: 'Returns a random cat picture.',
     main: function(bot, msg) {
-		unirest.get("http://random.cat/meow")
-        .end(function (result) {
-            msg.channel.send(result.body.file)
+        unirest.get('http://random.cat/meow')
+        .end(result => {
+            msg.channel.send(result.body.file);
         });
-	}
+    },
 };

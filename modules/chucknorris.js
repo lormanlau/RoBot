@@ -7,23 +7,23 @@ module.exports = {
     usage: 'chucknorris',
     permission: 1,
     help: 'Gets a random Chuck Norris joke.',
-    main: function (bot, msg) {
+    main: function(bot, msg) {
         bot.checkForUpvote(msg).then(res => {
             if (res) {
                 unirest.get('https://api.chucknorris.io/jokes/random')
-                    .end(function (result) {
-                        var joke = result.body
+                    .end(result => {
+                        var joke = result.body;
                         var e = new Discord.RichEmbed()
-                            .setFooter("Powered by chucknorris.io")
+                            .setFooter('Powered by chucknorris.io')
                             .setTimestamp()
-                            .setAuthor("Chuck Norris Joke", joke.icon_url, joke.url)
-                            .setDescription(joke.value)
+                            .setAuthor('Chuck Norris Joke', joke.icon_url, joke.url)
+                            .setDescription(joke.value);
 
-                        msg.channel.send({ embed: e })
-                    })
+                        msg.channel.send({ embed: e });
+                    });
             } else {
                 bot.promptForUpvote(msg, this.name);
             }
-        })
-    }
+        });
+    },
 };
