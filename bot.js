@@ -16,40 +16,42 @@
 **/
 
 const Discord = require('discord.js');
-const bot = new Discord.Client(require("./config.json").opts);
+const bot = new Discord.Client(require('./config.json').opts);
 require('./funcs.js')(bot);
-require('discord.js-musicbot-addon')(bot, require("./config.json").musicOpts);
-const readdir = require("fs").readdir;
+require('discord.js-musicbot-addon')(bot, require('./config.json').musicOpts);
+const readdir = require('fs').readdir;
 
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.events = new Discord.Collection();
 
 readdir('./modules/', (err, files) => {
-	bot.log(`Loading ${files.length} commands!`);
-	files.forEach(f => {
-		try {
-			var name = require(`./modules/${f}`).name
-			bot.commands.set(name, require(`./modules/${f}`));
-			/*commandFile.aliases.forEach(alias => {
-				bot.aliases.set(alias, commandFile.help.name);
-			});*/
-		} catch (e) {
-			bot.log(`Unable to load command ${f}: ${e}`);
-		}
-	});
-	bot.log(`Commands loaded!`);
+    if (err) throw err;
+    bot.log(`Loading ${files.length} commands!`);
+    files.forEach(f => {
+        try {
+            var name = require(`./modules/${f}`).name;
+            bot.commands.set(name, require(`./modules/${f}`));
+            /* commandFile.aliases.forEach(alias => {
+                bot.aliases.set(alias, commandFile.help.name);
+            });*/
+        } catch (e) {
+            bot.log(`Unable to load command ${f}: ${e}`);
+        }
+    });
+    bot.log(`Commands loaded!`);
 });
 
 readdir('./events/', (err, files) => {
-	bot.log(`Loading ${files.length} events!`);
-	files.forEach(file => {
-		bot.events.set(file.substring(0, file.length-3), require(`./events/${file}`));
-		bot.on(file.split(".")[0], (...args) => {
-			require(`./events/${file}`).run(bot, ...args);
-		});
-	});
-	bot.log(`Events loaded!`);
+    if (err) throw err;
+    bot.log(`Loading ${files.length} events!`);
+    files.forEach(file => {
+        bot.events.set(file.substring(0, file.length - 3), require(`./events/${file}`));
+        bot.on(file.split('.')[0], (...args) => {
+            require(`./events/${file}`).run(bot, ...args);
+        });
+    });
+    bot.log(`Events loaded!`);
 });
 
-bot.login(require("./config.json").token);
+bot.login(require('./config.json').token);
