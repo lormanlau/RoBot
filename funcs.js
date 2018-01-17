@@ -635,7 +635,7 @@ module.exports = bot => {
         return '[' + hours + ':' + minutes + ':' + seconds + ']';
     };
 
-	/**
+    /**
 	 * Utility functions for information retrieval
 	 */
 
