@@ -15,22 +15,11 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
-var config;
-
-try {
-    config = require('./config.json');
-} catch (err) {
-    config = {
-        token: "token-here",
-        opts: { },
-        musicOpts: { }
-    }
-}
-
 const Discord = require('discord.js');
-const bot = new Discord.Client(config.opts);
+const bot = new Discord.Client(require('./config.json').opts);
+bot.config = require('./config.json');
 require('./funcs.js')(bot);
-require('discord.js-musicbot-addon')(bot, config.musicOpts);
+require('discord.js-musicbot-addon')(bot, require('./config.json').musicOpts);
 const readdir = require('fs').readdir;
 
 bot.commands = new Discord.Collection();
@@ -66,4 +55,4 @@ readdir('./events/', (err, files) => {
     bot.log(`Events loaded!`);
 });
 
-bot.login(config.token);
+bot.login(require('./config.json').token);
