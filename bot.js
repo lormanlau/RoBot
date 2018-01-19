@@ -55,4 +55,6 @@ readdir('./events/', (err, files) => {
     bot.log(`Events loaded!`);
 });
 
-bot.login(require('./config.json').token);
+if (bot.config.token) bot.login(bot.config.token);
+else if (process.env.TOKEN) bot.login(process.env.TOKEN);
+else process.exit(1);
