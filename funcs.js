@@ -489,12 +489,14 @@ module.exports = bot => {
                     ts: new Date() / 1000,
                 }],
             };
-            request({
-                url: config.webhook + '/slack',
-                method: 'POST',
-                body: d,
-                json: true,
-            });
+            if (config.webhook) {
+                request({
+                    url: config.webhook + '/slack',
+                    method: 'POST',
+                    body: d,
+                    json: true,
+                });
+            }
         } catch (err) {
             bot.error(err);
         }
@@ -566,13 +568,14 @@ module.exports = bot => {
 
                     if (guild.features.includes('INVITE_SPLASH')) { d.attachments[0].image_url = guild.splashURL + '?size=2048'; }
                 }
-
-                request({
-                    url: config.logwebhook + '/slack',
-                    method: 'POST',
-                    body: d,
-                    json: true,
-                });
+                if (config.logwebhook) {
+                    request({
+                        url: config.logwebhook + '/slack',
+                        method: 'POST',
+                        body: d,
+                        json: true,
+                    });
+                }
             } catch (err) {
                 bot.error(err);
             }
