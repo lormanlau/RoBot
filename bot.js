@@ -15,17 +15,15 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
+var config;
+
 try {
-    const config = require('./config.json');
+    config = require('./config.json');
 } catch (err) {
-    const config = {
+    config = {
         token: "token-here",
-        opts: {
-            
-        },
-        musicOpts: {
-            
-        }
+        opts: { },
+        musicOpts: { }
     }
 }
 

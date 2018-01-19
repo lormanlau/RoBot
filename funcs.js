@@ -644,14 +644,7 @@ module.exports = bot => {
             if (err) {
                 msg.channel.send(err);
             } else {
-                msg.channel.send('```\nServer ID: ' + row.id +
-                    '\nName: ' + row.name +
-                    '\nPrefix' + row.prefix +
-                    '\nWelcome Channel: ' + row.welcomeChannel +
-                    '\nWelcome Messages Enabled: ' + row.welcomeMessagesEnabled +
-                    '\nWelcome Message: ' + row.welcomeMessage +
-                    '\nMod Messages Channel: ' + row.modMessagesChannel +
-                    '\nMod Messages Enabled: ' + row.modMessagesEnabled + '\n```');
+                msg.channel.send(JSON.stringify(row));
             }
         });
     };
