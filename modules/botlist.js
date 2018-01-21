@@ -26,7 +26,7 @@ module.exports = {
                 var content = '';
 
                 for (var i = startAt; i < startAt + 10; i++) {
-                    content += `**${i + 1}**: ${bots[i]} - ${bots[i].servercount} Servers`;
+                    content += `**${i + 1}**: ${bots[i].name} - ${bots[i].servercount} Servers\n`;
                 }
 
                 botList.setDescription(content);
