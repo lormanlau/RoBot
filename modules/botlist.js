@@ -27,7 +27,7 @@ module.exports = {
                     var content = '';
 
                     if (bots[startAt + 10]) var limit = startAt + 10;
-                    else limit = bots.length - 1;
+                    else limit = bots.length;
 
                     for (var i = startAt; i < limit; i++) {
                         content += `**${i + 1}**: ${bots[i].name} - ${bots[i].servercount} Servers\n`;
