@@ -15,10 +15,11 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
+if (process.argv[2] && process.argv[2] === '--travis') var config = require('./config-example.json');
+else config = require('./config.json');
 const Discord = require('discord.js');
-const bot = new Discord.Client(require('./config.json').opts);
-bot.config = require('./config.json');
-if (process.argv[2] && process.argv[2] === '--travis') bot.config = require('./config-example.json');
+const bot = new Discord.Client(config.opts);
+bot.config = config;
 require('./funcs.js')(bot);
 if (bot.config.musicOpts.youtubeKey) require('discord.js-musicbot-addon')(bot, require('./config.json').musicOpts);
 const readdir = require('fs').readdir;
