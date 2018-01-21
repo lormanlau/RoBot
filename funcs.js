@@ -7,8 +7,9 @@ var afkJson = fs.readFileSync('./afk.json'),
     afk = JSON.parse(afkJson),
     channel = null,
     stdin = process.openStdin(),
-    Discord = require('discord.js'),
-    config = require('./config.json');
+    Discord = require('discord.js');
+if (process.argv[2] && process.argv[2] === '--travis') var config = require('./config-example.json');
+else config = require('./config.json');
 
 module.exports = bot => {
     /**
