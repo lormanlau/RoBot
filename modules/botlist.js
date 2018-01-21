@@ -20,18 +20,23 @@ module.exports = {
 
                 startAt = (pageNum - 1) * 10;
 
-                var botList = new Discord.RichEmbed()
-                    .setTitle(`Carbonitex Bot List | Page ${pageNum} of ${bots.length / 10}`);
+                if (bots[startAt]) {
+                    var botList = new Discord.RichEmbed()
+                        .setTitle(`Carbonitex Bot List | Page ${pageNum} of ${Math.ceil(bots.length / 10)}`);
 
-                var content = '';
+                    var content = '';
 
-                for (var i = startAt; i < startAt + 10; i++) {
-                    content += `**${i + 1}**: ${bots[i].name} - ${bots[i].servercount} Servers\n`;
+                    if (bots[startAt + 10]) var limit = startAt + 10;
+                    else limit = bots.length - 1;
+
+                    for (var i = startAt; i < limit; i++) {
+                        content += `**${i + 1}**: ${bots[i].name} - ${bots[i].servercount} Servers\n`;
+                    }
+
+                    botList.setDescription(content);
+
+                    msg.channel.send({ embed: botList });
                 }
-
-                botList.setDescription(content);
-
-                msg.channel.send({ embed: botList });
             });
     },
 };
