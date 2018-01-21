@@ -18,6 +18,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client(require('./config.json').opts);
 bot.config = require('./config.json');
+if (process.argv[2] && process.argv[2] === '--travis') bot.config = require('./config-example.json');
 require('./funcs.js')(bot);
 if (bot.config.musicOpts.youtubeKey) require('discord.js-musicbot-addon')(bot, require('./config.json').musicOpts);
 const readdir = require('fs').readdir;
@@ -57,4 +58,4 @@ readdir('./events/', (err, files) => {
 
 if (bot.config.token) bot.login(bot.config.token);
 else if (process.env.TOKEN) bot.login(process.env.TOKEN);
-else process.exit(1);
+else console.log('no token provided');
