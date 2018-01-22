@@ -4,7 +4,7 @@ var Discord = require('discord.js');
 module.exports = {
     name: 'movie',
     type: 'fun',
-    usage: '<p>movie <movie-name>',
+    usage: 'movie <movie-name>',
     permission: 1,
     help: 'Gets information about a movie.',
     main: function(bot, msg) {
