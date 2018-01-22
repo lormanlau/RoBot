@@ -41,15 +41,6 @@ module.exports = bot => {
                 guilds = bot.guilds.size;
             }
 
-            unirest.post('https://bots.discordlist.net/api')
-                .send({
-                    token: bot.config.dlist,
-                    servers: guilds,
-                })
-                .end(response => {
-                    bot.log(response.body);
-                });
-
             unirest.post('https://bots.discord.pw/api/bots/' + bot.user.id + '/stats')
                 .headers({
                     Authorization: bot.config.dbotspw,

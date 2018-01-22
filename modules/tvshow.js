@@ -2,35 +2,34 @@ const imdb = require('imdb-api');
 var Discord = require('discord.js');
 
 module.exports = {
-    name: 'movie',
+    name: 'tvshow',
     type: 'fun',
-    usage: '<p>movie <movie-name>',
+    usage: '<p>tvshow <tvshow-name>',
     permission: 1,
-    help: 'Gets information about a movie.',
+    help: 'Gets information about a TV show.',
     main: function(bot, msg) {
         const opts = {
             apiKey: bot.config.imdb,
         };
         imdb.get(msg.content, opts).then(d => {
             if (!d) return msg.channel.send('No results were found!');
-            console.log(d);
             var m = new Discord.RichEmbed();
-            if (typeof d === imdb.Movie) {
+            console.log(typeof d);
+            if (d.type === 'series') {
                 if (d.poster !== 'N/A') {
                     m.setThumbnail(d.poster);
                 }
 
                 m.setTitle(`${d.title} (${d.year})`)
-                    .setDescription('Movie Information')
+                    .setDescription('Show Information')
                     .setURL(d.imdburl)
-                    .addField('Director', d.director, true)
-                    .addField('Producer', d.production, true)
                     .addField('Writer(s)', d.writer.split(', ').join('\n') || 'None', true)
                     .addField('Featuring', d.actors.split(', ').join('\n') || 'None', true)
+                    .addField('Seasons', d.totalseasons, true)
                     .addField('Release Date', new Date(d.released).toLocaleDateString('en-US'), true)
                     .addField('Rated', d.rated, true)
-                    .addField('Genres', d.genres, true)
-                    .addField('Duration', d.runtime, true)
+                    .addField('Genres', d.type, true)
+                    .addField('Type', d.runtime, true)
                     .addField('Rating', d.rating + '/10', true)
                     .addField('Votes', d.votes, true)
                     .addField('Awards', d.awards || 'None', true)
