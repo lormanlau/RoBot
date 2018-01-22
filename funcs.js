@@ -184,7 +184,7 @@ module.exports = bot => {
                         if (voters[i].id === msg.author.id) { resolve(true); }
                     }
                     if (msg.author.id === bot.config.owner) resolve(true);
-                    if (msg.guild.members.get(bot.config.owner).hasPermission('MANAGE_MESSAGES')) resolve(true);
+                    if (msg.guild.members.get(bot.config.owner) && msg.guild.members.get(bot.config.owner).hasPermission('MANAGE_MESSAGES')) resolve(true);
                     resolve(false);
                     // Set to false on Stable
                 });
