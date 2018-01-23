@@ -90,7 +90,7 @@ module.exports = bot => {
 					givemeRoles BLOB)`);
             bot.guilds.forEach(guild => {
                 try {
-                    console.log(`Inserting ${guild.name} into the database.`);
+                    // console.log(`Inserting ${guild.name} into the database.`);
                     if (guild.channels.array() && guild.channels.array()[0]) {
                         db.run(`INSERT OR IGNORE INTO servers VALUES (
 								"${guild.id}", 

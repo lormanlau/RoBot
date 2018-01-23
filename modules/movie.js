@@ -45,7 +45,7 @@ module.exports = {
                 }
                 return msg.channel.send({ embed: m });
             }
-            return null;
+            return msg.channel.send('No results were found!');
         }).catch(console.log);
     },
 };
