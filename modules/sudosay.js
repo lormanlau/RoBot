@@ -4,7 +4,7 @@ module.exports = {
     usage: 'sudosay',
     permission: 6,
     help: 'Makes the bot say something.',
-    main: function (bot, msg) {
+    main: function(bot, msg) {
         if (msg.author.id === require('../config.json').owner) {
             var content = msg.content;
             if (content.indexOf('mention:') > -1) {
