@@ -15,7 +15,7 @@ module.exports = {
             if (!d) return msg.channel.send('No results were found!');
             console.log(typeof d);
             var m = new Discord.RichEmbed();
-            if (typeof d === imdb.Movie) {
+            if (typeof d === Object) {
                 if (d.poster !== 'N/A') {
                     m.setThumbnail(d.poster);
                 }
