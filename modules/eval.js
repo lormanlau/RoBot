@@ -5,8 +5,8 @@ module.exports = {
     permission: 6,
     help: 'Allows bot administrators to evaluate code to test the bot.',
     main: function(bot, msg) {
-        var Discord = require('discord.js');
-        const util = require('util');
+        const Discord = require('discord.js'),
+            util = require('util');
 
         if (msg.author.id === require('../config.json').owner) {
             var code = msg.content;
@@ -34,8 +34,7 @@ module.exports = {
             } catch (err) {
                 embed.setTitle('Error Thrown in Javascript Evaluation')
                     .addField('Error', '```LDIF\n' + clean(err.message) + '```');
-                msg.channel.send({ embed: embed })
-                    .catch(error => console.log(error.stack));
+                msg.channel.send({ embed: embed });
             }
         } else {
             msg.reply('you do not have permission to use eval!');
