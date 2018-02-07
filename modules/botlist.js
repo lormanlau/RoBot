@@ -33,7 +33,8 @@ module.exports = {
                         content += `**${i + 1}**: ${bots[i].name} - ${bots[i].servercount} Servers\n`;
                     }
 
-                    botList.setDescription(content);
+                    botList.setDescription(content)
+                        .setColor(msg.guild.me.displayColor);
 
                     msg.channel.send({ embed: botList });
                 }

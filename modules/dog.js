@@ -1,3 +1,5 @@
+var Discord = require('discord.js');
+
 module.exports = {
     name: 'dog',
     type: 'fun',
@@ -7,7 +9,14 @@ module.exports = {
     main: function(bot, msg) {
         const randomPuppy = require('random-puppy');
         randomPuppy().then(url => {
-            msg.channel.send(url);
+            var puppy = new Discord.RichEmbed()
+                .setTitle('Random Dog')
+                .setURL(url)
+                .setImage(url)
+                .setFooter('Powered by random-puppy')
+                .setColor(msg.guild.me.displayColor)
+                .setTimestamp();
+            msg.channel.send({ embed: puppy });
         });
     },
 };

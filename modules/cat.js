@@ -15,6 +15,7 @@ module.exports = {
                     .setURL(result.body.file)
                     .setImage(result.body.file)
                     .setFooter('Powered by random.cat')
+                    .setColor(msg.guild.me.displayColor)
                     .setTimestamp();
                 msg.channel.send({ embed: cat });
             });

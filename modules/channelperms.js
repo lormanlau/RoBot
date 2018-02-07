@@ -26,7 +26,7 @@ module.exports = {
         var perms = new Discord.RichEmbed()
             .setAuthor(member.user.username + '#' + member.user.discriminator, member.user.avatarURL)
             .setDescription('User Permissions in ' + channel.name)
-            .setColor(0x1675DB);
+            .setColor(msg.guild.me.displayColor);
 
         var i = 0;
         for (var key in p) {
@@ -41,7 +41,7 @@ module.exports = {
             if (i === 24) {
                 msg.channel.send({ embed: perms });
                 perms = new Discord.RichEmbed()
-                    .setColor(0x1675DB)
+                    .setColor(msg.guild.me.displayColor)
                     .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
                     .setTimestamp();
                 i = 0;

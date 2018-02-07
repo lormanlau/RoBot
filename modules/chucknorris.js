@@ -16,6 +16,7 @@ module.exports = {
                         var e = new Discord.RichEmbed()
                             .setFooter('Powered by chucknorris.io')
                             .setTimestamp()
+                            .setColor(msg.guild.me.displayColor)
                             .setAuthor('Chuck Norris Joke', joke.icon_url, joke.url)
                             .setDescription(joke.value);
 

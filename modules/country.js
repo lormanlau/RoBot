@@ -32,6 +32,7 @@ module.exports = {
                                     .addField('Alternate Names', res[i].altSpellings.join(', '), true)
                                     .addField('Demonym', res[i].demonym, true)
                                     .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
+                                    .setColor(msg.guild.me.displayColor)
                                     .setTimestamp();
                                 msg.channel.send({ embed: country });
                             }

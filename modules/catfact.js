@@ -16,6 +16,7 @@ module.exports = {
                     .setFooter('Powered by animalplanet.com')
                     .setTimestamp()
                     .setTitle('Cat Fact #' + num)
+                    .setColor(msg.guild.me.displayColor)
                     .setDescription(catfact[num].description);
 
                 msg.channel.send({ embed: e });
