@@ -17,13 +17,15 @@ module.exports = {
                     .setAuthor(bot.user.username, bot.user.avatarURL)
                     .setTitle('Shard Info')
                     .addField('Total Shards:', bot.shard.count, true)
-                    .addField('Total Servers:', guilds.reduce((prev, val) => prev + val, 0).toLocaleString(), true);
+                    .addField('Total Servers:', guilds.reduce((prev, val) => prev + val, 0).toLocaleString(), true)
+                    .addBlankField(true);
 
                 for (var i = 0; i < guilds.length; i++) {
                     embed.addField('Shard ' + i + ' Servers:', guilds[i].toLocaleString(), true);
                 }
 
-                embed.addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'));
+                embed.addBlankField(true)
+                .addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'), true);
                 for (var j = 0; j < guilds.length; j++) {
                     embed.addField('Shard ' + j + ' Uptime:', moment.duration(uptime[j]).format(' D [days], H [hrs], m [mins], s [secs]'), true);
                 }

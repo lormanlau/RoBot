@@ -32,7 +32,7 @@ module.exports = {
             if (i === 24) {
                 msg.channel.send({ embed: perms });
                 perms = new Discord.RichEmbed()
-                    .setColor(0x1675DB)
+                    .setColor(msg.guild.me.displayColor)
                     .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
                     .setTimestamp();
                 i = 0;
