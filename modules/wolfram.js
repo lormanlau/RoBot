@@ -4,7 +4,7 @@ module.exports = {
     usage: 'wolfram <query>',
     permission: 1,
     help: 'Queries the Wolfram Alpha API.',
-    main: function (bot, msg) {
+    main: function(bot, msg) {
         const wolfram = require('wolfram').createClient(bot.config.wolfram),
             { RichEmbed } = require('discord.js');
         bot.checkForUpvote(msg).then(res => {
