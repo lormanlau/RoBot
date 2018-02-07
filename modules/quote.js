@@ -14,7 +14,7 @@ module.exports = {
             .header('Content-Type', 'application/x-www-form-urlencoded')
             .header('Accept', 'application/json')
             .end(result => {
-                var res = JSON.parse(result.body);
+                var res = result.body;
                 console.log(res);
                 var embed = new Discord.RichEmbed()
                     .setFooter('Powered by Random Famous Quotes')
