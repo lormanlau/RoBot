@@ -1,5 +1,6 @@
 var request = require('request');
 var xml2js = require('xml2js');
+var Discord = require('discord.js');
 
 module.exports = {
     name: 'fact',
@@ -15,7 +16,14 @@ module.exports = {
                         xml2js.parseString(body, (err, result) => {
                             if (err) throw err;
                             try {
-                                msg.channel.send(result.facts.fact[0]);
+                                var embed = new Discord.RichEmbed()
+                                    .setFooter('Powered by fayd.org')
+                                    .setTimestamp()
+                                    .setColor(msg.guild.me.displayColor)
+                                    .setTitle('Random Fact')
+                                    .setDescription(result.facts.fact[0]);
+
+                                msg.channel.send({ embed: embed });
                             } catch (e) {
                                 msg.channel.send('The API returned an unconventional response.\n' + e);
                             }

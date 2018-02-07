@@ -1,3 +1,5 @@
+import { clearInterval } from "timers";
+
 module.exports = {
     name: 'vote',
     type: 'utility',
@@ -8,12 +10,13 @@ module.exports = {
         var yes = 0,
             no = 0,
             t = 60,
-            responded = [];
+            responded = [],
+            interval;
         msg.channel.send('A poll has been created! Question: ```' + msg.content + '```Answer with **yes** or **no.**\n')
             .then(msg2 => {
                 msg2.channel.send('Time Remaining: **' + t + '**')
                     .then(timer => {
-                        setInterval(() => {
+                        interval = setInterval(() => {
                             if (t >= 0) {
                                 t -= 5;
                                 timer.edit('Time Remaining: **' + t + '**');
@@ -35,6 +38,7 @@ module.exports = {
                     }
                 });
                 collector.on('end', () => {
+                    clearInterval(interval);
                     msg.channel.send('Voting is over! Tallying results...');
                     setTimeout(() => {
                         if (yes > no) {

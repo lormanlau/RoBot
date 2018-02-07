@@ -20,7 +20,7 @@ module.exports = {
         var perms = new Discord.RichEmbed()
             .setAuthor(member.user.username + '#' + member.user.discriminator, member.user.avatarURL)
             .setDescription('User Permissions for ' + msg.guild.name)
-            .setColor(0x1675DB);
+            .setColor(msg.guild.me.displayColor);
 
         var i = 0;
         for (var key in p) {

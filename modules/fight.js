@@ -69,7 +69,7 @@ module.exports = {
 
         function sendMessage(content, times2) {
             setTimeout(() => {
-                msg.channel.sendMessage(content);
+                msg.channel.send(content);
             }, 1500 * times2);
         }
     },

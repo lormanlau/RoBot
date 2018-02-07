@@ -13,16 +13,20 @@ module.exports = {
             bot.shard.fetchClientValues('uptime').then(uptime => {
                 let averageUptime = (uptime[0] + uptime[1]) / 2;
                 const embed = new RichEmbed()
-                    .setColor(0x0000FF)
+                    .setColor(msg.guild.me.displayColor)
                     .setAuthor(bot.user.username, bot.user.avatarURL)
                     .setTitle('Shard Info')
-                    .addField('Total Shards:', bot.shard.count)
-                    .addField('Total Servers:', guilds.reduce((prev, val) => prev + val, 0).toLocaleString())
-                    .addField('Shard 0 Servers:', guilds[0].toLocaleString())
-                    .addField('Shard 1 Servers:', guilds[1].toLocaleString())
-                    .addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'))
-                    .addField('Shard 0 Uptime:', moment.duration(uptime[0]).format(' D [days], H [hrs], m [mins], s [secs]'))
-                    .addField('Shard 1 Uptime:', moment.duration(uptime[1]).format(' D [days], H [hrs], m [mins], s [secs]'));
+                    .addField('Total Shards:', bot.shard.count, true)
+                    .addField('Total Servers:', guilds.reduce((prev, val) => prev + val, 0).toLocaleString(), true);
+
+                for (var i = 0; i < guilds.length; i++) {
+                    embed.addField('Shard ' + i + ' Servers:', guilds[i].toLocaleString(), true);
+                }
+
+                embed.addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'));
+                for (var j = 0; j < guilds.length; j++) {
+                    embed.addField('Shard ' + j + ' Uptime:', moment.duration(uptime[j]).format(' D [days], H [hrs], m [mins], s [secs]'), true);
+                }
                 msg.channel.send({ embed: embed });
             });
         });

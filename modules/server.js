@@ -18,7 +18,7 @@ module.exports = {
 
         const embed = new Discord.RichEmbed()
             .setTitle(msg.guild.name)
-            .setColor(0x1675DB)
+            .setColor(msg.guild.me.displayColor)
             .setFooter('Triggered by ' + msg.author.username, msg.author.avatarURL)
             .setThumbnail(msg.guild.iconURL)
             .setTimestamp()
@@ -26,7 +26,7 @@ module.exports = {
             .addField('Created', msg.guild.createdAt.toLocaleString(), true)
             .addField('ID', msg.guild.id, true)
             .addField('Owner', msg.guild.owner.user.username, true)
-            .addField('Default Channel', msg.guild.defaultChannel, true)
+            .addField('Default Channel', msg.guild.defaultChannel || 'None', true)
             .addField('Region', msg.guild.region, true)
             .addField('Total Members', msg.guild.members.size, true)
             .addField('User Count', members, true)

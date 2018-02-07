@@ -23,6 +23,7 @@ module.exports = {
                 m.setTitle(`${d.title} (${d.year})`)
                     .setDescription('Movie Information')
                     .setURL(d.imdburl)
+                    .setColor(msg.guild.me.displayColor)
                     .addField('Director', d.director, true)
                     .addField('Producer', d.production, true)
                     .addField('Writer(s)', d.writer.split(', ').join('\n') || 'None', true)

@@ -22,6 +22,7 @@ module.exports = {
             .setTitle('Moderators on ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
             .setFooter('Powered by RoBot', bot.user.iconURL)
+            .setColor(msg.guild.me.displayColor)
             .setTimestamp();
 
         for (var role in members) {

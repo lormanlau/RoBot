@@ -23,6 +23,7 @@ module.exports = {
                 m.setTitle(`${d.title} (${d.year})`)
                     .setDescription('Show Information')
                     .setURL(d.imdburl)
+                    .setColor(msg.guild.me.displayColor)
                     .addField('Writer(s)', d.writer.split(', ').join('\n') || 'None', true)
                     .addField('Featuring', d.actors.split(', ').join('\n') || 'None', true)
                     .addField('Seasons', d.totalseasons, true)

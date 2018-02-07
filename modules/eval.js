@@ -4,14 +4,13 @@ module.exports = {
     usage: 'eval <code>',
     permission: 6,
     help: 'Allows bot administrators to evaluate code to test the bot.',
-    main: function(bot, msg) {
+    main: function (bot, msg) {
         const Discord = require('discord.js'),
             util = require('util');
 
         if (msg.author.id === require('../config.json').owner) {
             var code = msg.content;
             var embed = new Discord.RichEmbed()
-                .setColor(0x00FF00)
                 .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
                 .setTimestamp();
             try {
@@ -24,6 +23,7 @@ module.exports = {
                 if (evaled === null) evaled = 'null';
 
                 embed.setTitle('Javascript Evaluation Complete')
+                    .setColor(0x00FF00)
                     .addField('Result', '```js\n' + clean(evaled.toString().replace(bot.token, 'REDACTED')) + '```');
                 if (evaled instanceof Object) {
                     embed.addField('Inspect', '```js\n' + insp.toString().replace(bot.token, 'REDACTED') + '```');
@@ -33,6 +33,7 @@ module.exports = {
                 msg.channel.send({ embed: embed });
             } catch (err) {
                 embed.setTitle('Error Thrown in Javascript Evaluation')
+                    .setColor(0xFF0000)
                     .addField('Error', '```LDIF\n' + clean(err.message) + '```');
                 msg.channel.send({ embed: embed });
             }

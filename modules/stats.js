@@ -44,7 +44,7 @@ module.exports = {
                 .setAuthor(bot.user.username + ' Stats', bot.user.avatarURL)
                 .setFooter('Powered by ' + bot.user.username, bot.user.avatarURL)
                 .setTimestamp()
-                .setColor(msg.guild.me.displayHexColor)
+                .setColor(msg.guild.me.displayColor)
                 .addField(':man_with_gua_pi_mao: Owner', vals2.owner.username + '#' + vals2.owner.discriminator + '\n(' + vals.owner.id + ')', true)
                 .addField(':book: Library', 'discord.js (v' + require('discord.js').version + ')', true)
                 .addField(':diamond_shape_with_a_dot_inside: Shard', vals2.shardid + 1 + '/' + vals2.shardcount, true)

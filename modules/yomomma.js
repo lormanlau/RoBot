@@ -1,4 +1,5 @@
-var unirest = require('unirest');
+var unirest = require('unirest'),
+    Discord = require('discord.js');
 
 module.exports = {
     name: 'yomomma',
@@ -12,7 +13,14 @@ module.exports = {
                 unirest.get('http://api.yomomma.info/')
                     .end(result => {
                         var yomomma = JSON.parse(result.body);
-                        msg.channel.send(yomomma.joke);
+                        var embed = new Discord.RichEmbed()
+                            .setFooter('Powered by yomomma.info')
+                            .setTimestamp()
+                            .setColor(msg.guild.me.displayColor)
+                            .setTitle('Yomomma Joke')
+                            .setDescription(yomomma.joke);
+
+                        msg.channel.send({ embed: embed });
                     });
             } else {
                 bot.promptForUpvote(msg, this.name);

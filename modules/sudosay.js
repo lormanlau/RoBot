@@ -21,8 +21,10 @@ module.exports = {
                         content = content.replace(content.substring(content.indexOf('mention:'), content.length, '<@' + bot.users.get(mention).id + '>'));
                     }
                 }
+                msg.channel.send(content);
+            } else {
+                msg.channel.send(content);
             }
-            msg.channel.send(content);
             msg.delete();
         }
     },

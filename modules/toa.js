@@ -14,10 +14,10 @@ module.exports = {
         console.log(args + ', ' + teamNumber);
 
         if (!isNaN(args)) {
-            team(args);
+            team(args.trim());
         } else if (!isNaN(teamNumber)) {
             if (args === 'team') {
-                team(teamNumber);
+                team(teamNumber.trim());
             } else if (args === 'awards') {
                 var year = m.content.split(' ')[2];
                 if (isNaN(year)) {
@@ -35,7 +35,7 @@ module.exports = {
                 var website = b[0].Website || 'None';
                 teaminfo.setAuthor('FIRST® Tech Challenge Team ' + num, 'https://cdn.discordapp.com/icons/342152047753166859/de4d258c0cab5bee0b04d406172ec585.jpg', 'https://www.theorangealliance.org/teams/' + num)
                     .setColor(0xff9800)
-                    .addField('Name', b[0].team_name_short + '\n(' + b[0].team_name_long + ')', true)
+                    .addField('Name', b[0].team_name_short, true)
                     .addField('Rookie Year', b[0].rookie_year, true)
                     .addField('Location', b[0].city + ', ' + b[0].state_prov + ', ' + b[0].country, true)
                     .addField('Website', website || 'None', true)

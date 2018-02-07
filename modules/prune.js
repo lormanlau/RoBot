@@ -13,10 +13,10 @@ module.exports = {
                     .then(messages => msg.channel.bulkDelete(messages))
                     .catch(msg.channel.bulkDelete);
 
-                msg.channel.sendMessage('Deleted ' + num + ' messages under request of <@' + msg.author.id + '>')
+                msg.channel.send('Deleted ' + num + ' messages under request of <@' + msg.author.id + '>')
                     .then(msg2 => setTimeout(() => { msg2.delete(); }, 5000));
             } else {
-                msg.channel.sendMessage('Please specify a number!');
+                msg.channel.send('Please specify a number!');
             }
         }
     },

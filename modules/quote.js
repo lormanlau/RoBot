@@ -1,5 +1,6 @@
 var unirest = require('unirest');
 var config = require('../config.json');
+var Discord = require('discord.js');
 
 module.exports = {
     name: 'quote',
@@ -15,7 +16,14 @@ module.exports = {
             .end(result => {
                 var res = JSON.parse(result.body);
                 console.log(res);
-                msg.channel.send(res.quote + '\n*- ' + res.author + '*');
+                var embed = new Discord.RichEmbed()
+                    .setFooter('Powered by Random Famous Quotes')
+                    .setTimestamp()
+                    .setColor(msg.guild.me.displayColor)
+                    .setTitle('Random Quote')
+                    .setDescription(res.quote + '\n*- ' + res.author + '*');
+
+                msg.channel.send({ embed: embed });
             });
     },
 };

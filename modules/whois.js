@@ -32,6 +32,7 @@ module.exports = {
                                 .addField('Last Update', moment(res.updatedDate).fromNow(), true)
                                 .addField('Expiry Date', moment(res.registryExpiryDate).fromNow(), true)
                                 .setFooter(`Powered by whois-json`)
+                                .setColor(msg.guild.me.displayColor)
                                 .setTimestamp(),
                         });
                     } else {
