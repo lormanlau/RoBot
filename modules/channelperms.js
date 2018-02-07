@@ -14,7 +14,7 @@ module.exports = {
 
         let channel = msg.channel;
         if (msg.mentions.channels.array()[0]) {
-            channel = msg.guild.channels.get(msg.mentions.channels.array()[0]);
+            channel = msg.guild.channels.get(msg.mentions.channels.array()[0].id);
         }
 
         var p = member.permissionsIn(channel).serialize(true);
