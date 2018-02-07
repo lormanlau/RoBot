@@ -17,7 +17,7 @@ module.exports = {
                 } else {
                     var err = new Discord.RichEmbed()
                         .setTitle('Alex API Writing Analysis')
-                        .setColor('#ffb200')
+                        .setColor(msg.guild.me.displayColor)
                         .setFooter(bot.user.username, bot.user.avatarURL);
 
                     for (var i = 0; i < errors.length; i++) {

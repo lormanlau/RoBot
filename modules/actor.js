@@ -19,6 +19,7 @@ module.exports = {
                     .setImage(`https://image.tmdb.org/t/p/w600_and_h900_bestv2${r.profile_path}`)
                     .addField(`Known For`, `${r.known_for[0].title || r.known_for[0].name} (${r.known_for[0].media_type})`)
                     .setFooter(`Powered by OMDB`)
+                    .setColor(msg.guild.me.displayColor)
                     .setTimestamp();
                 return msg.channel.send({ embed: actor });
             });

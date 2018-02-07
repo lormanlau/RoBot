@@ -14,6 +14,7 @@ module.exports = {
                 var e = new Discord.RichEmbed()
                     .setFooter('Powered by adviceslip.com')
                     .setTimestamp()
+                    .setColor(msg.guild.me.displayColor)
                     .setTitle('Advice Slip #' + advice.slip.slip_id)
                     .setDescription(advice.slip.advice);
 
