@@ -10,8 +10,6 @@ module.exports = {
         var member = msg.member;
         if (msg.mentions.users.array()[0]) {
             member = msg.guild.members.get(msg.mentions.users.array()[0].id);
-        } else if (bot.users.get(msg.content) !== null) {
-            member = msg.guild.members.get(msg.content);
         }
 
         var p = member.permissions.serialize(true);
