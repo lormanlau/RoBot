@@ -14,6 +14,7 @@ module.exports = {
                     .setFooter('Powered by kinduff.com')
                     .setTimestamp()
                     .setTitle('Dog Fact')
+                    .setColor(msg.guild.me.displayColor)
                     .setDescription(result.body.facts[0]);
 
                 msg.channel.send({ embed: e });
