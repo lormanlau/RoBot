@@ -7,12 +7,11 @@ module.exports = {
     permission: 1,
     help: 'Provides a user\'s permissions in the specified channel.',
     main: function(bot, msg) {
+        var member = msg.member;
         if (msg.mentions.users.array()[0]) {
-            var member = msg.guild.members.get(msg.mentions.users.array()[0].id);
+            member = msg.guild.members.get(msg.mentions.users.array()[0].id);
         } else if (bot.users.get(msg.content) !== null) {
             member = msg.guild.members.get(msg.content);
-        } else {
-            member = msg.member;
         }
 
         if (msg.mentions.channels.array()[0]) {
