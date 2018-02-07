@@ -12,7 +12,7 @@ module.exports = {
         } else if (bot.users.get(msg.content) !== null) {
             member = msg.guild.members.get(msg.content);
         } else {
-            member = msg.guild.members.get(msg.author.id);
+            member = msg.member;
         }
 
         if (msg.mentions.channels.array()[0]) {
