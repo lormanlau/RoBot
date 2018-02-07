@@ -12,11 +12,11 @@ module.exports = {
         unirest.get(`https://api.themoviedb.org/3/search/person?api_key=${bot.config.omdb}&language=en-US&query=${query}&page=1&include_adult=false`)
             .end(res => {
                 console.log(res.body);
-                if (!res.body.results[0]) return msg.reply('there are no actors that match that query!');
+                if (!res.body.results) return msg.reply('there are no actors that match that query!');
                 const r = res.body.results[0];
                 const actor = new Discord.RichEmbed()
                     .setTitle(r.name)
-                    .setImage(`https://image.tmdb.org/t/p/w640${r.profile_path}`)
+                    .setImage(`https://image.tmdb.org/t/p/w600_and_h900_bestv2${r.profile_path}`)
                     .addField(`Known For`, `${r.known_for[0].title || r.known_for[0].name} (${r.known_for[0].media_type})`)
                     .setFooter(`Powered by OMDB`)
                     .setTimestamp();

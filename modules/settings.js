@@ -188,7 +188,7 @@ module.exports = {
                     );
                     collector2.on('message', m2 => {
                         if (m2.guild.roles.find('name', m2.content)) {
-                            m2.channel.send(`${setting} set to ${bot.setNewValue(setting, m.guild.id, m.guild.roles.find('name', m.content).id)}!`);
+                            m2.channel.send(`${setting} set to ${bot.setNewValue(setting, m.guild.id, m.guild.roles.find('name', m2.content).id)}!`);
                             collector2.stop();
                         } else if (m2.content.toLowerCase() === 'none') {
                             bot.setJoinRole(m2.guild.id, 'none');
