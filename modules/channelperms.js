@@ -10,14 +10,11 @@ module.exports = {
         let member = msg.member;
         if (msg.mentions.users.array()[0]) {
             member = msg.guild.members.get(msg.mentions.users.array()[0].id);
-        } else if (bot.users.get(msg.content) !== null) {
-            member = msg.guild.members.get(msg.content);
         }
 
+        let channel = msg.channel;
         if (msg.mentions.channels.array()[0]) {
-            var channel = msg.guild.channels.get(msg.mentions.channels.array()[0]);
-        } else {
-            channel = msg.channel;
+            channel = msg.guild.channels.get(msg.mentions.channels.array()[0]);
         }
 
         var p = member.permissionsIn(channel).serialize(true);
