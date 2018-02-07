@@ -45,8 +45,9 @@ module.exports = {
                     m.addField('Description', d.plot);
                 }
                 return msg.channel.send({ embed: m });
+            } else {
+                return null;
             }
-            return null;
         }).catch(console.log);
     },
 };
