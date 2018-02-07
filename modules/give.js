@@ -35,7 +35,7 @@ module.exports = {
                             msg.channel.send('Failed to add role `' + role.name + '` to ' + m.user.username + '.');
                         }
                     })
-                    .catch(console.error);
+                        .catch(console.error);
                 }
             }
         }

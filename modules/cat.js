@@ -1,4 +1,5 @@
-var unirest = require('unirest');
+var unirest = require('unirest'),
+    Discord = require('discord.js');
 
 module.exports = {
     name: 'cat',
@@ -9,7 +10,13 @@ module.exports = {
     main: function(bot, msg) {
         unirest.get('http://random.cat/meow')
             .end(result => {
-                msg.channel.send(result.body.file);
+                var cat = new Discord.RichEmbed()
+                    .setTitle('Random Cat')
+                    .setURL(result.body.file)
+                    .setImage(result.body.file)
+                    .setFooter('Powered by random.cat')
+                    .setTimestamp();
+                msg.channel.send({ embed: cat });
             });
     },
 };
