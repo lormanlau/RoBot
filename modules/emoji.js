@@ -5,7 +5,6 @@ module.exports = {
     permission: 1,
     help: 'Returns a random emoji.',
     main: function(bot, msg) {
-        var emoji = require('emoji-random');
-        msg.channel.send(emoji.random());
+        msg.channel.send(require('emoji-random').random());
     },
 };

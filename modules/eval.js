@@ -10,7 +10,10 @@ module.exports = {
 
         if (msg.author.id === require('../config.json').owner) {
             var code = msg.content;
-            var embed = new Discord.RichEmbed();
+            var embed = new Discord.RichEmbed()
+                .setColor(0x00FF00)
+                .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
+                .setTimestamp();
             try {
                 let evaled = eval(code);
                 let type = typeof evaled;
@@ -20,11 +23,7 @@ module.exports = {
 
                 if (evaled === null) evaled = 'null';
 
-                embed.setColor(0x00FF00)
-                    .setTitle('Javascript Evaluation Complete')
-                    .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
-                    .setTimestamp()
-                    .addField('Code', '```js\n' + clean(code) + '```')
+                embed.setTitle('Javascript Evaluation Complete')
                     .addField('Result', '```js\n' + clean(evaled.toString().replace(bot.token, 'REDACTED')) + '```');
                 if (evaled instanceof Object) {
                     embed.addField('Inspect', '```js\n' + insp.toString().replace(bot.token, 'REDACTED') + '```');
@@ -33,10 +32,7 @@ module.exports = {
                 }
                 msg.channel.send({ embed: embed });
             } catch (err) {
-                embed.setColor(0xFF0000)
-                    .setTitle('ERROR THROWN in Javascript Evaluation')
-                    .setFooter(`${msg.author.username}`, `${msg.author.avatarURL}`)
-                    .setTimestamp()
+                embed.setTitle('Error Thrown in Javascript Evaluation')
                     .addField('Error', '```LDIF\n' + clean(err.message) + '```');
                 msg.channel.send({ embed: embed })
                     .catch(error => console.log(error.stack));
