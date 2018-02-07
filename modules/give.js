@@ -30,12 +30,12 @@ module.exports = {
                 for (var i = 0; i < users.length; i++) {
                     msg.guild.members.get(users[i].id).addRole(role).then(m => {
                         if (m.roles.has(role.id)) {
-                            msg.channel.send('Successfully added role `' + role.name + '` to ' + users[i].username + '.');
+                            msg.channel.send('Successfully added role `' + role.name + '` to ' + m.user.username + '.');
                         } else {
-                            msg.channel.send('Failed to add role `' + role.name + '` to ' + users[i].username + '.');
+                            msg.channel.send('Failed to add role `' + role.name + '` to ' + m.user.username + '.');
                         }
                     })
-                        .catch(console.error);
+                    .catch(console.error);
                 }
             }
         }
