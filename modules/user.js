@@ -8,8 +8,9 @@ module.exports = {
     help: 'Provides information about a user.',
     main: function(bot, msg) {
         var member = msg.member;
-        if (msg.mentions.users.array()[0])
+        if (msg.mentions.users.array()[0]) {
             member = msg.guild.members.get(msg.mentions.users.array()[0].id);
+        }
         var user = member.user;
         var roles = member.roles.size;
 
