@@ -16,7 +16,7 @@ module.exports = {
                 if (err) {
                     embed.setColor(0xFF0000)
                         .setTitle('Command Execution Error')
-                        .addField('Error', '```sh\n' + stderr + '```')
+                        .addField('Error', '```sh\n' + stderr + '```');
                 } else {
                     embed.setColor(0x00FF00)
                         .setTitle('Command Execution Success')

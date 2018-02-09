@@ -11,10 +11,10 @@ module.exports = {
         bot.checkForUpvote(msg).then(u => {
             if (u) {
                 var e = new Discord.RichEmbed()
-                .setTitle('Google News')
-                .setColor(msg.guild.me.displayColor)
-                .setFooter('Powered by Google News')
-                .setTimestamp();
+                    .setTitle('Google News')
+                    .setColor(msg.guild.me.displayColor)
+                    .setFooter('Powered by Google News')
+                    .setTimestamp();
                 myGoogleNews.resultsPerPage = 10;
                 myGoogleNews(msg.content, (err, res) => {
                     if (err) console.error(err);
