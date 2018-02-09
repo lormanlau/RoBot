@@ -7,13 +7,9 @@ module.exports = {
     permission: 1,
     help: 'Provides information about a user.',
     main: function(bot, msg) {
-        if (msg.mentions.users.array()[0]) {
-            var member = msg.guild.members.get(msg.mentions.users.array()[0].id);
-        } else if (bot.users.get(msg.content) !== null) {
-            member = msg.guild.members.get(msg.content);
-        } else {
-            member = msg.guild.members.get(msg.author.id);
-        }
+        var member = msg.member;
+        if (msg.mentions.users.array()[0])
+            member = msg.guild.members.get(msg.mentions.users.array()[0].id);
         var user = member.user;
         var roles = member.roles.size;
 
