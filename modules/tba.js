@@ -134,6 +134,9 @@ module.exports = {
                             } else if (d[i].type === 'grabcad') {
                                 name = 'GrabCAD';
                                 temp = 'https://grabcad.com/library/' + d[i].foreign_key;
+                            } else if (d[i].type === 'avatar') {
+                                name = 'Team Avatar';
+                                temp = 'Use the ``tba avatar`` command to see this team\'s avatar!';
                             }
 
                             media.addField(name, temp);
