@@ -176,6 +176,7 @@ module.exports = {
             console.log(year);
             if (year === undefined) { year = curYear; }
             req.getTeamMedia(teamNumber, year).then(d => {
+                console.log(d);
                 var found = false;
                 for (var i = 0; i < d.length; i++) {
                     if (d[i].type === 'avatar') {
