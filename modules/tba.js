@@ -56,14 +56,13 @@ module.exports = {
             } else if (args === 'avatar') {
                 let year = m.content.split(' ')[2];
                 if (year === undefined) { year = curYear; }
-                console.log(year);
                 req.getTeamMedia(teamNumber, year).then(d => {
                     var found = false;
                     for (var i = 0; i < d.length; i++) {
                         if (d[i].type === 'avatar') {
                             found = true;
                             m.channel.send('**Team ' + teamNumber + '\'s** avatar for the FIRST POWER UP season:',
-                                { files: [new Buffer(d.details.base64Image, 'base64')] });
+                                { files: [new Buffer(d[i].details.base64Image, 'base64')] });
                         }
                     }
                     if (!found) m.channel.send('Unfortunately Team ' + teamNumber + ' does not have an avatar.');
