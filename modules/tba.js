@@ -53,6 +53,21 @@ module.exports = {
                     console.log(e.message);
                     m.reply(e);
                 });
+            } else if (args === 'avatar') {
+                let year = m.content.split(' ')[2];
+                if (year === undefined) { year = curYear; }
+                console.log(year);
+                req.getTeamMedia(teamNumber, year).then(d => {
+                    var found = false;
+                    for (var i = 0; i < d.length; i++) {
+                        if (d[i].type === 'avatar') {
+                            found = true;
+                            m.channel.send('**Team ' + teamNumber + '\'s** avatar for the FIRST POWER UP season:',
+                                { files: [new Buffer(d.details.base64Image, 'base64')] });
+                        }
+                    }
+                    if (!found) m.channel.send('Unfortunately Team ' + teamNumber + ' does not have an avatar.');
+                });
             } else if (args === 'robots') {
                 var robots = new Discord.RichEmbed();
                 req.getTeamRobots(teamNumber).then(d => {
@@ -171,22 +186,6 @@ module.exports = {
             } else {
                 m.channel.sendMessage('Arguments for district subcommand: list');
             }
-        } else if (args === 'avatar') {
-            let year = m.content.split(' ')[2];
-            console.log(year);
-            if (year === undefined) { year = curYear; }
-            req.getTeamMedia(teamNumber, year).then(d => {
-                console.log(d);
-                var found = false;
-                for (var i = 0; i < d.length; i++) {
-                    if (d[i].type === 'avatar') {
-                        found = true;
-                        m.channel.send('**Team ' + teamNumber + '\'s** avatar for the FIRST POWER UP season:',
-                            { files: [new Buffer(d.details.base64Image, 'base64')] });
-                    }
-                }
-                if (!found) m.channel.send('Unfortunately Team ' + teamNumber + ' does not have an avatar.');
-            });
         } else {
             m.channel.sendMessage('Please specify an argument! Accepted arguments: team, avatar, awards, media, robots, events, district');
         }
