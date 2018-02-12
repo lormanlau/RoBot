@@ -262,7 +262,7 @@ module.exports = {
                     .addField('Rookie Year', d.rookie_year, true)
                     .addField('Location', `${d.city}, ${d.state_prov}, ${d.country}`, true)
                     .addField('Website', d.website, true);
-                if (d.motto !== null) { teaminfo.addField('Motto', d.motto, true); }
+                if (d.motto !== null) { teaminfo.addField('Motto', d.motto || 'None', true); }
                 sendEmbed(teaminfo);
             }).catch(e => { console.log(e); m.channel.sendMessage('Team does not exist'); });
         }
