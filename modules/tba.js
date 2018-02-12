@@ -257,6 +257,7 @@ module.exports = {
             req.getTeam(num).then(d => {
                 teaminfo.setAuthor('FIRST® Robotics Competition Team ' + num, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + num)
                     .setColor(0x1675DB)
+					.setThumbnail('https://frcavatars.herokuapp.com/get_image?team=' + num)
                     .addField('Name', d.nickname, true)
                     .addField('Rookie Year', d.rookie_year, true)
                     .addField('Location', `${d.city}, ${d.state_prov}, ${d.country}`, true)
