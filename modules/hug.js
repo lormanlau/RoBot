@@ -13,11 +13,9 @@ module.exports = {
             user = null;
         if (msg.mentions.users.array()[0]) user = msg.mentions.users.array()[0];
         else user = msg.author;
-        unirest.get('https://api.weeb.sh/images/random')
+        unirest.get('https://api.weeb.sh/images/random?filetype=gif&type=hug')
             .headers({
                 Authorization: 'Wolke ' + bot.config.weebsh,
-                type: 'hug',
-                filetype: 'gif',
             })
             .end(res => {
                 console.log(res.body);
