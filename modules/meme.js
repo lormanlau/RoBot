@@ -22,9 +22,7 @@ module.exports = {
                         footer: {
                             text: 'Powered by weeb.sh',
                         },
-                        title: {
-                            text: 'Discord Meme',
-                        },
+                        title: 'Discord Meme',
                         timestamp: new Date(),
                     },
                 });
