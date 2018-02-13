@@ -22,7 +22,8 @@ module.exports = {
                 filetype: 'gif',
             })
             .end(res => {
-                msg.channel.send(user + ', ' + hugs[Math.floor(Math.random() * (max - min + 1)) + min].body, {
+                console.log(res.body);
+                msg.channel.send(user + ', ' + hugs[Math.floor(Math.random() * (max - min + 1)) + min], {
                     embed: {
                         image: {
                             url: res.body.url,
