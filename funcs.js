@@ -60,6 +60,8 @@ module.exports = bot => {
                 })
                 .send({
                     server_count: guilds,
+                    shard_id: bot.shard.id,
+                    shard_count: bot.shard.count,
                 })
                 .end(response => {
                     bot.log(response.body);

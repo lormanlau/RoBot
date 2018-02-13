@@ -25,7 +25,8 @@ module.exports = {
                 }
 
                 embed.addBlankField(true)
-                    .addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'), true);
+                    .addField('Average Shard Uptime:', moment.duration(averageUptime).format(' D [days], H [hrs], m [mins], s [secs]'), true)
+                    .addBlankField(true);
                 for (var j = 0; j < guilds.length; j++) {
                     embed.addField('Shard ' + j + ' Uptime:', moment.duration(uptime[j]).format(' D [days], H [hrs], m [mins], s [secs]'), true);
                 }
