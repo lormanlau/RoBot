@@ -16,8 +16,6 @@ module.exports = {
         unirest.get('https://api.weeb.sh/images/random')
             .headers({
                 Authorization: 'Wolke ' + bot.config.weebsh,
-            })
-            .send({
                 type: 'hug',
                 filetype: 'gif',
             })
