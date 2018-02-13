@@ -25,7 +25,9 @@ module.exports = {
                             url: res.body.url,
                         },
                         color: msg.guild.me.displayColor,
-                        footer: 'Powered by weeb.sh',
+                        footer: {
+                            text: 'Powered by weeb.sh',
+                        },
                         timestamp: new Date(),
                     },
                 });
