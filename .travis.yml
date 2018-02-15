@@ -1,6 +1,6 @@
 language: node_js
 node_js:
   - "8.9"
-script: node bot.js --travis
+script: eslint . && node bot.js --travis
 install:
   - npm i
