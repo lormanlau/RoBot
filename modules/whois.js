@@ -9,9 +9,10 @@ module.exports = {
     permission: 1,
     help: 'Returns whois data for a domain.',
     main: function(bot, msg) {
-        bot.checkForUpvote(msg).then(res => {
-            if (res) {
+        bot.checkForUpvote(msg).then(v => {
+            if (v) {
                 whois(msg.content, (err, res) => {
+                    if (err) console.log(err);
                     if (res.domainName) {
                         msg.channel.send({
                             embed: new Discord.RichEmbed()
