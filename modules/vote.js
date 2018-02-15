@@ -1,4 +1,4 @@
-cost { clearInterval } = require('timers');
+const { clearInterval } = require('timers');
 
 module.exports = {
     name: 'vote',
