@@ -11,8 +11,7 @@ module.exports = {
     main: function(bot, msg) {
         bot.checkForUpvote(msg).then(res => {
             if (res) {
-                whois(msg.content, () => {
-                    console.log(res);
+                whois(msg.content, (err, res) => {
                     if (res.domainName) {
                         msg.channel.send({
                             embed: new Discord.RichEmbed()
