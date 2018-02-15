@@ -7,7 +7,7 @@ module.exports = {
     permission: 1,
     help: 'Get a meme',
     main: function(bot, msg) {
-        unirest.get('https://api.weeb.sh/images/random?filetype=gif&type=discord_memes')
+        unirest.get('https://api.weeb.sh/images/random?type=discord_memes')
             .headers({
                 Authorization: 'Wolke ' + bot.config.weebsh,
             })
