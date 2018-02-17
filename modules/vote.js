@@ -1,4 +1,4 @@
-import { clearInterval } from "timers";
+const { clearInterval } = require('timers');
 
 module.exports = {
     name: 'vote',

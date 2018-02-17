@@ -1,6 +1,6 @@
 exports.run = bot => {
     if (process.argv[2] && process.argv[2] === '--travis') process.exit(0);
-    
+
     bot.sendServerCount();
     bot.syncServers();
     bot.startGameCycle();
