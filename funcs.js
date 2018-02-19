@@ -58,9 +58,7 @@ module.exports = bot => {
                 'Content-Type': 'application/json',
             })
             .send({
-                server_count: guilds,
-                shard_id: bot.shard.id,
-                shard_count: bot.shard.count,
+                server_count: guilds
             })
             .end(response => {
                 bot.log(response.body);
