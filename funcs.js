@@ -58,7 +58,7 @@ module.exports = bot => {
                 'Content-Type': 'application/json',
             })
             .send({
-                server_count: guilds
+                server_count: guilds,
             })
             .end(response => {
                 bot.log(response.body);
