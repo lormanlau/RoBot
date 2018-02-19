@@ -52,7 +52,7 @@ module.exports = bot => {
                 bot.log(response.body);
             });
 
-        unirest.post('https://discordbots.org/api/bots/' + bot.user.id + '/stats')
+        unirest.post('https://discordbots.org/api/bots/stats')
             .headers({
                 Authorization: bot.config.dbotsorg,
                 'Content-Type': 'application/json',
