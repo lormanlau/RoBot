@@ -29,6 +29,7 @@
     "emoji-random": ">=0.1.2",
     "goo.gl": ">=0.1.4",
     "google-search": ">=0.0.5",
+    "idiotic-api": "^0.1.7",
     "imdb-api": "^3.1.2",
     "lmgtfy": ">=1.0.0",
     "moment": ">=2.19.2",
