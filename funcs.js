@@ -55,6 +55,17 @@ module.exports = bot => {
             .end(response => {
                 bot.log(response.body);
             });
+
+            unirest.post(`https://botsfordiscord.com/api/v1/bots/${bot.user.id}`)
+            .headers({
+                Authorization: bot.config.bfd,
+            })
+            .send({
+                server_count: guilds,
+            })
+            .end(response => {
+                bot.log(JSON.stringify(response.body));
+            });
         });
 
         bot.log('All server counts posted successfully!');
