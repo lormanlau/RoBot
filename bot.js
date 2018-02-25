@@ -29,7 +29,7 @@ bot.aliases = new Discord.Collection();
 bot.events = new Discord.Collection();
 
 const { Client } = require('idiotic-api');
-bot.IdioticAPI = new Client(bot.config.idioticapi);
+bot.IdioticAPI = new Client(bot.config.idioticapi, { dev: true });
 
 readdir('./modules/', (err, files) => {
     if (err) throw err;
