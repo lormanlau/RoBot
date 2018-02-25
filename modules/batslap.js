@@ -1,7 +1,7 @@
 module.exports = {
-    name: 'hug',
+    name: 'batslap',
     type: 'action',
-    usage: 'hug <mention>',
+    usage: 'batslap <mention>',
     permission: 1,
     help: 'Batslap someone',
     main: function(bot, msg) {
