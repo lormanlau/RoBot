@@ -31,16 +31,8 @@ module.exports = bot => {
     };
 
     bot.sendServerCount = function() {
-        var guilds;
-        if (bot.shard) {
-            bot.shard.fetchClientValues('guilds.size').then(g => {
-                guilds = g.reduce((prev, val) => prev + val, 0);
-            }).catch(console.error);
-        } else {
-            guilds = bot.guilds.size;
-        }
-
-        unirest.post('https://bots.discord.pw/api/bots/' + bot.user.id + '/stats')
+        bot.fetchGuildSize().then(guilds => {
+            unirest.post('https://bots.discord.pw/api/bots/' + bot.user.id + '/stats')
             .headers({
                 Authorization: bot.config.dbotspw,
                 'Content-Type': 'application/json',
@@ -52,7 +44,7 @@ module.exports = bot => {
                 bot.log(response.body);
             });
 
-        unirest.post('https://discordbots.org/api/bots/stats')
+            unirest.post('https://discordbots.org/api/bots/stats')
             .headers({
                 Authorization: bot.config.dbotsorg,
                 'Content-Type': 'application/json',
@@ -63,6 +55,7 @@ module.exports = bot => {
             .end(response => {
                 bot.log(response.body);
             });
+        });
 
         bot.log('All server counts posted successfully!');
     };
