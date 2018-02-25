@@ -8,7 +8,7 @@ module.exports = {
         if (!msg.member.hasPermission('MANAGE_ROLES_OR_PERMISSIONS') && !msg.member.hasPermission('ADMINISTRATOR')) {
             return msg.channel.send(':x: You do not have the necessary permissions to perform this action!');
         }
-        if (!msg.guild.members.get(bot.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
+        if (!msg.guild.me.hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
             return msg.channel.send(":x: I can't assign or deassign roles in this server!");
         }
 

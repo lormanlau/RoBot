@@ -28,6 +28,9 @@ bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.events = new Discord.Collection();
 
+const { Client } = require('idiotic-api');
+bot.IdioticAPI = new Client(bot.config.idioticapi);
+
 readdir('./modules/', (err, files) => {
     if (err) throw err;
     bot.log(`Loading ${files.length} commands!`);
