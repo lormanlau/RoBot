@@ -33,39 +33,39 @@ module.exports = bot => {
     bot.sendServerCount = function() {
         bot.fetchGuildSize().then(guilds => {
             unirest.post('https://bots.discord.pw/api/bots/' + bot.user.id + '/stats')
-            .headers({
-                Authorization: bot.config.dbotspw,
-                'Content-Type': 'application/json',
-            })
-            .send({
-                server_count: guilds,
-            })
-            .end(response => {
-                bot.log(JSON.stringify(response.body));
-            });
+                .headers({
+                    Authorization: bot.config.dbotspw,
+                    'Content-Type': 'application/json',
+                })
+                .send({
+                    server_count: guilds,
+                })
+                .end(response => {
+                    bot.log(JSON.stringify(response.body));
+                });
 
             unirest.post('https://discordbots.org/api/bots/stats')
-            .headers({
-                Authorization: bot.config.dbotsorg,
-                'Content-Type': 'application/json',
-            })
-            .send({
-                server_count: guilds,
-            })
-            .end(response => {
-                bot.log(JSON.stringify(response.body));
-            });
+                .headers({
+                    Authorization: bot.config.dbotsorg,
+                    'Content-Type': 'application/json',
+                })
+                .send({
+                    server_count: guilds,
+                })
+                .end(response => {
+                    bot.log(JSON.stringify(response.body));
+                });
 
             unirest.post(`https://botsfordiscord.com/api/v1/bots/${bot.user.id}`)
-            .headers({
-                Authorization: bot.config.bfd,
-            })
-            .send({
-                server_count: guilds,
-            })
-            .end(response => {
-                bot.log(JSON.stringify(response.body));
-            });
+                .headers({
+                    Authorization: bot.config.bfd,
+                })
+                .send({
+                    server_count: guilds,
+                })
+                .end(response => {
+                    bot.log(JSON.stringify(response.body));
+                });
         });
 
         bot.log('All server counts posted successfully!');
