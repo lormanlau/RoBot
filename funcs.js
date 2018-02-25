@@ -364,15 +364,17 @@ module.exports = bot => {
         }
 
         if (msg.isMentioned(bot.user)) {
-            if (msg.content.toLowerCase().includes("what's your prefix") || msg.content.toLowerCase().includes('whats your prefix')) {
+            if (msg.content.toLowerCase().includes('resetprefix') && msg.member.hasPermission('ADMINISTRATOR')) {
+                bot.setPrefix(bot.config.prefix, msg.guild);
+                msg.reply('I have reset this server\'s prefix to ``' + bot.config.prefix + '``!');
+            } else if (msg.content.toLowerCase().includes('prefix')) {
                 bot.getPrefix(msg).then(prefix => {
                     msg.reply('my prefix for this server is `' + prefix + '`!');
                 });
             }
 
-            if (msg.content.toLowerCase().includes('resetprefix') && msg.member.hasPermission('ADMINISTRATOR')) {
-                bot.setPrefix(bot.config.prefix, msg.guild);
-                msg.reply('I have reset this server\'s prefix to ``' + bot.config.prefix + '``!');
+            if (msg.content.toLowerCase().includes('help')) {
+                bot.commands.get('help').main(bot, msg);
             }
         }
 
@@ -428,20 +430,22 @@ module.exports = bot => {
     };
 
     bot.startGameCycle = function() {
-        bot.user.setPresence({
-            game: {
-                name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?',
-                type: 0,
-            },
-        });
-        setInterval(() => {
+        bot.fetchGuildSize().then(guilds => {
             bot.user.setPresence({
                 game: {
-                    name: bot.config.games[Math.round(Math.random() * (bot.config.games.length - 1))] + ' | @' + bot.user.username + ' What\'s your prefix?',
+                    name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${bot.shard.id}`,
                     type: 0,
                 },
             });
-        }, 300000);
+            setInterval(() => {
+                bot.user.setPresence({
+                    game: {
+                        name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${bot.shard.id}`,
+                        type: 0,
+                    },
+                });
+            }, 300000);
+        });
     };
 
     bot.awaitConsoleInput = function() {
