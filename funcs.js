@@ -41,7 +41,7 @@ module.exports = bot => {
                 server_count: guilds,
             })
             .end(response => {
-                bot.log(response.body);
+                bot.log(JSON.stringify(response.body));
             });
 
             unirest.post('https://discordbots.org/api/bots/stats')
@@ -53,7 +53,7 @@ module.exports = bot => {
                 server_count: guilds,
             })
             .end(response => {
-                bot.log(response.body);
+                bot.log(JSON.stringify(response.body));
             });
 
             unirest.post(`https://botsfordiscord.com/api/v1/bots/${bot.user.id}`)
