@@ -374,6 +374,8 @@ module.exports = bot => {
             }
 
             if (msg.content.toLowerCase().includes('help')) {
+                msg.content = '%help';
+                msg.args = ['%help'];
                 bot.commands.get('help').main(bot, msg);
             }
         }
