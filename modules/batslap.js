@@ -7,14 +7,14 @@ module.exports = {
     main: function(bot, msg) {
         var avatarURL, target, { Attachment } = require('discord.js');
         if (!msg.mentions.users.first()) {
-            avatarURL = msg.author.displayAvatarURL;
+            avatarURL = msg.author.displayAvatarURL.replace('.gif', 'png');
             target = 'themselves';
         } else {
-            avatarURL = msg.mentions.users.first().displayAvatarURL;
+            avatarURL = msg.mentions.users.first().displayAvatarURL.replace('.gif', 'png');
             target = msg.mentions.members.first().displayName;
         }
 
-        bot.IdioticAPI.batSlap(msg.author.displayAvatarURL, avatarURL).then(img => {
+        bot.IdioticAPI.batSlap(msg.author.displayAvatarURL.replace('.gif', 'png'), avatarURL).then(img => {
             msg.channel.send(`**${msg.member.displayName}** slapped **${target}**!`, new Attachment(img, 'slap.png'));
         });
     },
