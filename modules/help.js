@@ -5,10 +5,7 @@ module.exports = {
     usage: 'help <optional-arg>',
     permission: 1,
     help: 'Gives you the documentation for the bot\'s commands.',
-    main: function (bot, msg) {
-        var r = Math.floor(Math.random() * 256),
-            g = Math.floor(Math.random() * 256),
-            b = Math.floor(Math.random() * 256);
+    main: function(bot, msg) {
         if (!msg.args[0]) {
             /*
             msg.channel.send(':mailbox: Check your DMs!');
