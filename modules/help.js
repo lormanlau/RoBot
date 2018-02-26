@@ -53,8 +53,8 @@ module.exports = {
                     }
                     output += `${msg.prefix}${c.name}${' '.repeat(longest - c.name.length)} :: ${c.help}\n`;
                 });
-                output += `Come join us at https://discord.gg/8QebTbk for support and more!`;
-                msg.channel.send('Please check your inbox for a list of my commands.');
+                output += `\n[Come join us at https://discord.gg/8QebTbk for support and more!]`;
+                msg.channel.send(':mailbox: Check your DMs!');
                 msg.author.send(output, { code: 'asciidoc', split: { char: '\u200b' } });
             } catch (error) {
                 if (error.message === 'Cannot send messages to this user') {
