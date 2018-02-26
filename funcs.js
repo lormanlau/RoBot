@@ -383,6 +383,7 @@ module.exports = bot => {
         this.getPrefix(msg).then(prefix => {
             if (msg.content.startsWith(prefix)) {
                 try {
+                    msg.prefix = prefix;
                     msg.args = msg.content.split(/\s+/g);
                     msg.content = msg.content.substring(msg.content.indexOf(' ') + 1, msg.content.length) || null;
                     var command = msg.args.shift().slice(prefix.length).toLowerCase();

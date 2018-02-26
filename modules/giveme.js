@@ -4,7 +4,7 @@ module.exports = {
     usage: 'giveme <rolename>',
     permission: 1,
     help: 'Gives the user a specified role from an allowed list.',
-    main: function(bot, msg) {
+    main: async function(bot, msg) {
         var Discord = require('discord.js');
         try {
             bot.getGivemeRoles(msg.guild).then(roles => {
@@ -100,7 +100,7 @@ module.exports = {
                         givemeEmbed.addField(`Successfully took ${takenCount} role(s) from you!`, taken);
                     }
                     if (notFoundCount > 0) {
-                        givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Try {prefix}giveme list to get a list of roles avaliable!');
+                        givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, `Try ${msg.prefix}giveme list to get a list of roles avaliable!`);
                     }
 
                     msg.channel.send({ embed: givemeEmbed });
@@ -159,7 +159,7 @@ module.exports = {
                         givemeEmbed.addField(`You already had ${alreadyHadCount} role(s)!`, alreadyHad);
                     }
                     if (notFoundCount > 0) {
-                        givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, 'Try {prefix}giveme list to get a list of roles avaliable!');
+                        givemeEmbed.addField(`Couldn't find ${notFoundCount} role(s)!`, `Try ${msg.prefix}giveme list to get a list of roles avaliable!`);
                     }
 
                     msg.channel.send({ embed: givemeEmbed });
