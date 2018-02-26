@@ -84,7 +84,7 @@ module.exports = {
         }
 
         function toProperCase(m) {
-            return m.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+            return m.replace(/([^\W_]+[^\s-]*) */g, txt => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
         }
     },
 };
