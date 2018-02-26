@@ -71,11 +71,11 @@ module.exports = {
                 helpCommand.setTitle(command.name)
                     .setFooter(bot.user.username)
                     .setTimestamp()
-                    .addField('Category', `${toProperCase(command.type)}`)
-                    .addField('Description', `${command.help}`)
-                    .addField('Usage', `${msg.prefix}${command.usage}`)
-                    .setColor([r, g, b])
-                    .addField('Join our support server!', 'Come join us at https://discord.gg/8QebTbk for support and more!');
+                    .addField('Category', `${toProperCase(command.type)}`, true)
+                    .addField('Description', `${command.help}`, true)
+                    .addField('Usage', `${msg.prefix}${command.usage}`, true)
+                    .setColor(msg.guild.me.displayHexColor)
+                    .addField('Need more help?', 'Join our support server at https://discord.gg/8QebTbk!');
                 /* if (command.conf.aliases != "") {
                     helpCommand.addField('Aliases', `${command.conf.aliases.join(', ')}`)
                 }*/
