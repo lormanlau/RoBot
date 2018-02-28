@@ -11,10 +11,10 @@ module.exports = {
 
         msg.guild.members.forEach(member => {
             if (member.hasPermission('MANAGE_MESSAGES') && !member.user.bot) {
-                if (!members[member.hoistRole.name]) {
-                    members[member.hoistRole.name] = [];
+                if (!members[member.hoistRole ? member.hoistRole.name : 'None']) {
+                    members[member.hoistRole ? member.hoistRole.name : 'None'] = [];
                 }
-                members[member.hoistRole.name].push(member);
+                members[member.hoistRole ? member.hoistRole.name : 'None'].push(member);
             }
         });
 
