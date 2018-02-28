@@ -1,9 +1,9 @@
 module.exports = {
-    name: 'fml',
-    type: 'fun',
-    usage: 'npm <package-name>',
+    name: 'wikipedia',
+    type: 'info',
+    usage: 'wikipedia <package-name>',
     permission: 1,
-    help: 'Gives you information about an npm package',
+    help: 'Fetches a Wikipedia article',
     main: async function(bot, msg) {
         const wiki = require('wikipediajs'), { RichEmbed } = require('discord.js'), wiki2 = require('wikijs').default;
         msg.content = msg.content.replace(/ /g, '_');

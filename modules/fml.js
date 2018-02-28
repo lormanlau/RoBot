@@ -5,7 +5,7 @@ module.exports = {
     permission: 1,
     help: 'Grabs a fml entry',
     main: function(bot, msg) {
-        const fml = require('fmylife'), { RichEmbed } = require('discord.js');
+        var fml = require('fmylife'), { RichEmbed } = require('discord.js');
         fml.random().then(m => msg.channel.send({ embed: new RichEmbed()
             .setTitle('"Fuck my Life" Story')
             .setDescription(m)

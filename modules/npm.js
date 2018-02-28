@@ -1,6 +1,6 @@
 module.exports = {
-    name: 'fml',
-    type: 'fun',
+    name: 'npm',
+    type: 'utility',
     usage: 'npm <package-name>',
     permission: 1,
     help: 'Gives you information about an npm package',
