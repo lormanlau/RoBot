@@ -14,7 +14,7 @@ module.exports = {
                 embed: new RichEmbed()
                     .setAuthor('Wikipedia: ' + page.raw.title, 'https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/220px-Wikipedia-logo-v2.svg.png', page.raw.fullurl)
                     .setFooter('Powered by wikipediajs')
-                    .setDescription(info.substring(0, info.indexOf('\n')))
+                    .setDescription(info.substring(0, info.indexOf('\n')) + `\n[Read More](${page.raw.fullurl})`)
                     .setImage(image)
                     .setTimestamp()
                     .setColor(msg.guild.me.displayHexColor),
