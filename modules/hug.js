@@ -18,7 +18,6 @@ module.exports = {
                 Authorization: 'Wolke ' + bot.config.weebsh,
             })
             .end(res => {
-                console.log(res.body);
                 msg.channel.send(user + ', ' + hugs[Math.floor(Math.random() * (max - min + 1)) + min], {
                     embed: {
                         image: {
