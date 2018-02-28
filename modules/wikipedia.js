@@ -6,7 +6,7 @@ module.exports = {
     help: 'Fetches a Wikipedia article',
     main: async function(bot, msg) {
         const { RichEmbed } = require('discord.js'), wiki = require('wikijs').default;
-        msg.content = msg.content.replace(/ /g, '_')
+        msg.content = msg.content.replace(/ /g, '_');
         if (msg.content.toLowerCase().indexOf('discord') > -1) msg.content = msg.content.toLowerCase().replace('discord', 'Discord_(software)');
         wiki().page(msg.content).then(async function(page) { // eslint-disable-line prefer-arrow-callback
             const info = await page.summary();
