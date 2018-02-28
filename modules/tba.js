@@ -22,7 +22,7 @@ module.exports = {
             } else if (args === 'awards') {
                 var awardlist = new Discord.RichEmbed();
                 req.getTeamAwards(teamNumber).then(d => {
-                    awardlist.setAuthor('Events for *FIRST®* Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
+                    awardlist.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
                         .setColor(0x1675DB);
                     var awards = [''];
                     var n = 0;
@@ -70,7 +70,7 @@ module.exports = {
             } else if (args === 'robots') {
                 var robots = new Discord.RichEmbed();
                 req.getTeamRobots(teamNumber).then(d => {
-                    robots.setAuthor('Robot Names for *FIRST®* Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
+                    robots.setAuthor('Robot Names for FIRST® Robotics Competition Team ' + teamNumber, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
                         .setColor(0x1675DB);
                     for (let i in d) {
                         robots.addField(d[i].year, d[i].robot_name);
@@ -87,7 +87,7 @@ module.exports = {
                 console.log(year);
                 if (year === undefined) { year = curYear; }
                 req.getTeamEventList(teamNumber, year).then(d => {
-                    evts.setAuthor('Events for *FIRST®* Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
+                    evts.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
                         .setColor(0x1675DB);
                     for (var i = 0; i < d.length; i++) {
                         var startDate = new Date(d[i].start_date);
@@ -255,7 +255,7 @@ module.exports = {
         function team(num) {
             var teaminfo = new Discord.RichEmbed();
             req.getTeam(num).then(d => {
-                teaminfo.setAuthor('*FIRST®* Robotics Competition Team ' + num, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + num)
+                teaminfo.setAuthor('FIRST® Robotics Competition Team ' + num, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + num)
                     .setColor(0x1675DB)
                     .setThumbnail('https://frcavatars.herokuapp.com/get_image?team=' + num)
                     .addField('Name', d.nickname, true)
