@@ -16,7 +16,7 @@ module.exports = {
                     .setFooter('Powered by npm-package-info')
                     .setTimestamp()
                     .setColor(msg.guild.me.displayHexColor)
-                    .addField('Author', pkg.author.name, true)
+                    .addField('Author', pkg.author.name || 'Unknown', true)
                     .addField('Version', pkg['dist-tags'].latest, true)
                     .addField('License', pkg.license, true)
                     .addField('Keywords', pkg.keywords.join(', '), true),
