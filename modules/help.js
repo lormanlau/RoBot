@@ -36,49 +36,38 @@ module.exports = {
             */
             try {
                 const myCommands = bot.commands.filter(c => c.permission <= bot.permLevel(msg));
-                const commandNames = myCommands.keyArray();
-                const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+
+                var help = new Discord.RichEmbed()
+                    .setAuthor(bot.user.username + ' Help', bot.user.avatarURL)
+                    .setColor(msg.guild.me.displayHexColor)
+                    .setDescription(bot.user.username + ' Command List\nFor details regarding a specific command, use ' + msg.prefix + 'help <command-name>.' +
+                        '\n\nFor further support, join our support server at https://discord.gg/8QebTbk')
+                    .setTimestamp()
+                    .setFooter(bot.user.username + ' Help');
 
                 let currentCategory = '';
-                let output = `= Command List =\n\n[Use ${msg.prefix}help <commandname> in a guild channel for details]\n`;
+                let output = ``;
                 const sorted = myCommands.array().sort((p, c) => p.type > c.type ? 1 : p.name > c.name && p.type === c.type ? 1 : -1);
                 sorted.forEach(c => {
                     const cat = toProperCase(c.type);
                     if (currentCategory !== cat) {
-                        output += `\u200b\n== ${cat} ==\n`;
-                        currentCategory = cat;
-                    }
-                    output += `${msg.prefix}${c.name}${' '.repeat(longest - c.name.length)} :: ${c.help}\n`;
-                });
-                output += `\n[Come join us at https://discord.gg/8QebTbk for support and more!]`;
-                msg.channel.send(':mailbox: Check your DMs!');
-
-                var outputArr = output.split('\u200b'); // eslint-disable-line
-                output = '';
-                outputArr.forEach(a => {
-                    if ((output + a).length > 2000) {
-                        msg.author.send(output, { code: 'asciidoc' });
+                        help.addField(currentCategory + ' Commands:', output);
                         output = '';
-                    } else {
-                        output += a;
                     }
+                    output += `\`\`${msg.prefix}${c.name}\`\``;
                 });
-                msg.author.send(output, { code: 'asciidoc' });
-                // , split: { char: '\u200b' } });
+
+                msg.channel.send(help);
             } catch (error) {
-                if (error.message === 'Cannot send messages to this user') {
-                    msg.reply('I cannot send you the commands message, as it appears you have DMs disabled.');
-                } else {
-                    bot.error(error);
-                }
+                bot.error(error);
             }
         } else {
             let command = msg.args[0];
             if (bot.commands.has(command)) {
                 command = bot.commands.get(command);
                 var helpCommand = new Discord.RichEmbed();
-                helpCommand.setTitle(command.name)
-                    .setFooter(bot.user.username)
+                helpCommand.setTitle(toProperCase(command.name) + ' Command')
+                    .setFooter(bot.user.username + ' Help')
                     .setTimestamp()
                     .addField('Category', `${toProperCase(command.type)}`, true)
                     .addField('Description', `${command.help}`, true)
