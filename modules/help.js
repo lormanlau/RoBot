@@ -69,7 +69,7 @@ module.exports = {
             let command = msg.args[0];
             if (bot.commands.has(command)) {
                 command = bot.commands.get(command);
-                if (command.permission <= bot.permLevel(msg)) return;
+                if (command.permission > bot.permLevel(msg)) return;
                 var helpCommand = new Discord.RichEmbed();
                 helpCommand.setTitle(toProperCase(command.name) + ' Command')
                     .setFooter(bot.user.username + ' Help')
