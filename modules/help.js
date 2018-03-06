@@ -69,6 +69,7 @@ module.exports = {
             let command = msg.args[0];
             if (bot.commands.has(command)) {
                 command = bot.commands.get(command);
+                if (commandc.permission <= bot.permLevel(msg)) return;
                 var helpCommand = new Discord.RichEmbed();
                 helpCommand.setTitle(toProperCase(command.name) + ' Command')
                     .setFooter(bot.user.username + ' Help')
@@ -77,7 +78,7 @@ module.exports = {
                     .addField('Description', `${command.help}`, true)
                     .addField('Usage', `${msg.prefix}${command.usage}`, true)
                     .setColor(msg.guild.me.displayHexColor)
-                    .setDescription('Need more help? Join our support server at https://discord.gg/8QebTbk!');
+                    .setDescription('*Need more help? Join our support server at https://discord.gg/8QebTbk*');
                 /* if (command.conf.aliases != "") {
                     helpCommand.addField('Aliases', `${command.conf.aliases.join(', ')}`)
                 }*/
