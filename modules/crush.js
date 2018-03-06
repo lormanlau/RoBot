@@ -14,7 +14,7 @@ module.exports = {
             target = msg.mentions.members.first().displayName;
         }
 
-        bot.IdioticAPI.crush(msg.author.displayAvatarURL.replace('.gif', '.png'), avatarURL).then(img => {
+        bot.IdioticAPI.crush(avatarURL, msg.author.displayAvatarURL.replace('.gif', '.png')).then(img => {
             msg.channel.send(`**${msg.member.displayName}** has a crush on **${target}**!`, new Attachment(img, 'crush.png'));
         });
     },
