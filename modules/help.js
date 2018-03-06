@@ -60,7 +60,7 @@ module.exports = {
                         msg.channel.send(output, { code: 'asciidoc' });
                         output = '';
                     } else {
-                        output += outputArr[0];
+                        output += a;
                     }
                 });
                 msg.author.send(output, { code: 'asciidoc' });
