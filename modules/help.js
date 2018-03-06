@@ -57,7 +57,7 @@ module.exports = {
                 output = '';
                 outputArr.forEach(a => {
                     if ((output + a).length > 2000) {
-                        msg.channel.send(output, { code: 'asciidoc' });
+                        msg.author.send(output, { code: 'asciidoc' });
                         output = '';
                     } else {
                         output += a;
