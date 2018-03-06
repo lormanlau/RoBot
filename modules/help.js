@@ -50,7 +50,7 @@ module.exports = {
                 const sorted = myCommands.array().sort((p, c) => p.type > c.type ? 1 : p.name > c.name && p.type === c.type ? 1 : -1);
                 sorted.forEach(c => {
                     const cat = toProperCase(c.type);
-                    if (currentCategory !== cat) {
+                    if (currentCategory !== cat && currentCategory !== ``) {
                         help.addField(currentCategory + ' Commands:', output);
                         output = '';
                     }
