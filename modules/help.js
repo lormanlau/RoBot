@@ -77,7 +77,7 @@ module.exports = {
                     .addField('Description', `${command.help}`, true)
                     .addField('Usage', `${msg.prefix}${command.usage}`, true)
                     .setColor(msg.guild.me.displayHexColor)
-                    .addField('Need more help?', 'Join our support server at https://discord.gg/8QebTbk!');
+                    .setDescription('Need more help? Join our support server at https://discord.gg/8QebTbk!');
                 /* if (command.conf.aliases != "") {
                     helpCommand.addField('Aliases', `${command.conf.aliases.join(', ')}`)
                 }*/
