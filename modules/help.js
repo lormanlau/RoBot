@@ -53,6 +53,7 @@ module.exports = {
                     if (currentCategory !== cat && currentCategory !== ``) {
                         help.addField(currentCategory + ' Commands:', output);
                         output = '';
+                        currentCategory = cat;
                     }
                     output += `\`\`${msg.prefix}${c.name}\`\``;
                 });
