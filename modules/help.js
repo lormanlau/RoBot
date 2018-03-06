@@ -56,7 +56,7 @@ module.exports = {
                 var outputArr = output.split('\u200b'); // eslint-disable-line
                 output = '';
                 outputArr.forEach(a => {
-                    if ((output += a).length > 2000) {
+                    if ((output + a).length > 2000) {
                         msg.channel.send(output, { code: 'asciidoc' });
                         output = '';
                     } else {
