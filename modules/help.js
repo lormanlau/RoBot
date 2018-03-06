@@ -48,7 +48,7 @@ module.exports = {
                         output += `\u200b\n== ${cat} ==\n`;
                         currentCategory = cat;
                     }
-                    output += `${msg.prefix}${c.name}${' '.repeat(longest - c.name.length)} | ${c.help}\n`;
+                    output += `${msg.prefix}${c.name}${' '.repeat(longest - c.name.length)} :: ${c.help}\n`;
                 });
                 output += `\n[Come join us at https://discord.gg/8QebTbk for support and more!]`;
                 msg.channel.send(':mailbox: Check your DMs!');
