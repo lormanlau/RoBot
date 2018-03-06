@@ -58,7 +58,7 @@ module.exports = {
                     } else if (currentCategory !== cat) {
                         currentCategory = cat;
                     }
-                    output += `\`\`${msg.prefix}${c.name}\`\``;
+                    output += `\`\`${c.name}\`\` `;
                 });
 
                 msg.channel.send(help);
