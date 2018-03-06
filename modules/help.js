@@ -42,7 +42,7 @@ module.exports = {
                     .setColor(msg.guild.me.displayHexColor)
                     .setDescription(bot.user.username + ' Command List | **' + bot.commands.size + '** Total Commands | **' + (bot.commands.size - myCommands.size) + '** Not Shown' +
                         '\n\nFor details regarding a specific command, use ' + msg.prefix + 'help <command-name>.' +
-                        '\n\nFor further support, join our support server at https://discord.gg/8QebTbk')
+                        '\nFor further support, join our support server at https://discord.gg/8QebTbk\n')
                     .setTimestamp()
                     .setFooter(bot.user.username + ' Help');
 
