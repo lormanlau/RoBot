@@ -41,8 +41,8 @@ module.exports = {
                     .setAuthor(bot.user.username + ' Help', bot.user.avatarURL)
                     .setColor(msg.guild.me.displayHexColor)
                     .setDescription(bot.user.username + ' Command List | **' + bot.commands.size + '** Total Commands | **' + (bot.commands.size - myCommands.size) + '** Not Shown' +
-                        '\n\nFor details regarding a specific command, use ' + msg.prefix + 'help <command-name>.' +
-                        '\nFor further support, join our support server at https://discord.gg/8QebTbk\n')
+                        '\n**My prefix for this server is `' + msg.prefix + '`.**' +
+                        '\n\nFor details regarding a specific command, use ' + msg.prefix + 'help <command-name>.')
                     .setTimestamp()
                     .setFooter(bot.user.username + ' Help');
 
@@ -60,8 +60,11 @@ module.exports = {
                     }
                     output += `\`\`${c.name}\`\` `;
                 });
-
-                msg.channel.send(help);
+                help.addField('Need more help?', 'Join our support server at https://discord.gg/8QebTbk');
+                if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS'))
+                    msg.channel.send(help);
+                else
+                    msg.author.send(help);
             } catch (error) {
                 bot.error(error);
             }
