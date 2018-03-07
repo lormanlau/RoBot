@@ -38,7 +38,7 @@ module.exports = {
                 const myCommands = bot.commands.filter(c => c.permission <= bot.permLevel(msg));
 
                 var help = new Discord.RichEmbed()
-                    .setAuthor(bot.user.username +  ' Command List | ' + bot.commands.size + ' Commands | ' + (bot.commands.size - myCommands.size) + ' Not Shown)', bot.user.avatarURL)
+                    .setAuthor(bot.user.username +  ' Help | ' + myCommands.size + ' Commands', bot.user.avatarURL)
                     .setColor(msg.guild.me.displayHexColor)
                     .setDescription('**My prefix for this server is `' + msg.prefix + '`.**' +
                         '\n\nFor details regarding a specific command, use ' + msg.prefix + 'help <command-name>.')
