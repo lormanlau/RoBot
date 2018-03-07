@@ -1,6 +1,6 @@
 module.exports = {
     name: 'wolfram',
-    type: 'utility',
+    type: 'info',
     usage: 'wolfram <query>',
     permission: 1,
     help: 'Queries the Wolfram Alpha API.',

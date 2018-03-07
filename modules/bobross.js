@@ -7,7 +7,7 @@ module.exports = {
     main: function(bot, msg) {
         var { Attachment } = require('discord.js'), user = msg.author;
         if (msg.mentions.users.first()) user = msg.mentions.users.first();
-        bot.IdioticAPI.bobross(user.displayAvatarURL.replace('.gif', '.png'), user.username).then(img => {
+        bot.IdioticAPI.bobRoss(user.displayAvatarURL.replace('.gif', '.png'), user.username).then(img => {
             msg.channel.send(new Attachment(img, 'bobross.png'));
         });
     },
