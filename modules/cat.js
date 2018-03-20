@@ -8,7 +8,7 @@ module.exports = {
     permission: 1,
     help: 'Returns a random cat picture.',
     main: function(bot, msg) {
-        unirest.get('http://random.cat/meow')
+        unirest.get('http://aws.random.cat/meow')
             .end(result => {
                 var cat = new Discord.RichEmbed()
                     .setTitle('Random Cat')
