@@ -13,7 +13,6 @@ module.exports = {
         };
         imdb.get(msg.content, opts).then(d => {
             if (!d) return msg.channel.send('No results were found!');
-            console.log(typeof d);
             var m = new Discord.RichEmbed();
             if (d.type === 'movie') {
                 if (d.poster !== 'N/A') {
