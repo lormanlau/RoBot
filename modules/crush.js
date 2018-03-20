@@ -17,10 +17,10 @@ module.exports = {
             selfAvatarURL = msg.author.displayAvatarURL.replace('.gif', '.png');
             selfName = msg.member.displayName;
         } else if (msg.mentions.users.first() && msg.mentions.users.array()[1]) {
-            avatarURL = msg.mentions.users.first().displayAvatarURL.replace('.gif', '.png');
-            target = msg.mentions.members.first().displayName;
-            selfAvatarURL = msg.mentions.users.array()[1].displayAvatarURL.replace('.gif', '.png');
-            selfName = msg.mentions.members.array()[1].displayName;
+            selfAvatarURL = msg.mentions.users.first().displayAvatarURL.replace('.gif', '.png');
+            selfName = msg.mentions.members.first().displayName;
+            avatarURL = msg.mentions.users.array()[1].displayAvatarURL.replace('.gif', '.png');
+            target = msg.mentions.members.array()[1].displayName;
         }
 
         bot.IdioticAPI.crush(avatarURL, selfAvatarURL).then(img => {
