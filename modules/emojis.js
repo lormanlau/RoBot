@@ -1,6 +1,6 @@
 module.exports = {
     name: 'emojis',
-    type: 'core',
+    type: 'utility',
     usage: 'emojis',
     permission: 1,
     help: 'Gives you a list of the server\'s emojis.',

@@ -3,7 +3,7 @@ var unirest = require('unirest');
 
 module.exports = {
     name: 'toa',
-    type: 'utility',
+    type: 'informational',
     usage: 'toa <arguments>',
     permission: 1,
     help: 'Querys The Orange Alliance API for information.',

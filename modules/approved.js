@@ -1,6 +1,6 @@
 module.exports = {
     name: 'approved',
-    type: 'fun',
+    type: 'image generation',
     usage: 'approved <mention>',
     permission: 1,
     help: 'Approve someone\'s avatar!',

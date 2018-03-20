@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'user',
-    type: 'utility',
+    type: 'informational',
     usage: 'user <optional-mention>',
     permission: 1,
     help: 'Provides information about a user.',
