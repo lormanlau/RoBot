@@ -18,8 +18,8 @@ module.exports = {
                     .setColor(msg.guild.me.displayHexColor)
                     .addField('Author', pkg.author ? pkg.author.name : 'None', true)
                     .addField('Version', pkg['dist-tags'].latest, true)
-                    .addField('License', pkg.license, true)
-                    .addField('Keywords', pkg.keywords.join(', '), true),
+                    .addField('License', pkg.license || 'None', true)
+                    .addField('Keywords', pkg.keywords ? pkg.keywords.join(', ') : 'None', true),
             });
         });
     },
