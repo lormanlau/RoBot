@@ -4,7 +4,7 @@ var fs = require('fs'),
 
 module.exports = {
     name: 'blacklist',
-    type: 'core',
+    type: 'owner',
     usage: 'blacklist <id>',
     permission: 6,
     help: 'Adds a user to the blacklist.',

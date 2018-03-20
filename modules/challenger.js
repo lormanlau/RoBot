@@ -1,6 +1,6 @@
 module.exports = {
     name: 'challenger',
-    type: 'fun',
+    type: 'image generation',
     usage: 'challenger <mention>',
     permission: 1,
     help: 'A new challenger approaches! Who could it be?',

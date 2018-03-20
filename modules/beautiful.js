@@ -1,6 +1,6 @@
 module.exports = {
     name: 'beautiful',
-    type: 'fun',
+    type: 'image generation',
     usage: 'beautiful <mention>',
     permission: 1,
     help: 'Say someone\'s beautiful with this command.',
