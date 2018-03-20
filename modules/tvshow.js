@@ -14,7 +14,7 @@ module.exports = {
         imdb.get(msg.content, opts).then(d => {
             if (!d) return msg.channel.send('No results were found!');
             var m = new Discord.RichEmbed();
-            console.log(typeof d);
+            console.log(d);
             if (d.type === 'series') {
                 if (d.poster !== 'N/A') {
                     m.setThumbnail(d.poster);
