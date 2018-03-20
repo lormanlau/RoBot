@@ -1,6 +1,6 @@
 module.exports = {
     name: 'karen',
-    type: 'fun',
+    type: 'image generation',
     usage: 'karen <mention>',
     permission: 1,
     help: 'Make Karen hold up a picture of someone!',

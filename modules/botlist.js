@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'botlist',
-    type: 'utility',
+    type: 'informational',
     usage: 'botlist <number>',
     permission: 1,
     help: 'Queries the Carbonitex API for information.',

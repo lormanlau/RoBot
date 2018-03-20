@@ -1,6 +1,6 @@
 module.exports = {
     name: 'wreckit',
-    type: 'fun',
+    type: 'image generation',
     usage: 'wreckit <mention>',
     permission: 1,
     help: 'Wreck It Ralph meme generation',

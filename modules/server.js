@@ -1,6 +1,6 @@
 module.exports = {
     name: 'server',
-    type: 'utility',
+    type: 'informational',
     usage: 'server',
     permission: 1,
     help: 'Provides information about the server.',

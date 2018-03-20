@@ -3,7 +3,7 @@ var Discord = require('discord.js');
 
 module.exports = {
     name: 'catfact',
-    type: 'fun',
+    type: 'informational',
     usage: 'catfact',
     permission: 1,
     help: 'Gets a random cat fact.',

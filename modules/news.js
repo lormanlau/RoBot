@@ -3,7 +3,7 @@ var Discord = require('discord.js');
 
 module.exports = {
     name: 'news',
-    type: 'utility',
+    type: 'informational',
     usage: 'news <query>',
     permission: 1,
     help: 'Gets news from Google News.',

@@ -1,6 +1,6 @@
 module.exports = {
     name: 'waifuinsult',
-    type: 'fun',
+    type: 'image generation',
     usage: 'waifuinsult <mention>',
     permission: 1,
     help: 'My waifu is better than yours! >:(',

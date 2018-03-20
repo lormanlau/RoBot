@@ -1,6 +1,6 @@
 module.exports = {
     name: 'vaultboy',
-    type: 'action',
+    type: 'image generation',
     usage: 'vaultboy <mention>',
     permission: 1,
     help: 'Ever wanted to be Vault Boy? Well now you can!',

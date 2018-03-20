@@ -1,6 +1,6 @@
 module.exports = {
     name: 'tattoo',
-    type: 'action',
+    type: 'image generation',
     usage: 'tattoo <mention>',
     permission: 1,
     help: 'Get your or someone else\'s avatar as a tattoo.',

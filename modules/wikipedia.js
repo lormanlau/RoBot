@@ -1,7 +1,7 @@
 module.exports = {
     name: 'wikipedia',
-    type: 'info',
-    usage: 'wikipedia <package-name>',
+    type: 'informational',
+    usage: 'wikipedia <query>',
     permission: 1,
     help: 'Fetches a Wikipedia article',
     main: async function(bot, msg) {

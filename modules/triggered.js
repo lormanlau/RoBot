@@ -1,6 +1,6 @@
 module.exports = {
     name: 'triggered',
-    type: 'action',
+    type: 'image generation',
     usage: 'triggered <mention>',
     permission: 1,
     help: 'REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE',

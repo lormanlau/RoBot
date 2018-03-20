@@ -1,6 +1,6 @@
 module.exports = {
     name: 'shit',
-    type: 'action',
+    type: 'image generation',
     usage: 'shit <mention>',
     permission: 1,
     help: 'Ew, you stepped in some shit? Get it off.',

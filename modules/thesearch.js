@@ -1,6 +1,6 @@
 module.exports = {
     name: 'thesearch',
-    type: 'fun',
+    type: 'image generation',
     usage: 'thesearch <user-mention> <words-to-say>',
     permission: 1,
     help: 'Makes a "The Search Continues" meme',

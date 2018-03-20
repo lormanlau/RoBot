@@ -3,7 +3,7 @@ var Discord = require('discord.js');
 
 module.exports = {
     name: 'movie',
-    type: 'fun',
+    type: 'informational',
     usage: 'movie <movie-name>',
     permission: 1,
     help: 'Gets information about a movie.',

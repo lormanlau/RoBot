@@ -1,6 +1,6 @@
 module.exports = {
     name: 'respect',
-    type: 'action',
+    type: 'image generation',
     usage: 'respect <mention>',
     permission: 1,
     help: 'Pay your respects with this command.',

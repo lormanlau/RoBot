@@ -1,6 +1,6 @@
 module.exports = {
     name: 'facepalm',
-    type: 'action',
+    type: 'image generation',
     usage: 'facepalm <mention>',
     permission: 1,
     help: 'Facepalm with this command.',

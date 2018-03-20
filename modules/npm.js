@@ -1,6 +1,6 @@
 module.exports = {
     name: 'npm',
-    type: 'utility',
+    type: 'informational',
     usage: 'npm <package-name>',
     permission: 1,
     help: 'Gives you information about an npm package',

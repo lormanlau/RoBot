@@ -1,6 +1,6 @@
 module.exports = {
     name: 'punch',
-    type: 'action',
+    type: 'image generation',
     usage: 'punch <mention>',
     permission: 1,
     help: 'Punch someone',

@@ -1,6 +1,6 @@
 module.exports = {
     name: 'wanted',
-    type: 'fun',
+    type: 'image generation',
     usage: 'wanted <mention>',
     permission: 1,
     help: 'Make a wanted poster of someone',

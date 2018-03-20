@@ -4,7 +4,7 @@ var whois = require('whois-json'),
 
 module.exports = {
     name: 'whois',
-    type: 'info',
+    type: 'informational',
     usage: 'whois <domain>',
     permission: 1,
     help: 'Returns whois data for a domain.',

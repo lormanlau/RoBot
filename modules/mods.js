@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'mods',
-    type: 'utility',
+    type: 'informational',
     usage: 'mods',
     permission: 1,
     help: 'Gives you information about the server moderators.',

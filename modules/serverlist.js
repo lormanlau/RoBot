@@ -3,7 +3,7 @@ module.exports = {
     name: 'serverlist',
     type: 'core',
     usage: 'serverlist',
-    permission: 1,
+    permission: 10,
     help: 'Lists the servers the bot is in.',
     main: function(bot, msg) {
         var str = '';

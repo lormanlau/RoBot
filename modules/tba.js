@@ -3,7 +3,7 @@ const TBA = require('tba-api-storm');
 
 module.exports = {
     name: 'tba',
-    type: 'utility',
+    type: 'informational',
     usage: 'tba <arguments>',
     permission: 1,
     help: 'Querys The Blue Alliance API for information.',

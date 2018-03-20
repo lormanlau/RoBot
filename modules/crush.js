@@ -1,7 +1,7 @@
 module.exports = {
     name: 'crush',
     type: 'image generation',
-    usage: 'crush <mention>',
+    usage: 'crush <mention> <second-mention>',
     permission: 1,
     help: 'Someone has a crush on someone!',
     main: function(bot, msg) {

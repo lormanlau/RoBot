@@ -1,6 +1,6 @@
 module.exports = {
     name: 'rainbow',
-    type: 'fun',
+    type: 'image generation',
     usage: 'rainbow <mention>',
     permission: 1,
     help: 'Put a rainbow on someone\'s avatar!',

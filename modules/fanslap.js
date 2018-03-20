@@ -1,6 +1,6 @@
 module.exports = {
     name: 'fanslap',
-    type: 'action',
+    type: 'image generation',
     usage: 'fanslap <mention>',
     permission: 1,
     help: 'Fanslap someone',

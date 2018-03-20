@@ -59,6 +59,7 @@ module.exports = {
                     }
                     output += `\`\`${c.name}\`\` `;
                 });
+                help.addField(currentCategory + ' Commands:', output);
                 help.addField('Need more help?', 'Join our support server at https://discord.gg/8QebTbk');
                 if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS')) {
                     msg.channel.send(help);

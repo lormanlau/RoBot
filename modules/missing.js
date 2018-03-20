@@ -1,6 +1,6 @@
 module.exports = {
     name: 'missing',
-    type: 'fun',
+    type: 'image generation',
     usage: 'missing <mention>',
     permission: 1,
     help: 'Make a missing poster of someone',

@@ -3,7 +3,7 @@ var Discord = require('discord.js');
 
 module.exports = {
     name: 'country',
-    type: 'fun',
+    type: 'informational',
     usage: 'country <country-name>',
     permission: 1,
     help: 'Gets information about a country.',
