@@ -47,7 +47,7 @@ module.exports = {
                                 awardlist.addField('Award List Page ' + (j + 1), awards[j]);
                             }
                         }
-                        if (awardlist.fields.length === 2 || j === awards.length - 1) {
+                        if (awardlist.fields.length === 4 || j === awards.length - 1) {
                             awardlist.setColor(0x1675DB);
                             sendEmbed(awardlist);
                         }
