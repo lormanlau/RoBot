@@ -22,10 +22,10 @@ module.exports = {
             } else if (args === 'awards') {
                 let year = m.content.split(' ')[2];
                 console.log(year);
-                if (year === undefined) { year = curYear; }
+                if (isNaN(year)) { year = curYear; }
                 var awardlist = new Discord.RichEmbed();
                 req.getTeamAwards(teamNumber, year).then(d => {
-                    awardlist.setAuthor('Events for FIRST® Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
+                    awardlist.setAuthor('Awards for FIRST® Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
                         .setColor(0x1675DB);
                     var awards = [''];
                     var n = 0;
