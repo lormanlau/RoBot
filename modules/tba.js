@@ -22,7 +22,7 @@ module.exports = {
             } else if (args === 'awards') {
                 let year = m.content.split(' ')[2];
                 console.log(year);
-                if (isNaN(year)) { year = ''; }
+                if (isNaN(year)) { year = null; }
                 var awardlist = new Discord.RichEmbed();
                 req.getTeamAwards(teamNumber, year).then(d => {
                     awardlist.setAuthor('Awards for FIRST® Robotics Competition Team ' + teamNumber + ' in ' + year, 'http://i.imgur.com/V8nrobr.png', 'https://www.thebluealliance.com/team/' + teamNumber)
