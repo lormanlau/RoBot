@@ -11,7 +11,7 @@ module.exports = {
     main: function(bot, msg) {
         bot.checkForUpvote(msg).then(v => {
             if (v) {
-                whois(msg.content, (err, res) => {
+                whois(msg.content).then(res => {
                     if (err) console.log(err);
                     if (res.domainName) {
                         msg.channel.send({
