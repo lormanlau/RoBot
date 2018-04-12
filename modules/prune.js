@@ -35,8 +35,22 @@ module.exports = {
                                 msg2.delete();
                             }, 5000));
                     });
+            } else if (num == "bots") {
+                console.log(amount);
+                msg.channel.fetchMessages({
+                        limit: 100
+                    })
+                    .then(messages => {
+                        msgar = messages.array();
+                        msgar = msgar.filter(msg2 => msg.author.bot);
+                        msgar.map(msg => msg.delete().catch(console.error));
+                        msg.channel.send('Deleted ' + msgar.length + ' messages from **bots** under request of <@' + msg.author.id + '>')
+                            .then(msg2 => setTimeout(() => {
+                                msg2.delete();
+                            }, 5000));
+                    });
             } else {
-                msg.channel.send('Please specify a number!');
+                msg.channel.send('Please specify a number, mention a user, mention a user and specify a number, or use the bots argument!');
             }
         }
     },
