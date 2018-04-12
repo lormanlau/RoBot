@@ -40,7 +40,7 @@ module.exports = {
                 })
                     .then(messages => {
                         var msgar = messages.array();
-                        msgar = msgar.filter(msg => msg.author.bot);
+                        msgar = msgar.filter(m => m.author.bot);
                         msgar.map(m => m.delete().catch(console.error));
                         msg.channel.send('Deleted ' + msgar.length + ' messages from **bots** under request of <@' + msg.author.id + '>')
                             .then(msg2 => setTimeout(() => {
