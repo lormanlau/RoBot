@@ -21,7 +21,6 @@ module.exports = {
                     }, 5000));
             } else if (msg.mentions.users.first()) {
                 var amount = num.split(" ")[1] || null;
-                console.log(amount);
                 msg.channel.fetchMessages({
                         limit: 100
                     })
@@ -36,7 +35,6 @@ module.exports = {
                             }, 5000));
                     });
             } else if (num == "bots") {
-                console.log(amount);
                 msg.channel.fetchMessages({
                         limit: 100
                     })
