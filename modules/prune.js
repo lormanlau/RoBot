@@ -28,7 +28,7 @@ module.exports = {
                     .then(messages => {
                         msgar = messages.array();
                         msgar = msgar.filter(msg2 => msg2.author.id === msg.mentions.users.first().id);
-                        if (amount && !isNaN(amount)) msgar.length = amount + 1;
+                        if (amount && !isNaN(amount)) msgar = msgar.slice(0, amount);
                         msgar.map(msg => msg.delete().catch(console.error));
                         msg.channel.send('Deleted ' + msgar.length + ' messages from **' + msg.mentions.users.first().username + '** under request of <@' + msg.author.id + '>')
                             .then(msg2 => setTimeout(() => {
