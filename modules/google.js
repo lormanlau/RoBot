@@ -18,6 +18,7 @@ module.exports = {
                 google.build({
                     q: msg.content,
                     num: 1,
+                    safe: "active"
                 }, (err, response) => {
                     console.log(err);
                     console.log(response);
