@@ -1,16 +1,18 @@
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./servers.sqlite");
-const fs = require("fs");
-const unirest = require("unirest");
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./servers.sqlite');
+const fs = require('fs');
+const unirest = require('unirest');
 const invitelink = /discord(?:app\.com|\.gg)[/invite/]?(?:(?!.*[Ii10OolL]).[a-zA-Z0-9]{5,6}|[a-zA-Z0-9-]{2,32})/g;
-var afkJson = fs.readFileSync("./afk.json"),
+var afkJson = fs.readFileSync('./afk.json'),
     afk = JSON.parse(afkJson),
     channel = null,
     stdin = process.openStdin(),
-    Discord = require("discord.js");
-if (process.argv[2] && process.argv[2] === "--travis")
-    var config = require("./config-example.json");
-else config = require("./config.json");
+    Discord = require('discord.js');
+if (process.argv[2] && process.argv[2] === '--travis') {
+    var config = require('./config-example.json');
+} else {
+    config = require('./config.json');
+}
 
 module.exports = bot => {
     /**
@@ -21,7 +23,7 @@ module.exports = bot => {
         return new Promise(resolve => {
             if (bot.shard) {
                 bot.shard
-                    .fetchClientValues("guilds.size")
+                    .fetchClientValues('guilds.size')
                     .then(g => {
                         resolve(g.reduce((prev, val) => prev + val, 0));
                     })
@@ -35,33 +37,33 @@ module.exports = bot => {
     bot.sendServerCount = function () {
         bot.fetchGuildSize().then(guilds => {
             unirest
-                .post("https://discordbots.org/api/bots/stats")
+                .post('https://discordbots.org/api/bots/stats')
                 .headers({
                     Authorization: bot.config.dbotsorg,
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 })
                 .send({
-                    server_count: guilds
+                    server_count: guilds,
                 })
                 .end(response => {
-                    bot.log("discordbots.org response: " + JSON.stringify(response.body));
+                    bot.log('discordbots.org response: ' + JSON.stringify(response.body));
                 });
 
             unirest
                 .post(`https://botlist.space/api/bots/${bot.user.id}`)
                 .headers({
                     Authorization: bot.config.botlistspace,
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 })
                 .send({
-                    server_count: guilds
+                    server_count: guilds,
                 })
                 .end(response => {
-                    bot.log("botlist.space response:" + JSON.stringify(response.body));
+                    bot.log('botlist.space response:' + JSON.stringify(response.body));
                 });
         });
 
-        bot.log("All server counts posted successfully!");
+        bot.log('All server counts posted successfully!');
     };
 
     bot.syncServers = function () {
@@ -128,12 +130,12 @@ module.exports = bot => {
                 }
             });
         });
-        bot.log("Servers synced.");
+        bot.log('Servers synced.');
     };
 
     bot.removeServer = function (guild) {
         db.run(`DELETE FROM servers WHERE id = ${guild.id}`);
-        bot.log(guild.name + " successfully removed from the database!");
+        bot.log(guild.name + ' successfully removed from the database!');
     };
 
     bot.addServer = function (guild) {
@@ -154,7 +156,7 @@ module.exports = bot => {
 				0,
 				0,
 				"")`);
-        bot.log(guild.name + " successfully inserted into the database!");
+        bot.log(guild.name + ' successfully inserted into the database!');
     };
 
     bot.checkForUpvote = function (msg) {
@@ -162,7 +164,7 @@ module.exports = bot => {
             unirest
                 .get(`https://discordbots.org/api/bots/${bot.user.id}/votes`)
                 .headers({
-                    Authorization: bot.config.dbotsorg
+                    Authorization: bot.config.dbotsorg,
                 })
                 .end(result => {
                     console.log(result.body);
@@ -177,9 +179,8 @@ module.exports = bot => {
                         msg.guild.members.get(bot.config.owner) &&
                         msg.guild.members
                             .get(bot.config.owner)
-                            .hasPermission("MANAGE_MESSAGES")
-                    )
-                        resolve(true);
+                            .hasPermission('MANAGE_MESSAGES')
+                    ) { resolve(true); }
                     resolve(false);
                     // Set to false on Stable
                 });
@@ -200,7 +201,7 @@ module.exports = bot => {
      */
 
     bot.setGivemeRoles = function (roles, guild) {
-        roles = roles.join(",");
+        roles = roles.join(',');
         db.run(
             `UPDATE servers SET givemeRoles = "${roles}" WHERE id = ${guild.id}`
         );
@@ -255,7 +256,7 @@ module.exports = bot => {
 
     bot.getCurrentBooleanSetting = function (setting, id) {
         return new Promise(resolve => {
-            db.all("SELECT * FROM servers WHERE id = " + id, (err, rows) => {
+            db.all('SELECT * FROM servers WHERE id = ' + id, (err, rows) => {
                 if (err) throw err;
                 resolve(rows[0][setting]);
             });
@@ -264,7 +265,7 @@ module.exports = bot => {
 
     bot.getCurrentSetting = function (setting, id) {
         return new Promise(resolve => {
-            db.all("SELECT * FROM servers WHERE id = " + id, (err, rows) => {
+            db.all('SELECT * FROM servers WHERE id = ' + id, (err, rows) => {
                 if (err) throw err;
                 resolve(rows[0][setting]);
             });
@@ -273,7 +274,7 @@ module.exports = bot => {
 
     bot.getAllSettings = function (id) {
         return new Promise(resolve => {
-            db.all("SELECT * FROM servers WHERE id = " + id, (err, rows) => {
+            db.all('SELECT * FROM servers WHERE id = ' + id, (err, rows) => {
                 if (err) throw err;
                 resolve(rows[0]);
             });
@@ -298,11 +299,11 @@ module.exports = bot => {
             return 6;
         } else if (msg.author.id === msg.guild.owner.id) {
             return 5;
-        } else if (msg.member.hasPermission("MANAGE_GUILD")) {
+        } else if (msg.member.hasPermission('MANAGE_GUILD')) {
             return 4;
-        } else if (msg.member.hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) {
+        } else if (msg.member.hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
             return 3;
-        } else if (msg.member.hasPermission("MANAGE_MESSAGES")) {
+        } else if (msg.member.hasPermission('MANAGE_MESSAGES')) {
             return 2;
         } else if (!bot.blacklist(msg.author.id)) {
             return 1;
@@ -312,29 +313,30 @@ module.exports = bot => {
     };
 
     bot.processMessage = function (msg) {
-        if (channel && msg.channel.id === channel)
+        if (channel && msg.channel.id === channel) {
             bot.log(
                 msg.guild.name +
-                " | " +
+                ' | ' +
                 msg.channel.name +
-                " | " +
+                ' | ' +
                 msg.member.displayName +
-                " | " +
+                ' | ' +
                 msg.cleanContent
             );
+        }
 
         if (msg.author.bot) return;
 
-        afkJson = fs.readFileSync("./afk.json");
+        afkJson = fs.readFileSync('./afk.json');
         afk = JSON.parse(afkJson);
         if (afk.length !== 0) {
             for (let i = 0; i < afk.length; i++) {
                 if (afk[i].id === msg.author.id) {
                     afk.splice(i, 1);
-                    fs.writeFileSync("./afk.json", JSON.stringify(afk, null, 3));
+                    fs.writeFileSync('./afk.json', JSON.stringify(afk, null, 3));
                     msg.channel
                         .send(
-                            ":ok_hand: Welcome back **" +
+                            ':ok_hand: Welcome back **' +
                             msg.author.username +
                             "**! I've removed your AFK status!"
                         )
@@ -353,8 +355,8 @@ module.exports = bot => {
                         msg.channel
                             .send({
                                 embed: new Discord.RichEmbed().setDescription(
-                                    ":robot: **" + nick + "** is AFK: **" + afk[i].reason + "**"
-                                )
+                                    ':robot: **' + nick + '** is AFK: **' + afk[i].reason + '**'
+                                ),
                             })
                             .then(msg2 => {
                                 setTimeout(() => {
@@ -367,17 +369,17 @@ module.exports = bot => {
         }
 
         if (msg.content.match(invitelink) && this.permLevel(msg) < 2) {
-            this.getCurrentBooleanSetting("inviteLinkDeletion", msg.guild.id).then(
+            this.getCurrentBooleanSetting('inviteLinkDeletion', msg.guild.id).then(
                 setting => {
                     if (setting && msg.deletable) {
                         msg.delete().then(() => {
                             msg.reply(
-                                "this server does not allow invite links! :no_entry_sign:"
+                                'this server does not allow invite links! :no_entry_sign:'
                             );
                         });
                     } else if (setting && !msg.deletable) {
                         msg.guild.owner.send(
-                            "I tried to delete an invite link in your server, but do not have permissions to!"
+                            'I tried to delete an invite link in your server, but do not have permissions to!'
                         );
                     }
                 }
@@ -385,7 +387,7 @@ module.exports = bot => {
         }
 
         if (msg.mentions.users.array().length > 4) {
-            this.getCurrentBooleanSetting("mentionSpamProtection", msg.guild.id).then(
+            this.getCurrentBooleanSetting('mentionSpamProtection', msg.guild.id).then(
                 setting => {
                     if (setting && msg.deletable) {
                         msg.delete().then(() => {
@@ -395,7 +397,7 @@ module.exports = bot => {
                         });
                     } else if (setting && !msg.deletable) {
                         msg.guild.owner.send(
-                            "I tried to delete some mention spam in your server, but do not have permissions to!"
+                            'I tried to delete some mention spam in your server, but do not have permissions to!'
                         );
                     }
                 }
@@ -404,23 +406,23 @@ module.exports = bot => {
 
         if (msg.isMentioned(bot.user)) {
             if (
-                msg.content.toLowerCase().includes("resetprefix") &&
-                msg.member.hasPermission("ADMINISTRATOR")
+                msg.content.toLowerCase().includes('resetprefix') &&
+                msg.member.hasPermission('ADMINISTRATOR')
             ) {
                 bot.setPrefix(bot.config.prefix, msg.guild);
                 msg.reply(
-                    "I have reset this server's prefix to ``" + bot.config.prefix + "``!"
+                    "I have reset this server's prefix to ``" + bot.config.prefix + '``!'
                 );
-            } else if (msg.content.toLowerCase().includes("prefix")) {
+            } else if (msg.content.toLowerCase().includes('prefix')) {
                 bot.getPrefix(msg).then(prefix => {
-                    msg.reply("my prefix for this server is `" + prefix + "`!");
+                    msg.reply('my prefix for this server is `' + prefix + '`!');
                 });
             }
 
-            if (msg.content.toLowerCase().includes("help")) {
-                msg.content = "%help";
-                msg.args = ["%help"];
-                bot.commands.get("help").main(bot, msg);
+            if (msg.content.toLowerCase().includes('help')) {
+                msg.content = '%help';
+                msg.args = ['%help'];
+                bot.commands.get('help').main(bot, msg);
             }
         }
 
@@ -431,7 +433,7 @@ module.exports = bot => {
                     msg.args = msg.content.split(/\s+/g);
                     msg.content =
                         msg.content.substring(
-                            msg.content.indexOf(" ") + 1,
+                            msg.content.indexOf(' ') + 1,
                             msg.content.length
                         ) || null;
                     var command = msg.args
@@ -445,9 +447,9 @@ module.exports = bot => {
                     if (!cmd) {
                         return;
                     } else if (perms === 0) {
-                        msg.reply("you are blacklisted from using the bot!");
+                        msg.reply('you are blacklisted from using the bot!');
                     } else if (perms < cmd.permission) {
-                        msg.reply("you do not have permission to do this!");
+                        msg.reply('you do not have permission to do this!');
                     } else if (bot.enabled(cmd)) {
                         bot.logCommand(
                             command,
@@ -460,13 +462,13 @@ module.exports = bot => {
                             cmd.main(bot, msg);
                         } catch (err) {
                             msg.channel.send(
-                                "Oh no! We encountered an error:\n```" + err.stack + "```"
+                                'Oh no! We encountered an error:\n```' + err.stack + '```'
                             );
                         }
                     }
                 } catch (err) {
                     msg.channel.send(
-                        "Oh no! We encountered an error:\n```" + err.stack + "```"
+                        'Oh no! We encountered an error:\n```' + err.stack + '```'
                     );
                     bot.error(err.stack);
                 }
@@ -479,7 +481,7 @@ module.exports = bot => {
      */
 
     bot.send = function (channel2, text) {
-        var color = channel2.guild.me.displayHexColor || "#ffb200";
+        var color = channel2.guild.me.displayHexColor || '#ffb200';
         channel2.send(
             new Discord.RichEmbed()
                 .setColor(color)
@@ -489,7 +491,7 @@ module.exports = bot => {
     };
 
     bot.blacklist = function (id) {
-        var blacklistJson = fs.readFileSync("./blacklist.json"),
+        var blacklistJson = fs.readFileSync('./blacklist.json'),
             blacklist = JSON.parse(blacklistJson);
         for (var i = 0; i < blacklist.length; i++) {
             if (blacklist[i] === id) {
@@ -503,56 +505,52 @@ module.exports = bot => {
         bot.fetchGuildSize().then(guilds => {
             bot.user.setPresence({
                 game: {
-                    name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${
-                        bot.shard.id
-                        }`,
-                    type: 0
-                }
+                    name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${bot.shard.id}`,
+                    type: 0,
+                },
             });
             setInterval(() => {
                 bot.user.setPresence({
                     game: {
-                        name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${
-                            bot.shard.id
-                            }`,
-                        type: 0
-                    }
+                        name: `on ${guilds} guilds | @${bot.user.username} help | Shard ${bot.shard.id}`,
+                        type: 0,
+                    },
                 });
             }, 300000);
         });
     };
 
     bot.awaitConsoleInput = function () {
-        stdin.addListener("data", d => {
+        stdin.addListener('data', d => {
             d = d.toString().trim();
-            if (d.startsWith("channels")) {
+            if (d.startsWith('channels')) {
                 bot.channels.forEach(channel2 => {
                     if (
-                        channel2.type === "text" &&
+                        channel2.type === 'text' &&
                         channel2
                             .permissionsFor(channel2.guild.me)
-                            .has(["READ_MESSAGES", "SEND_MESSAGES"])
+                            .has(['READ_MESSAGES', 'SEND_MESSAGES'])
                     ) {
                         bot.log(
                             channel2.guild.name +
-                            " | #" +
+                            ' | #' +
                             channel2.name +
-                            " | (" +
+                            ' | (' +
                             channel2.id +
-                            ")"
+                            ')'
                         );
                     }
                 });
-            } else if (d.startsWith("bind") && channel) {
-                d = d.substring(d.indexOf(" ") + 1, d.length);
+            } else if (d.startsWith('bind') && channel) {
+                d = d.substring(d.indexOf(' ') + 1, d.length);
                 if (bot.channels.get(d)) {
                     channel = d;
                     bot.log(
-                        "Console rebound to channel " +
+                        'Console rebound to channel ' +
                         bot.channels.get(d).name +
-                        " in " +
+                        ' in ' +
                         bot.channels.get(d).guild.name +
-                        "!"
+                        '!'
                     );
                 }
             } else if (channel) {
@@ -564,18 +562,18 @@ module.exports = bot => {
             } else if (bot.channels.get(d)) {
                 channel = d;
                 bot.log(
-                    "Console bound to channel " +
+                    'Console bound to channel ' +
                     bot.channels.get(d).name +
-                    " in " +
+                    ' in ' +
                     bot.channels.get(d).guild.name +
-                    "!"
+                    '!'
                 );
             }
         });
     };
 
     bot.webhook = function (header, text, color) {
-        var request = require("request");
+        var request = require('request');
         try {
             var d = {
                 attachments: [
@@ -584,19 +582,19 @@ module.exports = bot => {
                         fields: [
                             {
                                 title: header,
-                                value: text
-                            }
+                                value: text,
+                            },
                         ],
-                        ts: new Date() / 1000
-                    }
-                ]
+                        ts: new Date() / 1000,
+                    },
+                ],
             };
             if (config.webhook) {
                 request({
-                    url: config.webhook + "/slack",
-                    method: "POST",
+                    url: config.webhook + '/slack',
+                    method: 'POST',
                     body: d,
-                    json: true
+                    json: true,
                 });
             }
         } catch (err) {
@@ -605,15 +603,15 @@ module.exports = bot => {
     };
 
     bot.joinleavehook = function (type, guild) {
-        var request = require("request");
+        var request = require('request');
         bot.fetchGuildSize().then(guilds => {
             try {
-                if (type === "join") {
-                    var color = "#FFB200";
-                    var title = ":inbox_tray: New Guild! | Now in " + guilds + " guilds.";
-                } else if (type === "leave") {
-                    color = "#FF0000";
-                    title = ":outbox_tray: Left Guild | Now in " + guilds + " guilds.";
+                if (type === 'join') {
+                    var color = '#FFB200';
+                    var title = ':inbox_tray: New Guild! | Now in ' + guilds + ' guilds.';
+                } else if (type === 'leave') {
+                    color = '#FF0000';
+                    title = ':outbox_tray: Left Guild | Now in ' + guilds + ' guilds.';
                 }
 
                 var members = 0,
@@ -634,59 +632,59 @@ module.exports = bot => {
                             thumb_url: guild.iconURL,
                             fields: [
                                 {
-                                    title: "Server Name",
+                                    title: 'Server Name',
                                     value: guild.name,
-                                    short: true
+                                    short: true,
                                 },
                                 {
-                                    title: "Created",
+                                    title: 'Created',
                                     value: guild.createdAt.toLocaleString(),
-                                    short: true
+                                    short: true,
                                 },
                                 {
-                                    title: "ID",
+                                    title: 'ID',
                                     value: guild.id,
-                                    short: true
+                                    short: true,
                                 },
                                 {
-                                    title: "Owner",
+                                    title: 'Owner',
                                     value: guild.owner.user.username,
-                                    short: true
+                                    short: true,
                                 },
                                 {
-                                    title: "Member Count",
+                                    title: 'Member Count',
                                     value: members,
-                                    short: true
+                                    short: true,
                                 },
                                 {
-                                    title: "Bot Count",
+                                    title: 'Bot Count',
                                     value: bots,
-                                    short: true
-                                }
+                                    short: true,
+                                },
                             ],
                             footer: bot.user.username,
-                            ts: new Date() / 1000
-                        }
-                    ]
+                            ts: new Date() / 1000,
+                        },
+                    ],
                 };
 
                 if (guild.features[0]) {
                     d.attachments[0].fields.push({
-                        title: "Features",
-                        value: guild.features.join("\n")
+                        title: 'Features',
+                        value: guild.features.join('\n'),
                     });
-                    d.attachments[0].text = "Partnered Server";
+                    d.attachments[0].text = 'Partnered Server';
 
-                    if (guild.features.includes("INVITE_SPLASH")) {
-                        d.attachments[0].image_url = guild.splashURL + "?size=2048";
+                    if (guild.features.includes('INVITE_SPLASH')) {
+                        d.attachments[0].image_url = guild.splashURL + '?size=2048';
                     }
                 }
                 if (config.logwebhook) {
                     request({
-                        url: config.logwebhook + "/slack",
-                        method: "POST",
+                        url: config.logwebhook + '/slack',
+                        method: 'POST',
                         body: d,
-                        json: true
+                        json: true,
                     });
                 }
             } catch (err) {
@@ -701,9 +699,9 @@ module.exports = bot => {
 
     bot.logCommand = function (command, arguments, user, channel2, server) {
         bot.webhook(
-            "Command Executed",
+            'Command Executed',
             `**Command:** ${command}\n**User:** ${user}\n**Arguments:** ${arguments}\n**Server:** ${server}\n**Channel:** #${channel2}`,
-            "#0000FF"
+            '#0000FF'
         );
     };
 
@@ -711,57 +709,57 @@ module.exports = bot => {
         if (bot.shard) {
             console.log(
                 this.timestamp() +
-                " [SHARD " +
+                ' [SHARD ' +
                 bot.shard.id +
-                "] [ERROR] | " +
+                '] [ERROR] | ' +
                 err.stack
             );
             bot.webhook(
-                "ERROR",
-                "[SHARD " + bot.shard.id + "] [ERROR] | " + err.stack,
-                "#FF0000"
+                'ERROR',
+                '[SHARD ' + bot.shard.id + '] [ERROR] | ' + err.stack,
+                '#FF0000'
             );
         } else {
-            console.log(this.timestamp() + " [ERROR] | " + err.stack);
-            bot.webhook("ERROR", "[ERROR] | " + err.stack, "#FF0000");
+            console.log(this.timestamp() + ' [ERROR] | ' + err.stack);
+            bot.webhook('ERROR', '[ERROR] | ' + err.stack, '#FF0000');
         }
     };
 
     bot.debug = function (txt) {
         if (bot.shard) {
             console.log(
-                this.timestamp() + " [SHARD " + bot.shard.id + "] [DEBUG] | " + txt
+                this.timestamp() + ' [SHARD ' + bot.shard.id + '] [DEBUG] | ' + txt
             );
         } else {
-            console.log(this.timestamp() + " [DEBUG] | " + txt);
+            console.log(this.timestamp() + ' [DEBUG] | ' + txt);
         }
     };
 
     bot.warn = function (txt) {
         if (bot.shard) {
             console.log(
-                this.timestamp() + " [SHARD " + bot.shard.id + "] [WARN]  | " + txt
+                this.timestamp() + ' [SHARD ' + bot.shard.id + '] [WARN]  | ' + txt
             );
             bot.webhook(
-                "Warning",
-                " [SHARD " + bot.shard.id + "] [WARN]  | " + txt,
-                "#FFFF00"
+                'Warning',
+                ' [SHARD ' + bot.shard.id + '] [WARN]  | ' + txt,
+                '#FFFF00'
             );
         } else {
-            console.log(this.timestamp() + " [WARN]  | " + txt);
-            bot.webhook("Warning", "[WARN]  | " + txt, "#FFFF00");
+            console.log(this.timestamp() + ' [WARN]  | ' + txt);
+            bot.webhook('Warning', '[WARN]  | ' + txt, '#FFFF00');
         }
     };
 
     bot.log = function (txt) {
         if (bot.shard) {
             console.log(
-                this.timestamp() + " [SHARD " + bot.shard.id + "]  [LOG]  | " + txt
+                this.timestamp() + ' [SHARD ' + bot.shard.id + ']  [LOG]  | ' + txt
             );
-            bot.webhook("Log", "[SHARD " + bot.shard.id + "] " + txt, "#000000");
+            bot.webhook('Log', '[SHARD ' + bot.shard.id + '] ' + txt, '#000000');
         } else {
-            console.log(this.timestamp() + "  [LOG]  | " + txt);
-            bot.webhook("Log", txt, "#000000");
+            console.log(this.timestamp() + '  [LOG]  | ' + txt);
+            bot.webhook('Log', txt, '#000000');
         }
     };
 
@@ -771,12 +769,12 @@ module.exports = bot => {
             minutes = currentTime.getMinutes(),
             seconds = currentTime.getSeconds();
         if (minutes < 10) {
-            minutes = "0" + minutes;
+            minutes = '0' + minutes;
         }
         if (seconds < 10) {
-            seconds = "0" + seconds;
+            seconds = '0' + seconds;
         }
-        return "[" + hours + ":" + minutes + ":" + seconds + "]";
+        return '[' + hours + ':' + minutes + ':' + seconds + ']';
     };
 
     /**

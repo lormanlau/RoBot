@@ -1,36 +1,36 @@
-var GoogleSearch = require("google-search");
-var config = require("../config.json");
-const Discord = require("discord.js");
+var GoogleSearch = require('google-search');
+var config = require('../config.json');
+const Discord = require('discord.js');
 var google = new GoogleSearch({
     key: config.key,
-    cx: config.cx
+    cx: config.cx,
 });
 
 module.exports = {
-    name: "google",
-    type: "utility",
-    usage: "google <query>",
+    name: 'google',
+    type: 'utility',
+    usage: 'google <query>',
     permission: 1,
-    help: "Queries Google for information.",
-    main: function (bot, msg) {
+    help: 'Queries Google for information.',
+    main: function(bot, msg) {
         bot.checkForUpvote(msg).then(res => {
             if (res) {
                 google.build(
                     {
                         q: msg.content,
                         num: 1,
-                        safe: "active"
+                        safe: 'active',
                     },
                     (err, response) => {
                         console.log(err);
                         console.log(response);
                         if (err) {
                             console.error(err);
-                            msg.channel.send("ERROR: Search failed");
+                            msg.channel.send('ERROR: Search failed');
                             return;
                         }
                         if (response.totalResults === 0 || response.items === undefined) {
-                            msg.channel.send("No results.");
+                            msg.channel.send('No results.');
                         } else if (response.items !== undefined) {
                             console.log(response);
                             var results = new Discord.RichEmbed();
@@ -39,16 +39,16 @@ module.exports = {
                             var desc = response.items[0].snippet;
                             results
                                 .setAuthor(
-                                    "Google",
-                                    "https://maxcdn.icons8.com/Share/icon/Logos/google_logo1600.png",
-                                    "https://www.google.com/"
+                                    'Google',
+                                    'https://maxcdn.icons8.com/Share/icon/Logos/google_logo1600.png',
+                                    'https://www.google.com/'
                                 )
                                 .setTitle(title)
                                 .setURL(link)
-                                .setDescription(desc + " [more](" + link + ")")
+                                .setDescription(desc + ' [more](' + link + ')')
                                 .setTimestamp()
                                 .setColor(msg.guild.me.displayColor)
-                                .setFooter("Powered by RoBot", bot.user.avatarURL);
+                                .setFooter('Powered by RoBot', bot.user.avatarURL);
                             msg.channel.send({ embed: results });
                         }
                     }
@@ -57,5 +57,5 @@ module.exports = {
                 bot.promptForUpvote(msg, this.name);
             }
         });
-    }
+    },
 };
