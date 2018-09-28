@@ -50,7 +50,8 @@ module.exports = bot => {
       unirest
         .post(`https://botlist.space/api/bots/${bot.user.id}`)
         .headers({
-          Authorization: bot.config.botlistspace
+          Authorization: bot.config.botlistspace,
+          "Content-Type": "application/json"
         })
         .send({
           server_count: guilds
