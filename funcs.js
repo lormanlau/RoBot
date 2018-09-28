@@ -44,7 +44,7 @@ module.exports = bot => {
           server_count: guilds
         })
         .end(response => {
-          bot.log(JSON.stringify(response.body));
+          bot.log("discordbots.org response: " + JSON.stringify(response.body));
         });
 
       unirest
@@ -56,7 +56,7 @@ module.exports = bot => {
           server_count: guilds
         })
         .end(response => {
-          bot.log(JSON.stringify(response.body));
+          bot.log("botlist.space response:" + JSON.stringify(response.body));
         });
     });
 
