@@ -42,7 +42,7 @@
         "os-utils": ">=0.0.14",
         "printscreen": ">=1.2.1",
         "random-puppy": ">=1.1.0",
-        "sqlite3": "^4.0.0",
+        "sqlite3": "^4.0.3",
         "tba-api-storm": ">=1.0.6",
         "unirest": ">=0.5.1",
         "urban": ">=0.3.1",
