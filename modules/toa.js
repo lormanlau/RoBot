@@ -32,14 +32,15 @@ module.exports = {
             var teaminfo = new Discord.RichEmbed();
             req('team/' + num).then(b => {
                 if (!b[0]) return m.channel.send('This team does not have any data on it, or it does not exist!');
-                var website = b[0].website || 'None';
-                teaminfo.setAuthor('FIRST® Tech Challenge Team ' + num, 'https://cdn.discordapp.com/icons/342152047753166859/de4d258c0cab5bee0b04d406172ec585.jpg', 'https://www.theorangealliance.org/teams/' + num)
+                teaminfo.setAuthor('FIRST® Tech Challenge Team ' + num, 'https://pbs.twimg.com/profile_images/1049159734249623553/SZ34vdcC_400x400.jpg', 'https://www.theorangealliance.org/teams/' + num)
                     .setColor(0xff9800)
                     .addField('Name', b[0].team_name_short, true)
                     .addField('Rookie Year', b[0].rookie_year, true)
                     .addField('Location', b[0].city + ', ' + b[0].state_prov + ', ' + b[0].country, true)
-                    .addField('Website', website || 'None', true)
-                    .addField('FTCRoot Page', 'http://www.ftcroot.com/teams/' + num, true);
+                    .addField('Website', b[0].website || 'None', true)
+                    .addField('Region', 'Part of the ' + b[0].region_key + ' Region', true)
+                    .addField('TOA Page', 'https://theorangealliance.org/teams/' + num, true);
+                    // .addField('FTCRoot Page', 'http://www.ftcroot.com/teams/' + num, true);
                 sendEmbed(teaminfo);
                 return null;
             });
@@ -68,8 +69,8 @@ module.exports = {
         function req(endpoint) {
             return new Promise(
                 resolve => {
-                    unirest.get('http://theorangealliance.org/apiv2/' + endpoint)
-                        .headers({ 'X-Application-Origin': bot.user.username, 'X-TOA-Key': bot.config.toa })
+                    unirest.get('http://theorangealliance.org/api/' + endpoint)
+                        .headers({ 'X-Application-Origin': bot.user.username, 'X-TOA-Key': bot.config.toa, 'Content-Type': 'application/json' })
                         .end(response => {
                             resolve(response.body);
                         });
