@@ -40,7 +40,7 @@ module.exports = {
                     .addField('Website', b[0].website || 'None', true)
                     .addField('Region', 'Part of the ' + b[0].region_key + ' Region', true)
                     .addField('TOA Page', 'https://theorangealliance.org/teams/' + num, true);
-                    // .addField('FTCRoot Page', 'http://www.ftcroot.com/teams/' + num, true);
+                // .addField('FTCRoot Page', 'http://www.ftcroot.com/teams/' + num, true);
                 sendEmbed(teaminfo);
                 return null;
             });
