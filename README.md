@@ -1,5 +1,7 @@
 # RoBot v5
 
+[![BotsForDiscord](https://botsfordiscord.com/api/bot/302555306603446283/widget)]
+
 [![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
 [![Build Status](https://travis-ci.org/mcao/RoBot.svg?branch=master)](https://travis-ci.org/mcao/RoBot) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f46b67afafbe451e94b76acc3906480a)](https://www.codacy.com/app/mcao/RoBot?utm_source=github.com&utm_medium=referral&utm_content=FRCDiscord/RoBot&utm_campaign=Badge_Grade) [![Discord](https://img.shields.io/discord/374405739382439947.svg)](https://discord.gg/8QebTbk)
