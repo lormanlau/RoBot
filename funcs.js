@@ -46,10 +46,10 @@ module.exports = bot => {
                     server_count: guilds,
                 })
                 .end(response => {
-                    if (response.code == 200) {
-                        bot.log('discordbots.org guilds successfully posted. Code: ' + response.code)
+                    if (response.code === 200) {
+                        bot.log('discordbots.org guilds successfully posted. Code: ' + response.code);
                     } else {
-                        bot.users.get(config.owner).send("discordbots.org returned an unconventional response: " + JSON.stringify(response.body))
+                        bot.users.get(config.owner).send('discordbots.org returned an unconventional response: ' + JSON.stringify(response.body));
                     }
                 });
 
@@ -63,10 +63,10 @@ module.exports = bot => {
                     server_count: guilds,
                 })
                 .end(response => {
-                    if (response.code == 200) {
+                    if (response.code === 200) {
                         bot.log('botlist.space guilds successfully posted. Code:' + response.code);
                     } else {
-                        bot.users.get(config.owner).send("botlist.space returned an unconventional response: " + JSON.stringify(response.body))
+                        bot.users.get(config.owner).send('botlist.space returned an unconventional response: ' + JSON.stringify(response.body));
                     }
                 });
 
@@ -80,10 +80,10 @@ module.exports = bot => {
                     server_count: guilds,
                 })
                 .end(response => {
-                    if (response.code == 200) {
+                    if (response.code === 200) {
                         bot.log('botsfordiscord.com guilds successfully posted. Code:' + response.code);
                     } else {
-                        bot.users.get(config.owner).send("botsfordiscord.com returned an unconventional response: " + JSON.stringify(response.body))
+                        bot.users.get(config.owner).send('botsfordiscord.com returned an unconventional response: ' + JSON.stringify(response.body));
                     }
                 });
         });
