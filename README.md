@@ -1,6 +1,6 @@
 # RoBot v5
 
-[![BotsForDiscord](https://botsfordiscord.com/api/bot/302555306603446283/widget)]
+![BotsForDiscord](https://botsfordiscord.com/api/bot/302555306603446283/widget)
 
 [![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
