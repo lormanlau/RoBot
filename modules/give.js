@@ -4,7 +4,7 @@ module.exports = {
     usage: 'give <usermention> <role>',
     permission: 3,
     help: 'Gives a user a specified role.',
-    main: function(bot, msg) {
+    main: function (bot, msg) {
         if (!msg.member.hasPermission('MANAGE_ROLES_OR_PERMISSIONS') && !msg.member.hasPermission('ADMINISTRATOR')) {
             return msg.channel.send(':x: You do not have the necessary permissions to perform this action!');
         }
