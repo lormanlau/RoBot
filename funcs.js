@@ -86,6 +86,23 @@ module.exports = bot => {
                         bot.users.get(config.owner).send('botsfordiscord.com returned an unconventional response: ' + JSON.stringify(response.body));
                     }
                 });
+
+            unirest
+                .post(`https://discordsextremelist.tk/api/bot/${bot.user.id}`)
+                .headers({
+                    Authorization: bot.config.discordextreme,
+                    'Content-Type': 'application/json',
+                })
+                .send({
+                    server_count: guilds,
+                })
+                .end(response => {
+                    if (response.code === 200) {
+                        bot.log('discordextremelist.tk guilds successfully posted. Code:' + response.code);
+                    } else {
+                        bot.users.get(config.owner).send('discordextremelist.tk returned an unconventional response: ' + JSON.stringify(response.body));
+                    }
+                });
         });
 
         bot.log('All server counts posted successfully!');

@@ -4,7 +4,7 @@ module.exports = {
     usage: 'server',
     permission: 1,
     help: 'Provides information about the server.',
-    main: function(bot, msg) {
+    main: function (bot, msg) {
         const Discord = require('discord.js');
         var members = 0, bots = 0;
 
@@ -36,7 +36,7 @@ module.exports = {
 
         if (msg.guild.features[0]) {
             embed.addField('Features', msg.guild.features.join('\n'))
-                .setDescription('<:partner:314068430556758017> Partnered Server <:partner:314068430556758017>');
+                .setDescription('<:partner:508526454917562369> Partnered Server <:partner:508526454917562369>');
             if (msg.guild.features.includes('INVITE_SPLASH')) {
                 embed.setImage(msg.guild.splashURL + '?size=2048');
             }

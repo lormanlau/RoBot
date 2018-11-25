@@ -8,7 +8,7 @@ module.exports = {
     usage: 'whois <domain>',
     permission: 1,
     help: 'Returns whois data for a domain.',
-    main: function(bot, msg) {
+    main: function (bot, msg) {
         bot.checkForUpvote(msg).then(v => {
             if (v) {
                 whois(msg.content).then(res => {
