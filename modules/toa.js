@@ -7,9 +7,9 @@ module.exports = {
     usage: 'toa <team>',
     permission: 1,
     help: 'Querys The Orange Alliance API for information.',
-    main: function(bot, m) {
+    main: function (bot, m) {
         let teamKey = m.content.split(' ')[0];
-        console.log("TOA: " + teamKey);
+        console.log('TOA: ' + teamKey);
 
         if (teamKey) {
             team(teamKey.trim());
@@ -17,9 +17,9 @@ module.exports = {
             m.channel.send('Please specify an argument! Accepted arguments: team');
         }
 
-        function team(teamKey) {
+        function team(key) {
             var teaminfo = new Discord.RichEmbed();
-            req('team/' + teamKey).then(b => {
+            req('team/' + key).then(b => {
                 if (!b[0]) return m.channel.send('This team does not exist!');
                 teaminfo.setAuthor('FIRST® Tech Challenge Team #' + b[0].team_number, 'https://pbs.twimg.com/profile_images/1049159734249623553/SZ34vdcC_400x400.jpg', 'https://www.theorangealliance.org/teams/' + teamKey)
                     .setColor(0xff9800)
@@ -28,7 +28,7 @@ module.exports = {
                     .addField('Location', b[0].city + ', ' + b[0].state_prov + ', ' + b[0].country, true)
                     .addField('Website', b[0].website || 'None', true)
                     .addField('Region', 'Part of the ' + b[0].region_key + ' Region', true)
-                    .addField('TOA Page', 'https://theorangealliance.org/teams/' + teamKey, true);
+                    .addField('TOA Page', 'https://theorangealliance.org/teams/' + key, true);
                 // .addField('FTCRoot Page', 'http://www.ftcroot.com/teams/' + teamKey, true);
                 sendEmbed(teaminfo);
                 return null;
