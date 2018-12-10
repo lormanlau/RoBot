@@ -22,7 +22,7 @@
     },
     "homepage": "https://github.com/mcao/RoBot-v5#readme",
     "dependencies": {
-        "alex": ">=5.1.0",
+        "alex": ">=7.0.0",
         "child_process": ">=1.0.2",
         "discord.js": "^11.4.2",
         "discord.js-musicbot-addon": ">=1.6.3",
